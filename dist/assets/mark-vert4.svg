@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Símbolo VERT4">
+  <rect width="220" height="220" rx="42" fill="#17292E"/>
+  <g fill="none" stroke="#CCAC7D" stroke-width="15" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M45 55 110 174 175 55"/><path d="M74 55h72" opacity=".58"/><path d="M110 174v-73"/>
+  </g><circle cx="110" cy="55" r="9" fill="#E3D5B3"/>
+</svg>
