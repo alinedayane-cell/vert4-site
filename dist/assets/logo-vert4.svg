@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-labelledby="title desc">
+  <title id="title">VERT4</title><desc id="desc">Símbolo geométrico dourado e nome VERT4</desc>
+  <g fill="none" stroke="#CCAC7D" stroke-width="14" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M48 55 105 165 162 55"/>
+    <path d="M73 55h64" opacity=".58"/>
+    <path d="M105 165V99"/>
+  </g>
+  <circle cx="105" cy="55" r="8" fill="#E3D5B3"/>
+  <text x="205" y="142" fill="#DFDCCF" font-family="Arial,Helvetica,sans-serif" font-size="104" font-weight="700" letter-spacing="8">VERT</text>
+  <text x="565" y="142" fill="#CCAC7D" font-family="Arial,Helvetica,sans-serif" font-size="104" font-weight="700">4</text>
+  <text x="211" y="186" fill="#B8A99A" font-family="Arial,Helvetica,sans-serif" font-size="17" letter-spacing="7">ACELERAÇÃO COMERCIAL</text>
+</svg>
