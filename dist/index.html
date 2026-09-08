@@ -108,10 +108,11 @@
   </footer>
   <script>
   (()=>{
-    const canvas=document.getElementById('particle-field'),ctx=canvas.getContext('2d'),count=innerWidth<700?220:520,particles=[],mouse={x:-9999,y:-9999},sections=[...document.querySelectorAll('[data-shape]')],railLinks=[...document.querySelectorAll('.section-rail a')];
+    const canvas=document.getElementById('particle-field'),ctx=canvas.getContext('2d'),orbital=document.querySelector('.orbital-interface'),count=innerWidth<700?220:520,particles=[],mouse={x:-9999,y:-9999},sections=[...document.querySelectorAll('[data-shape]')],railLinks=[...document.querySelectorAll('.section-rail a')];
     let width,height,dpr,current='orbit',scrollProgress=0;
+    function orbitGeometry(){const rect=orbital.getBoundingClientRect();return{cx:rect.left+rect.width/2,cy:rect.top+rect.height/2,size:rect.width}}
     const shapes={
-      orbit:(i,n)=>{const a=i/n*Math.PI*2,r=Math.min(width,height)*(.18+.08*Math.sin(i*.47));return [width*.66+Math.cos(a)*r,height*.48+Math.sin(a)*r]},
+      orbit:(i,n)=>{const a=i/n*Math.PI*2,g=orbitGeometry(),rings=[.16,.30,.42],r=g.size*rings[i%3]+Math.sin(i*.47)*2;return[g.cx+Math.cos(a)*r,g.cy+Math.sin(a)*r]},
       wave:(i,n)=>{const x=i/n*width,y=height*.5+Math.sin(i*.16)*height*.13;return[x,y]},
       helix:(i,n)=>{const t=i/n*Math.PI*8,x=width*.68+Math.sin(t)*Math.min(width,height)*.16,y=i/n*height;return[x,y]},
       network:(i,n)=>{const a=i/n*Math.PI*2,r=Math.min(width,height)*(.1+(i%4)*.05);return[width*.62+Math.cos(a)*r,height*.5+Math.sin(a)*r]},
