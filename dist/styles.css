@@ -43,3 +43,16 @@ footer{grid-template-columns:minmax(150px,.8fr) minmax(360px,1.8fr) minmax(180px
 @media(max-width:680px){footer{grid-template-columns:1fr}.social-links{grid-template-columns:1fr}.footer-positioning,.footer-copy{text-align:left}}
 
 .brand img,footer img{filter:none}
+
+/* Paleta institucional VERT4® e assinatura tipográfica oficial */
+:root{--void:#17292E;--base:#17292E;--gold:#CCAC7D;--deep:#A4875C;--champagne:#E3D5B3;--paper:#DFDCCF;--muted:#B8A99A;--line:rgba(164,135,92,.34)}
+body{background:#17292E;color:#DFDCCF}
+.hud{background:linear-gradient(to bottom,rgba(23,41,46,.98),rgba(23,41,46,.72),transparent)}
+.section-rail{background:rgba(23,41,46,.34)}
+.content-section{background:rgba(23,41,46,.92)}
+.ambient-glow{background:radial-gradient(500px circle at var(--mx) var(--my),rgba(204,172,125,.12),transparent 66%)}
+.hero-copy{width:min(1120px,82vw)}
+.hero h1.hero-brand{width:100%;margin:0;line-height:1;letter-spacing:0;font-size:inherit}
+.hero-wordmark{display:block;width:100%;height:auto;filter:none}
+@media(max-width:900px){.hero-copy{width:min(100%,860px)}}
+@media(max-width:560px){.hero-wordmark{width:112%;max-width:none}.hero-thesis{margin-top:38px}}
