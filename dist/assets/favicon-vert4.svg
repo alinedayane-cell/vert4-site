@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="VERT4">
+  <rect width="1000" height="1000" rx="180" fill="#17292E"/>
+  <g transform="translate(0 205)">
+    <path fill="#CCAC7D" fill-rule="evenodd" d="M862 322.5H723L717 164 820 49h26l16.5 23v251ZM658 586.8l-120.5-.3V444H448l-72 101-22 8-28-8L47 102.5h133l34 6.5 163 239 47 85 72-90.5h42V268l64-31v106.5h343L878 443H660v143.8Z"/>
+    <path fill="#CCAC7D" fill-rule="evenodd" d="m428 433-51-73v-14L650 48.5h169l-197 225h-13.5V235L534 269l-5 73.5h-33z"/>
+  </g>
+</svg>
