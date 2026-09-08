@@ -41,3 +41,5 @@ footer{grid-template-columns:minmax(150px,.8fr) minmax(360px,1.8fr) minmax(180px
 .footer-positioning{text-align:center}.footer-copy{text-align:right}
 @media(max-width:900px){footer{grid-template-columns:1fr 2fr;align-items:start}.footer-positioning{text-align:left}.footer-copy{text-align:right}}
 @media(max-width:680px){footer{grid-template-columns:1fr}.social-links{grid-template-columns:1fr}.footer-positioning,.footer-copy{text-align:left}}
+
+.brand img,footer img{filter:none}
