@@ -56,3 +56,12 @@ body{background:#17292E;color:#DFDCCF}
 .hero-wordmark{display:block;width:100%;height:auto;filter:none}
 @media(max-width:900px){.hero-copy{width:min(100%,860px)}}
 @media(max-width:560px){.hero-wordmark{width:112%;max-width:none}.hero-thesis{margin-top:38px}}
+
+/* Assinatura de abertura nítida, sem ampliar o arquivo da marca */
+.hero-copy{width:min(1040px,78vw)}
+.hero h1.hero-name{display:flex;align-items:flex-start;width:max-content;max-width:100%;margin:0;font-family:Montserrat,Inter,Arial,sans-serif;font-size:clamp(6.5rem,17vw,16rem);font-weight:800;line-height:.72;letter-spacing:-.075em;color:var(--champagne)}
+.hero-name strong{font:inherit;color:var(--gold)}
+.hero-name sup{margin:.08em 0 0 .35em;font-family:Inter,Arial,sans-serif;font-size:.065em;font-weight:600;line-height:1;letter-spacing:0;color:var(--gold)}
+.orbit-symbol{position:absolute;left:50%;top:50%;width:18%;height:auto;transform:translate(-50%,-50%);opacity:.82;filter:none}
+@media(max-width:900px){.hero-copy{width:min(100%,860px)}.hero h1.hero-name{font-size:clamp(5.5rem,23vw,11rem)}}
+@media(max-width:560px){.hero h1.hero-name{font-size:22vw;letter-spacing:-.065em}.hero-thesis{margin-top:44px}.orbit-symbol{width:20%}}
