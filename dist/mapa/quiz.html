@@ -94,6 +94,7 @@ button{font-family:inherit}
 .fade{animation:fade .28s ease}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.fade{animation:none}.bar i{transition:none}}
+.company-profile{display:grid;gap:10px;margin-top:20px}.company-profile label{font-weight:700;margin-top:8px}.company-profile select{width:100%;min-height:50px;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--card);color:var(--ink);font:inherit}.company-profile select:focus-visible{outline:3px solid var(--dou);outline-offset:2px}.company-profile .btn{margin-top:12px}.profile-summary{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:18px}.profile-summary p{margin:6px 0;font-size:14px}
 </style>
 <script>
 /* VERT4: mensuração opcional, sem respostas do quiz ou dados da ficha. */
@@ -150,7 +151,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   <section id="vIntro" class="card intro fade">
     <div class="eyebrow">Quiz rápido VERT4®</div>
     <h1>Os interessados chegam, mas não fecham? <em>Vamos achar onde eles param.</em></h1>
-    <p>9 situações do dia a dia, explicadas sem economês e com um pouco de bom humor. No final, você vê o ponto que mais pede atenção e o que fazer hoje.</p>
+    <p>9 situações do dia a dia e uma etapa curta sobre sua empresa, explicadas sem economês e com um pouco de bom humor. No final, você vê o ponto que mais pede atenção e o que fazer hoje.</p>
     <ul class="chips"><li>⏱ 2 minutos</li><li>🙅 Sem cadastro</li><li>📊 Resultado na hora</li></ul>
     <button class="btn" id="start">Começar o quiz</button>
     <p class="fine">Prometemos: nenhuma pergunta sobre o seu signo.</p>
@@ -163,6 +164,23 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     <div id="qBox"></div>
     <button class="back" id="back">← Voltar</button>
   </section>
+
+<section id="vProfile" class="card fade" hidden aria-labelledby="profileTitle">
+<div class="eyebrow">Última etapa · Sua empresa</div>
+<h2 id="profileTitle">Conte um pouco sobre a sua operação.</h2>
+<p class="note">Essas informações ajudam a contextualizar sua leitura. Selecione uma opção em cada campo. Elas não alteram a pontuação do quiz.</p>
+<form id="companyProfile" class="company-profile">
+<label for="companyRevenue">Faturamento mensal aproximado</label>
+<select id="companyRevenue" required><option value="">Selecione uma faixa</option><option>Ainda não faturo</option><option>Até R$ 10 mil</option><option>Acima de R$ 10 mil até R$ 30 mil</option><option>Acima de R$ 30 mil até R$ 50 mil</option><option>Acima de R$ 50 mil até R$ 100 mil</option><option>Acima de R$ 100 mil até R$ 300 mil</option><option>Acima de R$ 300 mil</option></select>
+<label for="companyTeam">Tamanho da equipe, incluindo você</label>
+<select id="companyTeam" required><option value="">Selecione o tamanho</option><option>Trabalho sozinho(a)</option><option>2 a 5 pessoas</option><option>6 a 10 pessoas</option><option>11 a 20 pessoas</option><option>21 a 50 pessoas</option><option>Mais de 50 pessoas</option></select>
+<label for="companySize">Como você descreve o porte da empresa?</label>
+<select id="companySize" required aria-describedby="companySizeHelp"><option value="">Selecione o porte</option><option>Autônomo(a)</option><option>MEI</option><option>Microempresa</option><option>Pequena empresa</option><option>Média empresa</option><option>Grande empresa</option><option>Não sei dizer</option></select>
+<p class="note" id="companySizeHelp">Porte autodeclarado, sem enquadramento fiscal automático.</p>
+<p class="disc">As respostas ficam apenas nesta página, durante sua visita. Não são enviadas à Meta nem salvas no painel administrativo.</p>
+<button class="btn" type="submit">Ver meu resultado →</button>
+<button class="back" type="button" id="profileBack">← Revisar última resposta</button>
+</form></section>
 
   <!-- Resultado -->
   <section id="vR" class="card res" hidden></section>
@@ -245,7 +263,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     out.push("origem=quiz-anuncio");
     return url + (url.indexOf("?")>-1 ? "&" : "?") + out.join("&");
   }
-  function show(id){ ["vIntro","vQ","vR"].forEach(function(v){ $(v).hidden = v!==id; }); var el=$(id); el.classList.remove("fade"); void el.offsetWidth; el.classList.add("fade"); window.scrollTo(0,0); }
+  function show(id){ ["vIntro","vQ","vProfile","vR"].forEach(function(v){ $(v).hidden = v!==id; }); var el=$(id); el.classList.remove("fade"); void el.offsetWidth; el.classList.add("fade"); window.scrollTo(0,0); }
 
   function renderQ(){
     var q = Q[i];
@@ -264,7 +282,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     busy = true;
     A[i] = SCALE[+b.dataset.k].v;
     [].forEach.call(document.querySelectorAll(".opt"), function(o){ o.classList.toggle("sel", o===b); o.setAttribute("aria-checked", o===b); });
-    setTimeout(function(){ if(i < Q.length-1){ i++; show("vQ"); renderQ(); } else { $("barFill").style.width="100%"; result(); } }, 280);
+    setTimeout(function(){ if(i < Q.length-1){ i++; show("vQ"); renderQ(); } else { $("barFill").style.width="100%"; show("vProfile"); $("companyRevenue").focus(); } }, 280);
   });
   $("back").addEventListener("click", function(){ if(i>0){ i--; renderQ(); } });
   $("start").addEventListener("click", function(){ i=0; show("vQ"); renderQ(); track("quiz_inicio"); });
@@ -273,6 +291,15 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     var n = parseInt(e.key,10); if(n>=1 && n<=SCALE.length){ var b=document.querySelectorAll(".opt")[n-1]; if(b) b.click(); }
   });
 
+  var company = null;
+  $("companyProfile").addEventListener("submit",function(e){
+    e.preventDefault();
+    if(!this.reportValidity())return;
+    company={revenue:$("companyRevenue").value,team:$("companyTeam").value,size:$("companySize").value};
+    result();
+  });
+  $("profileBack").addEventListener("click",function(){i=Q.length-1;show("vQ");renderQ();});
+  function safeText(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function score(){
     var s = {}, unk = 0;
     Object.keys(DIMS).forEach(function(d){ s[d] = {sum:0,n:0}; });
@@ -315,6 +342,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       h += '<div class="sec"><h3>Para fazer hoje, sem gastar nada</h3><ul class="list"><li>Pegue as últimas 10 pessoas que pediram informação e anote: de onde vieram, se tinham perfil e em que ponto a conversa parou.</li><li>Conte quantas pararam em cada ponto: quem chegou, a apresentação ou a condução da conversa.</li><li>O ponto com mais paradas é por onde começar. Simples assim, sem planilha de 40 abas.</li></ul></div>';
     }
 
+    if(company)h+='<div class="profile-summary"><h3>Perfil da sua empresa</h3><p><b>Faturamento mensal:</b> '+safeText(company.revenue)+'</p><p><b>Equipe:</b> '+safeText(company.team)+'</p><p><b>Porte:</b> '+safeText(company.size)+'</p><button type="button" class="back" id="editCompany">Editar informações</button><p class="note">Essas respostas não alteram sua pontuação.</p></div>';
     h += '<div class="offer"><div class="eyebrow">Próximo passo</div><h3>Mapa de Oportunidades VERT4®</h3><p>Minicurso prático, mapa visual, matriz Público, Oferta e Comercial e checklist de priorização para analisar as suas 10 oportunidades reais e confirmar onde agir primeiro.</p><div class="price"><b>R$ 47</b><span>pagamento único</span></div><a class="btn" id="ctaVendas" href="'+withParams(LINK_VENDAS)+'">Quero o Mapa de Oportunidades</a></div>';
 
     var resumo = "Fiz o quiz VERT4®. Resultado: " + (main ? DIMS[main].name : (tops.length>1 && max>=34 ? "empate entre "+tops.map(function(d){return DIMS[d].name}).join(" e ") : "sem sinal definido")) + " | Público "+(pct.p===null?"sem dados":pct.p+"%")+", Oferta "+(pct.o===null?"sem dados":pct.o+"%")+", Comercial "+(pct.c===null?"sem dados":pct.c+"%")+". Quero entender o próximo passo.";
@@ -325,8 +353,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     show("vR");
     track("quiz_concluido", {prioridade: main || (tops.length>1 ? "empate" : "indefinido"), publico:pct.p, oferta:pct.o, comercial:pct.c});
     $("ctaVendas").addEventListener("click", function(){ track("quiz_clique_oferta"); });
+    if(company)$("editCompany").addEventListener("click",function(){show("vProfile");$("companyRevenue").focus();});
     $("ctaWhats").addEventListener("click", function(){ track("quiz_clique_whatsapp"); });
-    $("redo").addEventListener("click", function(){ A.fill(null); i=0; show("vIntro"); });
+    $("redo").addEventListener("click", function(){ A.fill(null); company=null; $("companyProfile").reset(); i=0; show("vIntro"); });
   }
 })();
 </script>
