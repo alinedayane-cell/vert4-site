@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-vert4-page="quiz">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -95,6 +95,52 @@ button{font-family:inherit}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.fade{animation:none}.bar i{transition:none}}
 </style>
+<script>
+/* VERT4: mensuração opcional, sem respostas do quiz ou dados da ficha. */
+(function(){
+'use strict';
+var ID='2345575089312148', KEY='vert4-marketing-consent-v1', choice=null, ready=false;
+var page=document.documentElement.dataset.vert4Page||'mapa';
+try{choice=localStorage.getItem(KEY);}catch(e){}
+function start(){
+ if(ready)return;ready=true;
+ if(!window.fbq){var n=window.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};n.push=n;n.loaded=true;n.version='2.0';n.queue=[];window._fbq=n;
+ var s=document.createElement('script');s.async=true;s.src='https://connect.facebook.net/en_US/fbevents.js';document.head.appendChild(s);}
+ window.fbq('consent','grant');window.fbq('set','autoConfig',false,ID);window.fbq('init',ID);
+ send('track','PageView',{});
+ send('track','ViewContent',{content_name:page==='quiz'?'Quiz VERT4':'Mapa de Oportunidades VERT4',content_category:page});
+}
+function send(type,event,params){
+ if(choice!=='accepted'||!ready)return;
+ var data=Object.assign({page_type:page},params);
+ window.fbq(type==='track'?'trackSingle':'trackSingleCustom',ID,event,data);
+ (window.dataLayer=window.dataLayer||[]).push(Object.assign({event:event},data));
+}
+var allowed={quiz_inicio:1,quiz_concluido:1,quiz_clique_oferta:1,quiz_clique_whatsapp:1,mapa_clique_compra:1,mapa_aula_inicio:1,mapa_aula_concluida:1,mapa_simulador:1,mapa_ficha_registro:1,mapa_view:1};
+var once={};
+window.vert4Track=function(event){
+ if(!allowed[event]||choice!=='accepted')return;
+ if((event==='quiz_inicio'||event==='quiz_concluido')&&once[event])return;
+ once[event]=true;
+ send('custom',event,{});
+ /* InitiateCheckout é enviado pela Hotmart ao abrir o checkout.
+    O clique de saída é medido separadamente para evitar duplicação. */
+};
+function choose(value){
+ choice=value;try{localStorage.setItem(KEY,value);}catch(e){}
+ if(value==='accepted')start();else if(window.fbq)window.fbq('consent','revoke');
+ document.getElementById('v4Cookies').hidden=true;
+}
+function ui(){
+ var style=document.createElement('style');style.textContent='#v4Cookies{position:fixed;z-index:99999;bottom:16px;left:16px;right:16px;max-width:780px;margin:auto;background:#F2EFE6;color:#17292E;border:1px solid #CCAC7D;border-radius:16px;padding:20px;box-shadow:0 8px 40px #0004;font:14px/1.5 Arial,sans-serif}#v4Cookies[hidden]{display:none}#v4Cookies p{margin:0 0 14px}#v4Cookies button,#v4Privacy{font:inherit;cursor:pointer;border:1px solid #17292E;border-radius:8px;padding:10px 14px;background:#F2EFE6;color:#17292E}#v4Cookies button{margin:0 8px 6px 0}#v4Cookies button[data-consent="accepted"]{background:#17292E;color:#F2EFE6}#v4Privacy{display:block;margin:24px auto;font-size:12px}';document.head.appendChild(style);
+ var box=document.createElement('section');box.id='v4Cookies';box.setAttribute('aria-label','Preferências de cookies');box.innerHTML='<p><b>Você escolhe os cookies de publicidade.</b><br>Com seu aceite, usamos o pixel da Meta para medir visitas e interações no quiz e na oferta. A Meta pode receber dados do navegador e da visita. Não enviamos suas respostas do quiz nem os textos da ficha. Você pode continuar sem aceitar e mudar sua escolha abaixo.</p><button type="button" data-consent="rejected">Continuar sem aceitar</button><button type="button" data-consent="accepted">Aceitar publicidade</button>';box.hidden=choice==='accepted'||choice==='rejected';document.body.appendChild(box);
+ box.addEventListener('click',function(e){var b=e.target.closest('[data-consent]');if(b)choose(b.dataset.consent);});
+ var btn=document.createElement('button');btn.id='v4Privacy';btn.type='button';btn.textContent='Preferências de cookies';btn.addEventListener('click',function(){box.hidden=false;});document.body.appendChild(btn);
+ if(choice==='accepted')start();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ui);else ui();
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="brand">VERT4<span>®</span></div><small>Quiz de vendas · 2 minutos</small></header>
@@ -191,10 +237,8 @@ button{font-family:inherit}
   var A = new Array(Q.length).fill(null), i = 0, busy = false;
   var $ = function(id){return document.getElementById(id)};
 
-  function track(ev, data){
-    try{ (window.dataLayer = window.dataLayer || []).push(Object.assign({event:ev}, data||{})); }catch(e){}
-    try{ if(typeof window.fbq === "function") window.fbq("trackCustom", ev, data||{}); }catch(e){}
-  }
+  function track(ev){ if(window.vert4Track) window.vert4Track(ev); }
+
   function withParams(url){
     var keep = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid"], sp = new URLSearchParams(location.search), out = [];
     keep.forEach(function(k){ if(sp.get(k)) out.push(k+"="+encodeURIComponent(sp.get(k))); });
