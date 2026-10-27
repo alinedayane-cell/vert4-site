@@ -1,41 +1,39 @@
-# Página de vendas do Mapa (mapa.vert4comercial.com): nginx servindo a branch mapa-de-oportunidades deste repositório.
-# A cada início e a cada 10 minutos baixa a versão mais recente do GitHub.
+# Site VERT4® na Hostinger: vert4comercial.com (site e página /mapa/) e mapa.vert4comercial.com (atalho para /mapa/).
+# Serve a versão aprovada (REF = branch ou commit deste repositório). Para publicar outra versão, troque REF no hPanel e reimplante.
 services:
-  site:
+  web:
     image: nginx:1.27-alpine
     restart: unless-stopped
     entrypoint: ["sh", "-c"]
     command:
       - |
-        baixar() {
-          wget -q -O /tmp/s.tgz "https://codeload.github.com/alinedayane-cell/vert4-site/tar.gz/refs/heads/$${BRANCH:-mapa-de-oportunidades}" || return 1
-          rm -rf /tmp/n && mkdir -p /tmp/n && tar -xzf /tmp/s.tgz -C /tmp/n --strip-components=1 || return 1
-          [ -f /tmp/n/dist/mapa/index.html ] || return 1
-          rm -rf /site.old && [ -d /site ] && mv /site /site.old; mv /tmp/n /site
-        }
-        baixar || echo "download falhou"
+        set -e
+        wget -q -O /tmp/s.tgz "https://codeload.github.com/alinedayane-cell/vert4-site/tar.gz/$${REF:-publicacao-aprovada}"
+        mkdir -p /site && tar -xzf /tmp/s.tgz -C /site --strip-components=1
+        test -f /site/dist/index.html && test -f /site/dist/mapa/index.html
         cat > /etc/nginx/conf.d/default.conf <<'CONF'
         server {
           listen 80;
-          root /site/dist/mapa;
+          server_name mapa.vert4comercial.com;
+          location = / { return 301 https://vert4comercial.com/mapa/$$is_args$$args; }
+          location / { return 301 https://vert4comercial.com/mapa$$request_uri; }
+        }
+        server {
+          listen 80 default_server;
+          root /site/dist;
           index index.html;
           add_header X-Content-Type-Options nosniff always;
           add_header Referrer-Policy strict-origin-when-cross-origin always;
-          add_header Strict-Transport-Security "max-age=31536000" always;
-          location /assets/ { alias /site/dist/assets/; }
-          location = /checkout.html { return 302 https://pay.hotmart.com/R108182137W; }
+          location = /mapa/checkout.html { return 302 https://pay.hotmart.com/R108182137W; }
           location / { try_files $$uri $$uri/ =404; }
         }
         CONF
-        (while true; do sleep 600; baixar && nginx -s reload; done) &
         exec nginx -g 'daemon off;'
-    ports:
-      - "80"
     environment:
-      - BRANCH=${BRANCH:-mapa-de-oportunidades}
+      - REF=${REF:-publicacao-aprovada}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${DOMINIO:-mapa.vert4comercial.com}`) || Host(`${COMPOSE_PROJECT_NAME}.${TRAEFIK_HOST}`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`vert4comercial.com`) || Host(`www.vert4comercial.com`) || Host(`mapa.vert4comercial.com`) || Host(`${COMPOSE_PROJECT_NAME}.${TRAEFIK_HOST}`)
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
       - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=80
