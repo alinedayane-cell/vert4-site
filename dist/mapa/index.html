@@ -352,43 +352,90 @@ function ui(){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ui);else ui();
 })();
 </script>
-<style>.official-logo{display:grid;gap:5px}.official-logo img{width:245px;height:auto;max-width:100%}.footer-brand{display:block;width:280px;max-width:80%;height:auto;margin:0 auto 24px}@media(max-width:520px){.official-logo img{width:190px}}</style><style>
-/* Oferta Black e canais oficiais */
-.btn[data-go][href^="https://pay.hotmart.com/"],.total .btn,.price-card .btn,.done-card a.btn{background:#167345;color:#fff;box-shadow:0 10px 28px #16734533}
-.btn[data-go][href^="https://pay.hotmart.com/"]:hover,.done-card a.btn:hover{background:#105c36}
-.black-offer{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 16px;font-size:16px}
-.black-offer del{color:var(--dmuted)}.light .black-offer del{color:var(--muted)}
-.black-offer strong{background:#B42332;color:#fff;padding:5px 10px;border-radius:8px;font-size:13px}
-.price-card .black-offer{justify-content:center}
-.week-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
-.week-grid article{padding:24px;background:#fff;border:1px solid var(--line);border-radius:18px}
-.week-grid h3{font-size:20px;margin-bottom:12px}.week-grid p{font-size:15px;color:var(--muted)}
-.social-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;margin-top:24px}
-.social-links a{padding:8px;text-underline-offset:4px}
-.support-float{position:fixed;right:18px;bottom:22px;z-index:70;background:#167345;color:#fff;padding:13px 18px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 6px 24px #0003}
-a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4px}
-@media(max-width:700px){.week-grid{grid-template-columns:1fr}.support-float{bottom:100px;right:12px;padding:11px 14px}}
-</style></head>
+<style id="vert4-editorial">
+
+/* Direção VERT4: petróleo, tipografia editorial e trilha vertical. */
+:root{--void:#0b1519;--pet:#17292E;--pet2:#20383e;--ink:#F2EFE6;--muted:#abb9b7;--line:rgba(227,213,179,.17);--card:#14252b;--soft:#1a3036;--dou2:#CCAC7D;--ok:#9fc7ad;--no:#d89486;--r:3px}
+body{background:var(--void);color:var(--off)}
+main{background-image:linear-gradient(rgba(227,213,179,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(227,213,179,.025) 1px,transparent 1px);background-size:64px 64px}
+section{scroll-margin-top:100px;padding:100px 0;border-bottom:1px solid var(--line)}
+.dark,.dark.deep,.light{background:transparent;color:var(--off)}
+.light:nth-of-type(2n),#matriz,#quem{background:rgba(23,41,46,.38)}
+.wrap{max-width:1140px}
+h1,h2,h3,h4{letter-spacing:-.045em}
+.h2{font-size:clamp(32px,4.3vw,56px);font-weight:400;max-width:900px}
+.eyebrow{font:600 10px/1.5 var(--font);letter-spacing:.19em;border:1px solid rgba(204,172,125,.35);padding:8px 12px;color:var(--dou)}
+.eyebrow::before{width:5px;height:9px}
+.light .eyebrow,.light em{color:var(--dou)}
+.lead,.dark .lead{color:#b7c4c2;font-size:17px;line-height:1.75}
+.btn,.btn.dk{border-radius:2px;background:linear-gradient(105deg,#E3D5B3,#CCAC7D);color:#17292E;box-shadow:0 8px 25px #ccac7d20;font-size:14px;font-weight:800;letter-spacing:.015em}
+.btn.line,.light .btn.line{background:transparent;color:var(--off);border-color:var(--line);box-shadow:none}
+.btn:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--dou);outline-offset:5px}
+.nav,.nav.solid{background:rgba(11,21,25,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.nav .wrap{min-height:78px}
+.nav-links{display:flex;gap:26px;margin-left:auto;margin-right:20px}.nav-links a{font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#b7c4c2}.nav-links a:hover{color:var(--dou)}
+.hero{background:radial-gradient(ellipse at 78% 48%,#ccac7d10,transparent 52%);padding:154px 0 90px}
+.hero .wrap{gap:48px}.hero h1{font-size:clamp(39px,4.7vw,66px);font-weight:400;line-height:1.08;margin-top:24px}
+.hero h1 em{display:block;font-weight:800;background:linear-gradient(100deg,#F2EFE6,#CCAC7D);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero .cta-row{gap:14px}.hero .cta-row .btn.line{padding-left:0;border:0;font-size:12px;min-height:36px}
+.hero .meta{font-size:11px;gap:8px 14px}
+.stage{border-radius:2px;aspect-ratio:.95;max-width:480px;background:linear-gradient(135deg,#20383e88,#0b1519);box-shadow:0 40px 100px #0006}
+.stage::before,.stage::after{content:"";position:absolute;width:30px;height:30px;border-color:var(--dou);border-style:solid;pointer-events:none}.stage::before{left:-1px;top:-1px;border-width:2px 0 0 2px}.stage::after{right:-1px;bottom:-1px;border-width:0 2px 2px 0}
+.stage-top{font-size:9px}.stage-cap{font-size:11px}.stage-cap b{font-size:23px}
+.hero-foot{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:60px}
+.hero-foot div{padding:21px 26px;border-right:1px solid var(--line);font-size:11px;letter-spacing:.07em;color:var(--muted)}.hero-foot div:last-child{border:0}.hero-foot b{display:block;font-size:24px;letter-spacing:-.04em;color:var(--cha);font-weight:600}
+.rc,.panel,.case,.sheet,.mod,.col,.it,.faq details,.total,.price-card{border-radius:3px}
+.rc{background:#14252b;border-color:var(--line);border-top:2px solid #CCAC7D55}.rc.open{border-color:var(--dou)}.rc .k{color:var(--dou);font-size:10px}.rc h3{font-size:24px;font-weight:500}.rc .ans{color:#b7c4c2}
+.case{background:#14252b;color:var(--off);border:1px solid var(--line);box-shadow:0 25px 70px #0003}
+.bubble,.pk,.fb{border-radius:3px}.bubble{background:#1b3036}.msg .av{background:var(--cha);color:#17292E}
+.pk.right{background:#244538;color:#f2efe6}.pk.wrong{background:#4e2e2a;color:#f2efe6}.pk:hover:not([disabled]){border-color:var(--dou)}
+.done-card .big{color:var(--cha)}
+.panel,.sheet{border:1px solid var(--line);background:#14252b}
+.total{border:1px solid var(--line);border-top:2px solid var(--dou)}
+.price-card{background:linear-gradient(140deg,#E3D5B3,#CCAC7D);color:#17292E;position:relative}
+.price-card .k,.price-card .p small,.price-card .c{color:#34484b}.price-card .btn{background:#17292E;color:#F2EFE6;box-shadow:none}
+.price-card .p{font-weight:600;font-size:100px}
+.fit .yes{border-color:#ccac7d66;background:linear-gradient(130deg,#ccac7d0e,#14252b)}.fit .no{background:transparent}
+.it{background:#14252b;transition:transform .25s,border-color .25s}.it:hover{transform:translateX(6px);border-color:var(--dou)}.it .ic{border-radius:1px;font-size:20px}.it .tag{font-size:9px;color:var(--dou)}
+.path{position:relative;padding-left:28px;counter-reset:modules}.path:before{content:"";position:absolute;top:20px;bottom:20px;left:3px;width:1px;background:var(--line)}
+.mod{position:relative;border-left:2px solid #ccac7d55}.mod:before{content:"";position:absolute;left:-31px;top:33px;width:9px;height:9px;background:var(--void);border:1px solid var(--dou);border-radius:50%}
+.mod[open]{border-left-color:var(--dou);background:linear-gradient(100deg,#ccac7d09,#14252b)}.mod[open]:before{background:var(--dou);box-shadow:0 0 15px #ccac7d60}
+.mod .n{border-radius:1px;color:var(--dou);background:transparent;border:1px solid var(--line)}
+.faq{max-width:none;gap:0;margin-top:0}.faq details{background:transparent;border:0;border-bottom:1px solid var(--line);padding:0}.faq summary{padding:24px 0;font-size:15px}.faq summary::after{border:1px solid var(--line);width:28px;height:28px;text-align:center;font-size:20px}.faq details p{line-height:1.8}
+#faq .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:start}#faq .wrap>.eyebrow{grid-column:1;justify-self:start}#faq .h2{grid-column:1;margin-top:-8px}#faq .faq{grid-column:2;grid-row:1/span 2}
+.final{background:radial-gradient(ellipse at bottom,#ccac7d18,transparent 70%);padding-bottom:110px}
+footer{background:#081115}.seal{border-radius:2px;width:210px;height:240px}
+.reading-rail{position:fixed;z-index:40;left:20px;top:50%;transform:translateY(-45%);width:145px;display:grid;gap:0}.reading-rail:before{content:"";position:absolute;left:10px;top:45px;bottom:20px;width:1px;background:var(--line)}.reading-rail .rail-title{font-size:8px;letter-spacing:.16em;color:var(--muted);padding:0 0 22px 2px}.reading-rail a{position:relative;display:flex;align-items:center;gap:12px;padding:11px 0;font-size:10px;color:#829895;text-decoration:none;transition:color .2s}.reading-rail a span{width:21px;height:21px;background:#0b1519;border:1px solid #3c5053;display:grid;place-items:center;font-size:8px;transition:all .2s}.reading-rail a[aria-current="location"]{color:#E3D5B3}.reading-rail a[aria-current="location"] span{background:var(--dou);border-color:var(--dou);color:#17292E;box-shadow:0 0 20px #ccac7d33}
+@media(min-width:1500px){main>.hero>.wrap,main>section>.wrap,.nav>.wrap,footer>.wrap{transform:translateX(50px)}}
+@media(max-width:1499px){.reading-rail{left:auto;right:14px;width:27px}.reading-rail .rail-title,.reading-rail a b{display:none}.reading-rail a{padding:8px 0}.reading-rail:before{top:12px;bottom:12px}.wrap{max-width:1080px;padding-left:30px;padding-right:50px}}
+@media(max-width:900px){.reading-rail{inset:78px 0 auto;transform:none;width:100%;display:flex;overflow-x:auto;background:#0b1519f5;border-bottom:1px solid var(--line);padding:0 14px;gap:16px;scrollbar-width:none}.reading-rail:before{display:none}.reading-rail a{flex:none;padding:10px 0;font-size:10px;gap:6px}.reading-rail a b{display:block;font-weight:500}.reading-rail a span{width:16px;height:16px;font-size:7px}.nav-links{display:none}.nav .btn{display:flex;font-size:11px;min-height:36px}.wrap{padding:0 22px}.hero{padding-top:156px}.hero .wrap{gap:36px}.hero h1{font-size:46px}.hero .cta-row .btn.line{padding-left:16px;border:1px solid var(--line)}.hero-foot{margin-top:32px}.hero-foot div{padding:15px 10px;font-size:9px}.hero-foot b{font-size:20px}.stage{max-width:440px}.h2{font-size:38px}section{padding:65px 0;scroll-margin-top:140px}#faq .wrap{display:block}#faq .faq{margin-top:30px}.seal{width:140px;height:160px}}
+@media(max-width:520px){.hero h1{font-size:39px}.hero .lead{font-size:15px}.hero-foot b{font-size:18px}.hero-foot div{font-size:8px;padding:14px 8px}.stage{padding:20px;max-width:360px}.h2{font-size:32px}.reading-rail{gap:14px}.reading-rail a{font-size:9px}.nav .logo small{display:none}.btn{font-size:13px}.price-card .p{font-size:80px}.it h3{font-size:16px}.it p{font-size:13px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.it:hover{transform:none}}
+
+</style>
+<style>.black-hero{margin:0 0 24px;padding:16px 0;border-top:1px solid var(--dline);border-bottom:1px solid var(--dline)}.black-hero>span,.black-saving{font-size:10px;letter-spacing:.12em;font-weight:800}.black-hero>span{color:var(--dou)}.black-hero>div{font-size:20px;margin:5px 0}.black-hero strong{font-size:38px;color:var(--cha)}.black-hero del,.black-before del{opacity:.7}.black-hero small{font-size:12px;color:var(--dmuted)}.black-before{font-size:17px}.black-saving{margin:10px 0;color:var(--dou)}.price-card .black-saving{color:#34484b}.dock del{font-size:12px;color:var(--dmuted);margin-right:8px}</style><style id="vert4-compra-desconto">.btn[href*="pay.hotmart.com"]{background:#197446;color:#fff;box-shadow:0 8px 26px #19744635}.btn[href*="pay.hotmart.com"]:hover{background:#135d38;box-shadow:0 12px 30px #19744650}.btn[href*="pay.hotmart.com"]:focus-visible{outline-color:#8ce0b2}.black-hero>span,.black-hero del,.black-before del,.black-saving,.dock .t del{color:#ffaaa3;opacity:1}.black-hero small{color:#ffaaa3}.price-card .black-before del,.price-card .black-saving{color:#9e2525}.black-hero>span{display:inline-block;padding:4px 8px;border:1px solid #ffaaa34d;background:#ffaaa30d}</style><style id="vert4-social-support">.social-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.social-links a{display:inline-flex;align-items:center;min-height:44px;padding:10px 14px;border:1px solid var(--dline);border-radius:3px;color:var(--cha);font-size:12px;text-decoration:none}.social-links a:hover{border-color:var(--dou);background:#ccac7d0a}footer .social-links{justify-content:center}.whatsapp-support{position:fixed;right:20px;bottom:24px;z-index:70;display:flex;align-items:center;justify-content:center;gap:10px;background:#197446;color:#fff;border:1px solid #ffffff30;border-radius:999px;min-width:56px;min-height:56px;padding:13px 16px;box-shadow:0 8px 24px #0005;text-decoration:none}.whatsapp-support span{font-size:12px;font-weight:700}.whatsapp-support:hover{background:#135d38}.whatsapp-support:focus-visible{outline:3px solid #8ce0b2;outline-offset:4px}body:has(#v4Cookies:not([hidden])) .whatsapp-support{visibility:hidden}@media(max-width:900px){.whatsapp-support{bottom:calc(94px + env(safe-area-inset-bottom));right:16px;padding:13px}.whatsapp-support span{display:none}}@media(max-width:520px){.social-links{display:grid}.social-links a{justify-content:center}}</style><style id="vert4-semana">.week-plan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:36px;align-items:start}.week-plan details{border:1px solid var(--dline);background:#14252b;border-top:2px solid #ccac7d55}.week-plan details[open]{border-top-color:var(--dou)}.week-plan summary{padding:24px;list-style:none;cursor:pointer;display:flex;gap:16px;align-items:start}.week-plan summary::-webkit-details-marker{display:none}.week-plan summary>span{font-size:26px;line-height:1;color:var(--dou);font-weight:600}.week-plan small,.week-takeaway small{font-size:9px;letter-spacing:.12em;color:var(--dou);display:block;margin-bottom:12px}.week-plan h3{font-size:23px;line-height:1.15;font-weight:500}.week-plan summary:after{content:"+";color:var(--dou);margin-left:auto}.week-plan details[open] summary:after{content:"−"}.week-body{padding:0 24px 24px;color:var(--dmuted);font-size:14px}.week-body b{display:block;margin-top:18px;color:var(--cha);font-size:13px;font-weight:600}.week-note{margin-top:18px;max-width:760px;font-size:12px;color:var(--dmuted)}.week-takeaway{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:30px;border:1px solid var(--dline);margin-top:36px}.week-takeaway h3{font-size:29px;font-weight:500}.week-takeaway p{color:var(--dmuted);font-size:15px}.week-takeaway .btn{justify-self:start;grid-column:1/-1}@media(max-width:800px){.week-plan,.week-takeaway{grid-template-columns:1fr}.week-plan summary{padding:20px}.week-takeaway{padding:22px}.week-takeaway h3{font-size:25px}}</style><style id="vert4-official-logo">.official-logo{display:grid;gap:5px}.official-logo img{display:block;width:245px;height:auto;max-width:100%}.official-logo small{font-size:10px;letter-spacing:.08em}.footer-logo{display:block;max-width:300px;margin:0 auto 24px}.footer-logo img{width:100%;height:auto;display:block}@media(max-width:520px){.official-logo img{width:190px}.official-logo small{display:none}.footer-logo{max-width:240px}}</style></head>
 <body>
 
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="logo official-logo" href="../" aria-label="VERT4® página inicial"><img src="../assets/logo-vert4.svg" alt="VERT4® Aceleradora Comercial" width="2082" height="318"><small>Mapa de Oportunidades</small></a>
+<nav class="nav-links" aria-label="Atalhos"><a href="#matriz">O método</a><a href="#trilha">Conteúdo</a><a href="#quem">Aline Sanches</a><a href="#faq">FAQ</a></nav>
     <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero o Mapa · R$ 47</a>
   </div>
   <div class="progress" id="prog"></div>
 </header>
 
+<nav class="reading-rail" aria-label="Explore o Mapa"><div class="rail-title">EXPLORE O MAPA</div><a href="#topo" aria-current="location"><span>01</span><b>Visão geral</b></a><a href="#problema"><span>02</span><b>O problema</b></a><a href="#aula"><span>03</span><b>Experimente</b></a><a href="#matriz"><span>04</span><b>O método</b></a><a href="#trilha"><span>05</span><b>Sua jornada</b></a><a href="#recebe"><span>06</span><b>O que recebe</b></a><a href="#investimento"><span>07</span><b>Investimento</b></a><a href="#faq"><span>08</span><b>Dúvidas</b></a></nav>
 <main>
 <!-- 1. Abertura -->
 <section class="hero" id="topo">
   <div class="wrap">
     <div class="reveal">
-      <span class="eyebrow">Mapa de Oportunidades VERT4®</span>
+      <span class="eyebrow">BLACK VERT4® · MAPA DE OPORTUNIDADES</span>
       <h1>Antes de buscar mais interessados, entenda por que <em>os atuais não avançam.</em></h1>
       <p class="lead">Um minicurso prático para empresários de serviços. Você analisa dez oportunidades reais com a matriz Público, Oferta e Comercial e sai com uma prioridade clara do que investigar primeiro.</p>
-      <div class="cta-row">
-        <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa por R$ 47</a>
+      <div class="black-hero"><span>BLACK VERT4®</span><div>De <del>R$ 97</del> por <strong>R$ 47</strong></div><small>Economize R$ 50 · Pagamento único</small></div><div class="cta-row">
+        <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Aproveitar a Black por R$ 47</a>
         <a class="btn line" href="#aula">Experimentar o método agora ↓</a>
       </div>
       <div class="meta"><span>Pagamento único</span><span>5 etapas com atividade prática</span><span>4 ferramentas de análise</span></div>
@@ -410,6 +457,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
   </div>
 </section>
 
+<div class="wrap"><div class="hero-foot"><div><b>05 etapas</b>AULAS + APLICAÇÃO</div><div><b>10 oportunidades</b>SEU LABORATÓRIO REAL</div><div><b>R$ 47</b>PAGAMENTO ÚNICO</div></div></div>
 <!-- 2. O problema: confrontar a reação automática -->
 <section class="light" id="problema">
   <div class="wrap">
@@ -509,6 +557,16 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
 </section>
 
 <!-- 7. Ferramenta: ficha de evidências ao vivo -->
+<section class="dark" id="primeira-semana"><div class="wrap">
+<span class="eyebrow">Da aula para a sua operação</span><h2 class="h2">Sua primeira semana.<br><em>Uma decisão mais bem fundamentada.</em></h2>
+<p class="lead">Uma sugestão de ritmo para aplicar o Mapa, dentro da plataforma pedagógica. O primeiro avanço é sair da impressão e registrar o que acontece nas suas oportunidades.</p>
+<div class="week-plan">
+<details open><summary><span>01</span><div><small>DIAS 1 E 2 · ENTENDER</small><h3>Dê nome ao que você observa.</h3></div></summary><div class="week-body"><p>Comece pelo diagnóstico e pelas aulas. Diferencie sinais de Público, Oferta e Comercial com exemplos e ferramentas de aplicação.</p><b>Sua entrega: uma primeira hipótese para investigar.</b></div></details>
+<details><summary><span>02</span><div><small>DIAS 3 A 5 · REGISTRAR</small><h3>Traga dez oportunidades reais.</h3></div></summary><div class="week-body"><p>Reúna mensagens, propostas e contatos recentes. Use a ficha para separar o fato da interpretação e classifique cada caso na matriz.</p><b>Sua entrega: dez casos organizados com evidências.</b></div></details>
+<details><summary><span>03</span><div><small>DIAS 6 E 7 · PRIORIZAR</small><h3>Escolha o próximo ajuste.</h3></div></summary><div class="week-body"><p>Compare os sinais e use o checklist de priorização para definir por onde começar. A conclusão é um ponto de partida para investigar e agir na operação.</p><b>Sua entrega: uma prioridade e um próximo passo definido.</b></div></details>
+</div><p class="week-note">Ritmo sugerido, adaptável à sua disponibilidade. A evolução depende da aplicação. O curso não garante vendas ou ganho financeiro em sete dias.</p>
+<div class="week-takeaway"><div><small>AO CONCLUIR A APLICAÇÃO</small><h3>Você leva uma análise do seu próprio negócio.</h3></div><p>Diagnóstico preenchido, dez oportunidades classificadas e uma prioridade para investigar. As aulas ajudam você a produzir esses registros.</p><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Começar por R$ 47 →</a></div>
+</div></section>
 <section class="dark deep" id="ferramentas">
   <div class="wrap">
     <div class="reveal">
@@ -558,25 +616,13 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
       <div class="it reveal"><div class="ic">🔬</div><div><h3>Laboratório das 10 oportunidades</h3><p>A etapa final: você aplica tudo nos seus casos e sai com uma prioridade definida.</p></div><span class="tag">Incluído</span></div>
     </div>
     <div class="total reveal">
-      <div><div class="black-offer"><del>De R$ 97</del><strong>BLACK · R$ 50 DE DESCONTO</strong></div><div class="k">Oferta Black · pagamento único</div><div class="p"><small>R$</small>47</div><p class="c" id="totalC">Menos do que custa uma única oportunidade perdida na maioria das empresas de serviços.</p></div>
+      <div><div class="k">Tudo isso, em pagamento único</div><div class="black-before">De <del>R$ 97</del> por</div><div class="p"><small>R$</small>47</div><div class="black-saving">BLACK VERT4® · R$ 50 de economia</div><p class="c" id="totalC">Menos do que custa uma única oportunidade perdida na maioria das empresas de serviços.</p></div>
       <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa</a>
     </div>
   </div>
 </section>
 
 <!-- 9. Para quem é -->
-<section class="light" id="primeira-semana">
-  <div class="wrap reveal">
-    <span class="eyebrow">Sua primeira semana com o Mapa</span>
-    <h2 class="h2">Das conversas soltas a uma <em>prioridade definida.</em></h2>
-    <p class="lead">Um roteiro para aplicar as ferramentas nas oportunidades da sua empresa, no seu ritmo.</p>
-    <div class="week-grid">
-      <article><h3>Dias 1 e 2 · Reunir</h3><p>Separe dez oportunidades recentes e registre de onde vieram, o que buscavam e em que ponto cada conversa parou.</p></article>
-      <article><h3>Dias 3 e 4 · Analisar</h3><p>Use as aulas e a matriz Público, Oferta e Comercial para classificar os sinais e registrar as evidências.</p></article>
-      <article><h3>Dias 5 a 7 · Priorizar</h3><p>Compare os padrões, aplique o checklist e escolha uma melhoria para testar e acompanhar.</p></article>
-    </div>
-  </div>
-</section>
 <section class="light" id="paraquem" style="padding-top:0">
   <div class="wrap">
     <div class="reveal">
@@ -606,7 +652,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
       <h2>Aline Sanches, fundadora da VERT4®.</h2>
       <p>O Mapa propõe uma leitura conectada de público, oferta e condução comercial, aplicada aos casos da própria empresa.</p>
       <p>O ponto de partida é simples e exigente: observar o que aconteceu antes de decidir o que mudar.</p>
-    </div>
+<nav class="social-links" aria-label="Redes sociais da Aline e da VERT4"><a href="https://www.linkedin.com/in/aline-sanches-a46224a0/" target="_blank" rel="noopener noreferrer">LinkedIn · Aline Sanches ↗</a><a href="https://www.instagram.com/alinedayanesanches/" target="_blank" rel="noopener noreferrer">Instagram · @alinedayanesanches ↗</a><a href="https://www.instagram.com/_vert4/" target="_blank" rel="noopener noreferrer">Instagram · @_vert4 ↗</a></nav>    </div>
   </div>
 </section>
 
@@ -630,10 +676,10 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
         </ul>
         <p class="small">O Mapa inclui o minicurso e as ferramentas listadas. Consultoria e implementação da operação são serviços separados. Complementos do checkout são opcionais.</p>
       </div>
-      <div class="price-card reveal"><div class="black-offer"><del>De R$ 97</del><strong>BLACK · R$ 50 DE DESCONTO</strong></div>
+      <div class="price-card reveal">
         <span class="k">Pagamento único</span>
-        <div class="p"><small>R$</small>47</div>
-        <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Continuar para o checkout →</a>
+        <div class="black-before">De <del>R$ 97</del> por</div><div class="p"><small>R$</small>47</div><div class="black-saving">BLACK VERT4® · R$ 50 de economia</div>
+        <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Garantir oferta Black →</a>
         <span class="c">Antes de pagar, confira na plataforma o prazo de acesso, o suporte e as condições de reembolso.</span>
       </div>
     </div>
@@ -644,7 +690,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
 <section class="light" id="faq" style="padding-top:0">
   <div class="wrap">
     <div class="reveal"><span class="eyebrow">Dúvidas frequentes</span><h2 class="h2">O que vale saber <em>antes de decidir.</em></h2></div>
-    <div class="faq reveal">
+    <div class="faq reveal"><details><summary>O que acontece depois da compra?</summary><p>O pagamento é concluído no checkout da Hotmart. Com a compra aprovada, você recebe as orientações de acesso à plataforma VERT4®, onde estão as aulas e ferramentas do Mapa. Se precisar de ajuda para acessar, use o botão de suporte pelo WhatsApp nesta página.</p></details><details><summary>Preciso concluir tudo em sete dias?</summary><p>Não. A sequência de uma semana é uma sugestão de aplicação, e você pode ajustar o ritmo à sua disponibilidade. O objetivo é concluir a análise dos seus dez casos com evidências, sem promessa de ganho financeiro em um prazo fixo.</p></details>
       <details><summary>Preciso comprar os complementos do checkout?</summary><p>Não. O minicurso e as ferramentas desta página compõem o Mapa de R$ 47. Os complementos são opcionais e só alteram o total quando você os seleciona.</p></details>
       <details><summary>O Mapa serve para a minha empresa?</summary><p>A proposta é voltada a empresas de serviços que já recebem interessados e conseguem reunir dez oportunidades recentes. Você trabalha sobre os próprios casos, tenham eles avançado ou não.</p></details>
       <details><summary>O mapa vai me dizer exatamente por que não estou vendendo?</summary><p>Ele organiza as evidências e aponta qual dimensão investigar primeiro. Uma causa definitiva depende de evidências suficientes, e o método deixa claro quando elas ainda não existem.</p></details>
@@ -661,20 +707,15 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
   <div class="wrap reveal">
     <span class="eyebrow">Antes de mudar o preço ou aumentar a divulgação</span>
     <h2 class="h2">Saiba onde as suas oportunidades <em>estão parando.</em></h2>
-    <p class="lead">Dez oportunidades analisadas. Uma prioridade definida. R$ 47.</p>
-    <div class="cta-row" style="justify-content:center"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa por R$ 47</a><a class="btn line" href="quiz.html" data-go>Prefiro começar pelo quiz</a></div>
+    <p class="lead">Dez oportunidades analisadas. Uma prioridade definida. Na Black, de R$ 97 por R$ 47.</p>
+    <div class="cta-row" style="justify-content:center"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Aproveitar a Black por R$ 47</a><a class="btn line" href="quiz.html" data-go>Prefiro começar pelo quiz</a></div>
   </div>
 </section>
 </main>
 
-<footer><img class="footer-brand" src="../assets/logo-vert4.svg" alt="VERT4® Aceleradora Comercial" width="2082" height="318" loading="lazy"><div class="wrap">VERT4® Aceleradora Comercial · Mapa de Oportunidades VERT4® · <a href="../">Conheça a VERT4®</a></div><nav class="social-links" aria-label="Redes sociais da VERT4">
-<a href="https://www.linkedin.com/in/aline-sanches-a46224a0/" target="_blank" rel="noopener noreferrer">LinkedIn · Aline Sanches</a>
-<a href="https://www.instagram.com/alinedayanesanches/" target="_blank" rel="noopener noreferrer">Instagram · @alinedayanesanches</a>
-<a href="https://www.instagram.com/_vert4/" target="_blank" rel="noopener noreferrer">Instagram · @_vert4</a>
-</nav></footer>
+<footer><a class="footer-logo" href="../" aria-label="VERT4® página inicial"><img src="../assets/logo-vert4.svg" alt="VERT4® Aceleradora Comercial" width="2082" height="318" loading="lazy"></a><div class="wrap">VERT4® Aceleradora Comercial · Mapa de Oportunidades VERT4® · <a href="../">Conheça a VERT4®</a></div><nav class="social-links" aria-label="Redes sociais da Aline e da VERT4"><a href="https://www.linkedin.com/in/aline-sanches-a46224a0/" target="_blank" rel="noopener noreferrer">LinkedIn · Aline Sanches ↗</a><a href="https://www.instagram.com/alinedayanesanches/" target="_blank" rel="noopener noreferrer">Instagram · @alinedayanesanches ↗</a><a href="https://www.instagram.com/_vert4/" target="_blank" rel="noopener noreferrer">Instagram · @_vert4 ↗</a></nav></footer>
 
-<a class="support-float" href="https://wa.me/5569992947188?text=Ol%C3%A1%21%20Quero%20tirar%20uma%20d%C3%BAvida%20sobre%20o%20Mapa%20de%20Oportunidades%20VERT4." target="_blank" rel="noopener noreferrer" aria-label="Suporte VERT4 pelo WhatsApp">WhatsApp · Suporte</a>
-<div class="dock" id="dock"><div class="t">Mapa de Oportunidades<b>R$ 47</b></div><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero o Mapa</a></div>
+<div class="dock" id="dock"><div class="t">Black VERT4®<b><del>R$ 97</del> R$ 47</b></div><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero o Mapa</a></div>
 
 <script>
 (function(){
@@ -692,8 +733,8 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     var sp = new URLSearchParams(location.search), keep = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid","origem"], q = [];
     keep.forEach(function(k){ if(sp.get(k)) q.push(k+"="+encodeURIComponent(sp.get(k))); });
     $$("[data-go]").forEach(function(a){
-      if(q.length){ var dest = new URL(a.getAttribute("href"), location.href); q.forEach(function(pair){ var part=pair.split("="); dest.searchParams.set(part[0],decodeURIComponent(part.slice(1).join("="))); }); a.href = dest.href; }
-      a.addEventListener("click", function(){ if(a.hostname==="pay.hotmart.com") track("mapa_clique_compra"); });
+      if(q.length) a.href = a.getAttribute("href") + "?" + q.join("&");
+      a.addEventListener("click", function(){ track("mapa_clique_compra",{destino:a.getAttribute("href").split("?")[0]}); });
     });
   })();
 
@@ -884,5 +925,15 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
   track("mapa_view");
 })();
 </script>
-</body>
+<script id="vert4-reading-rail">
+(function(){
+var links=Array.from(document.querySelectorAll('.reading-rail a'));
+var targets=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+var pending=false;
+function update(){pending=false;var line=window.innerHeight*.35,current=0;targets.forEach(function(el,i){if(el&&el.getBoundingClientRect().top<=line)current=i;});links.forEach(function(a,i){if(i===current)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
+addEventListener('scroll',function(){if(!pending){pending=true;requestAnimationFrame(update)}},{passive:true});addEventListener('resize',update);update();
+document.querySelectorAll('.rc').forEach(function(b){b.setAttribute('aria-expanded',String(b.classList.contains('open')));b.addEventListener('click',function(){b.setAttribute('aria-expanded',String(b.classList.contains('open')));});});
+})();
+</script>
+<a class="whatsapp-support" href="https://wa.me/5531953475617?text=Ol%C3%A1!%20Preciso%20de%20suporte%20sobre%20o%20Mapa%20de%20Oportunidades%20VERT4%C2%AE." target="_blank" rel="noopener noreferrer" aria-label="Suporte pelo WhatsApp — abre em nova aba"><span>Precisa de ajuda?</span><svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" fill="currentColor"><path d="M16 .9A15.1 15.1 0 0 0 3 23.7L.9 31l7.5-2A15.1 15.1 0 1 0 16 .9Zm0 27.5a12.4 12.4 0 0 1-6.3-1.7l-.5-.3-4.4 1.2 1.2-4.3-.3-.5a12.4 12.4 0 1 1 10.3 5.6Zm6.8-9.3c-.4-.2-2.2-1.1-2.6-1.2-.3-.1-.6-.2-.8.2-.3.4-1 1.2-1.2 1.4-.2.3-.4.3-.8.1-.4-.2-1.6-.6-3-1.8-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.7.1-.2 0-.5 0-.7-.1-.2-.9-2.1-1.2-2.9-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .5-.4.4-1.3 1.3-1.3 3.1 0 1.8 1.3 3.6 1.5 3.8.2.3 2.7 4.2 6.5 5.8.9.4 1.6.6 2.2.7.9.3 1.7.2 2.3.2.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5Z"/></svg></a></body>
 </html>
