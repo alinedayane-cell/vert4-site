@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="pt-BR" data-vert4-page="mapa">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mapa de Oportunidades VERT4®</title>
+<meta name="description" content="Minicurso prático com ferramentas para analisar dez oportunidades reais com a matriz Público, Oferta e Comercial e definir onde investigar primeiro. R$ 47.">
+<meta property="og:title" content="Mapa de Oportunidades VERT4®">
+<meta property="og:description" content="Antes de buscar mais interessados, entenda por que os atuais não avançam.">
+<link rel="icon" href="../assets/favicon-vert4.svg?v=2" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+<style>
+/* Página de vendas do Mapa: seções escuras (petróleo) e claras (off-white) alternadas.
+   Arco pedagógico da página: perceber o problema → experimentar o método (aula-teste) → medir o valor (simulador) → conhecer a trilha → ver as ferramentas → decidir. */
+:root{
+  --pet:#17292E; --pet2:#1E353B; --void:#0E1A1D; --dou:#CCAC7D; --dou2:#A8844F; --cha:#E3D5B3; --off:#F2EFE6;
+  --ink:#17292E; --muted:#5B6A6E; --line:#E3D5B3; --card:#FFFFFF; --soft:#F8F5EE;
+  --dmuted:#B9C2BF; --dline:rgba(204,172,125,.22);
+  --ok:#2F7A55; --no:#A6463A;
+  --font:"Manrope", Arial, sans-serif;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0}
+body{background:var(--off);color:var(--ink);font-family:var(--font);font-weight:400;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-weight:600;line-height:1.12;margin:0;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+em{font-style:normal;color:var(--dou);font-weight:700}
+.light em{color:var(--dou2)}
+button{font-family:inherit;color:inherit}
+a{color:inherit}
+[hidden]{display:none!important}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1120px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
+section{padding:96px 0;position:relative}
+.dark{background:var(--pet);color:var(--off)}
+.dark.deep{background:var(--void)}
+.light{background:var(--off);color:var(--ink)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dou)}
+.light .eyebrow{color:var(--dou2)}
+.eyebrow::before{content:"";width:22px;height:1.5px;background:currentColor}
+.h2{font-size:clamp(30px,4.4vw,48px);margin:14px 0 16px}
+.lead{font-size:clamp(17px,1.6vw,19px);color:var(--muted);max-width:640px}
+.dark .lead{color:var(--dmuted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:15px 26px;border:0;border-radius:14px;background:var(--dou);color:var(--pet);font-weight:700;font-size:17px;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .2s,background .2s;box-shadow:0 10px 28px rgba(204,172,125,.22)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(204,172,125,.32)}
+.btn:active{transform:none}
+.btn.dk{background:var(--pet);color:var(--off);box-shadow:0 10px 28px rgba(23,41,46,.18)}
+.btn.line{background:transparent;border:1.5px solid var(--dline);color:var(--off);box-shadow:none}
+.light .btn.line{border-color:var(--line);color:var(--ink)}
+.btn.sm{min-height:44px;padding:10px 18px;font-size:15px;border-radius:12px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}*{animation:none!important}}
+
+/* Barra superior */
+.nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.nav.solid{background:rgba(14,26,29,.92);backdrop-filter:blur(10px);border-color:var(--dline)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--off);font-weight:800;letter-spacing:.08em;font-size:15px}
+.logo svg{width:34px;height:auto}
+.logo small{display:block;font-weight:600;letter-spacing:.02em;font-size:12px;color:var(--cha)}
+.nav .btn{min-height:42px;padding:9px 16px;font-size:14px;box-shadow:none}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--dou)}
+
+/* Abertura */
+.hero{padding:140px 0 90px;background:radial-gradient(1200px 600px at 80% -10%,rgba(204,172,125,.14),transparent 60%),var(--void);color:var(--off);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(36px,5.6vw,64px);font-weight:600;margin:18px 0 20px;letter-spacing:-.025em}
+.hero .lead{margin-bottom:30px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:20px;font-size:14px;color:var(--dmuted)}
+.meta span::before{content:"✓ ";color:var(--dou);font-weight:800}
+.stage{position:relative;aspect-ratio:1/1;max-width:500px;width:100%;justify-self:center;border:1px solid var(--dline);border-radius:28px;background:linear-gradient(160deg,rgba(30,53,59,.9),rgba(14,26,29,.9));padding:24px;box-shadow:0 40px 80px rgba(0,0,0,.35)}
+.stage-top{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dmuted);font-weight:700}
+.stage svg{width:100%;height:auto;display:block;margin-top:8px}
+.stage-cap{position:absolute;left:24px;right:24px;bottom:22px;display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--cha)}
+.stage-cap b{color:var(--off);font-size:22px;font-weight:800;display:block;line-height:1}
+
+/* Reações */
+.react{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.rc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;text-align:left;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s;font-size:16px}
+.rc:hover{border-color:var(--dou);transform:translateY(-3px);box-shadow:0 16px 36px rgba(23,41,46,.08)}
+.rc .k{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.rc h3{font-size:21px;margin:8px 0 6px}
+.rc .tap{font-size:13px;color:var(--dou2);font-weight:700}
+.rc .ans{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:15px}
+.rc .ans b{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin:6px 0 2px}
+.rc.open .ans{display:block}
+.rc.open .tap{display:none}
+.rc.open{border-color:var(--pet)}
+.punch{margin-top:28px;font-size:19px;font-weight:600;max-width:760px}
+
+/* Aula-teste */
+.lab{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;margin-top:40px}
+.lab-side{display:grid;gap:14px}
+.lab-step{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border:1px solid var(--dline);border-radius:14px;color:var(--dmuted);font-size:15px;transition:all .3s}
+.lab-step b{display:block;color:var(--off);font-size:16px}
+.lab-step i{font-style:normal;flex:none;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--dline);display:grid;place-items:center;font-weight:800;font-size:13px;color:var(--cha)}
+.lab-step.on{border-color:var(--dou);background:rgba(204,172,125,.07)}
+.lab-step.on i{background:var(--dou);color:var(--pet);border-color:var(--dou)}
+.lab-step.done i{background:var(--pet2);color:var(--dou);border-color:var(--dou)}
+.case{background:var(--off);color:var(--ink);border-radius:24px;padding:28px;box-shadow:0 30px 70px rgba(0,0,0,.3);min-height:420px}
+.case-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.dots{display:flex;gap:6px}.dots i{width:28px;height:4px;border-radius:4px;background:var(--line)}.dots i.on{background:var(--dou2)}
+.msg{margin:20px 0 8px;display:flex;gap:12px;align-items:flex-end}
+.msg .av{flex:none;width:38px;height:38px;border-radius:50%;background:var(--cha);display:grid;place-items:center;font-weight:800;color:var(--pet);font-size:14px}
+.bubble{background:var(--card);border:1px solid var(--line);border-radius:18px 18px 18px 4px;padding:14px 16px;font-size:16px;max-width:520px}
+.bubble small{display:block;color:var(--muted);font-size:12px;margin-top:6px}
+.ctx{font-size:14px;color:var(--muted);margin:10px 0 18px}
+.ask{font-weight:700;margin-bottom:12px}
+.pick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pk{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:14px 10px;cursor:pointer;font-weight:700;font-size:15px;text-align:center;transition:all .2s}
+.pk small{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px}
+.pk:hover:not([disabled]){border-color:var(--pet)}
+.pk.right{border-color:var(--ok);background:#EAF4EE}
+.pk.wrong{border-color:var(--no);background:#F8ECEA}
+.pk[disabled]{cursor:default}
+.fb{margin-top:16px;border-radius:14px;padding:16px 18px;background:var(--soft);border:1px solid var(--line);font-size:15px;animation:pop .35s ease}
+.fb h4{font-size:17px;margin-bottom:6px}
+.fb .inv{margin-top:10px;font-size:14px}
+.fb .inv b{color:var(--dou2)}
+.fb .btn{margin-top:14px}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.done-card{text-align:center;padding:20px 6px}
+.done-card .big{font-size:56px;font-weight:800;color:var(--pet);line-height:1}
+.done-card h3{font-size:26px;margin:12px 0 10px}
+.done-card p{color:var(--muted);max-width:460px;margin:0 auto 18px}
+
+/* Simulador */
+.sim{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px;align-items:stretch}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px}
+.fld{margin-bottom:26px}
+.fld label{display:flex;justify-content:space-between;gap:12px;font-weight:700;font-size:15px;margin-bottom:10px}
+.fld label output{color:var(--dou2);font-weight:800;font-variant-numeric:tabular-nums}
+.fld .hint{font-size:13px;color:var(--muted);margin-top:6px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:6px;background:linear-gradient(to right,var(--dou) var(--p,50%),var(--line) var(--p,50%));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--pet);border:3px solid var(--dou);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--pet);border:3px solid var(--dou);cursor:pointer}
+input[type=range]:focus-visible{box-shadow:0 0 0 3px rgba(204,172,125,.45)}
+.out{background:var(--pet);color:var(--off);border:0;display:flex;flex-direction:column}
+.out .k{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dou);font-weight:700}
+.out .v{font-size:clamp(34px,4.4vw,48px);font-weight:800;line-height:1.05;margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.out .s{color:var(--dmuted);font-size:15px}
+.out hr{border:0;border-top:1px solid var(--dline);margin:20px 0}
+.ratio{display:flex;align-items:center;gap:14px;margin-top:auto;padding-top:20px}
+.ratio .meter{flex:1;height:10px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden}
+.ratio .meter i{display:block;height:100%;background:var(--dou);border-radius:10px;transition:width .4s}
+.ratio b{font-size:15px;white-space:nowrap}
+.honest{font-size:13px;color:var(--muted);margin-top:14px}
+
+/* Matriz */
+.tabs{display:flex;gap:8px;margin-top:36px;flex-wrap:wrap}
+.tab{border:1.5px solid var(--dline);background:transparent;color:var(--off);padding:12px 20px;border-radius:999px;font-weight:700;cursor:pointer;font-size:15px}
+.tab[aria-selected=true]{background:var(--dou);color:var(--pet);border-color:var(--dou)}
+.tp{margin-top:24px;display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:start}
+.tp h3{font-size:30px;margin:6px 0 10px}
+.tp .q{color:var(--dmuted);font-size:17px}
+.subs{display:grid;gap:12px}
+.sub{border:1px solid var(--dline);border-radius:16px;padding:16px 18px;background:rgba(255,255,255,.02)}
+.sub b{display:block;font-size:16px;margin-bottom:4px}
+.sub span{font-size:14px;color:var(--dmuted)}
+.sub span::before{content:"Sinal: ";color:var(--dou);font-weight:700}
+
+/* Trilha */
+.cycle{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:28px 0 8px;font-weight:700;font-size:15px}
+.cycle span{background:var(--card);border:1px solid var(--line);padding:8px 14px;border-radius:999px}
+.cycle i{font-style:normal;color:var(--dou2)}
+.path{margin-top:36px;display:grid;gap:14px;position:relative}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.mod[open]{border-color:var(--pet);box-shadow:0 20px 44px rgba(23,41,46,.08)}
+.mod summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:56px 1fr auto;gap:16px;align-items:center;padding:20px 22px}
+.mod summary::-webkit-details-marker{display:none}
+.mod .n{width:56px;height:56px;border-radius:16px;background:var(--pet);color:var(--dou);display:grid;place-items:center;font-weight:800;font-size:20px}
+.mod.labm .n{background:var(--dou);color:var(--pet)}
+.mod h3{font-size:20px}
+.mod .sm{font-size:14px;color:var(--muted);margin-top:2px}
+.mod .chev{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;transition:transform .25s;font-weight:800}
+.mod[open] .chev{transform:rotate(45deg);background:var(--pet);color:var(--dou);border-color:var(--pet)}
+.mod-body{padding:0 22px 22px 94px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mb{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:15px}
+.mb b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dou2);margin-bottom:6px}
+
+/* Ficha interativa */
+.tool{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;margin-top:40px;align-items:start}
+.sheet{background:var(--off);color:var(--ink);border-radius:24px;padding:26px;box-shadow:0 30px 70px rgba(0,0,0,.3)}
+.sheet h3{font-size:20px;margin-bottom:4px}
+.sheet .sub2{font-size:13px;color:var(--muted);margin-bottom:16px}
+.sheet label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}
+.sheet input,.sheet textarea,.sheet select{width:100%;font-family:inherit;font-size:16px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.sheet textarea{min-height:76px;resize:vertical}
+.sheet input:focus,.sheet textarea:focus,.sheet select:focus{outline:none;border-color:var(--pet)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seg button{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:11px 6px;font-weight:700;cursor:pointer;font-size:14px}
+.seg button[aria-pressed=true]{background:var(--pet);color:var(--off);border-color:var(--pet)}
+.sheet .btn{width:100%;margin-top:16px}
+.mapbox{border:1px solid var(--dline);border-radius:24px;padding:24px;background:rgba(255,255,255,.02)}
+.mapbox .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+.mapbox .top b{font-size:15px}
+.mapbox .top span{font-size:13px;color:var(--dmuted)}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.col{border:1px solid var(--dline);border-radius:16px;padding:12px;min-height:220px;display:flex;flex-direction:column;gap:8px}
+.col h4{font-size:14px;color:var(--dou);display:flex;justify-content:space-between}
+.chip{background:var(--off);color:var(--ink);border-radius:10px;padding:8px 10px;font-size:12.5px;line-height:1.35;animation:pop .35s ease}
+.chip b{display:block;font-size:12px}
+.verdict{margin-top:16px;font-size:15px;color:var(--cha);min-height:48px}
+.verdict b{color:var(--off)}
+
+/* Pilha de valor */
+.stack{margin-top:40px;display:grid;gap:12px;max-width:860px}
+.it{display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.it .ic{width:52px;height:52px;border-radius:14px;background:var(--soft);border:1px solid var(--line);display:grid;place-items:center;font-size:24px}
+.it h3{font-size:18px}
+.it p{font-size:14.5px;color:var(--muted)}
+.it .tag{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ok);white-space:nowrap}
+.total{margin-top:18px;max-width:860px;background:var(--pet);color:var(--off);border-radius:24px;padding:30px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.total .k{font-size:13px;color:var(--cha)}
+.total .p{font-size:clamp(48px,7vw,76px);font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.total .p small{font-size:20px;font-weight:700;color:var(--dou);margin-right:6px;vertical-align:super}
+.total .c{font-size:14px;color:var(--dmuted);margin-top:8px;max-width:440px}
+
+/* Para quem é */
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+.fit .panel h3{font-size:22px;margin-bottom:14px}
+.fit ul{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.fit li{padding-left:30px;position:relative;font-size:16px}
+.fit li::before{position:absolute;left:0;top:0;font-weight:800}
+.fit .yes li::before{content:"✓";color:var(--ok)}
+.fit .no li::before{content:"✕";color:var(--no)}
+
+/* Quem conduz */
+.who{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
+.seal{width:200px;height:200px;border-radius:50%;border:1.5px solid var(--dou);display:grid;place-items:center;text-align:center;background:radial-gradient(circle,rgba(204,172,125,.12),transparent 70%)}
+.seal b{display:block;font-size:46px;font-weight:800;color:var(--dou);letter-spacing:.04em;line-height:1}
+.seal span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cha)}
+.who h2{font-size:clamp(28px,3.6vw,40px);margin:12px 0 14px}
+.who p{color:var(--dmuted);max-width:640px;margin-bottom:12px}
+
+/* Investimento */
+.buy{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;margin-top:40px;align-items:stretch}
+.buy ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px}
+.buy li{padding-left:28px;position:relative}
+.buy li::before{content:"↳";position:absolute;left:0;color:var(--dou2);font-weight:800}
+.price-card{background:var(--pet);color:var(--off);border-radius:24px;padding:30px;display:flex;flex-direction:column;gap:12px;justify-content:center;text-align:center}
+.price-card .p{font-size:84px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.price-card .p small{font-size:24px;color:var(--dou);vertical-align:super;margin-right:4px}
+.price-card .k{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dou);font-weight:700}
+.price-card .btn{width:100%}
+.price-card .c{font-size:13px;color:var(--dmuted)}
+.small{font-size:13px;color:var(--muted);margin-top:14px}
+
+/* Perguntas frequentes */
+.faq{margin-top:36px;display:grid;gap:10px;max-width:860px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:0 22px}
+.faq summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:700;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--dou2);font-size:22px;line-height:1;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 18px;color:var(--muted)}
+
+.final{text-align:center}
+.final .h2{max-width:760px;margin-left:auto;margin-right:auto}
+.final .lead{margin:0 auto 28px}
+footer{background:var(--void);color:var(--dmuted);font-size:13px;padding:28px 0 100px;text-align:center;border-top:1px solid var(--dline)}
+footer a{color:var(--cha)}
+
+/* Barra fixa no celular */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(14,26,29,.96);backdrop-filter:blur(10px);border-top:1px solid var(--dline);padding:10px max(16px,env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));display:none;align-items:center;gap:12px;transform:translateY(110%);transition:transform .3s}
+.dock.show{transform:none}
+.dock .t{color:var(--off);font-size:13px;line-height:1.3;flex:1}
+.dock .t b{display:block;font-size:17px;color:var(--dou)}
+.dock .btn{min-height:46px;padding:10px 18px;font-size:15px;box-shadow:none}
+
+@media (max-width:900px){
+  section{padding:72px 0}
+  .hero{padding:110px 0 64px}
+  .hero .wrap,.lab,.sim,.tp,.tool,.buy,.fit,.who{grid-template-columns:1fr}
+  .stage{max-width:420px}
+  .react{grid-template-columns:1fr}
+  .mod-body{grid-template-columns:1fr;padding:0 18px 18px}
+  .mod summary{grid-template-columns:48px 1fr auto;padding:16px 18px;gap:12px}
+  .mod .n{width:48px;height:48px;font-size:18px}
+  .total{grid-template-columns:1fr}
+  .seal{width:150px;height:150px}.seal b{font-size:34px}
+  .lab-side{grid-template-columns:repeat(3,1fr);gap:8px}
+  .lab-step{flex-direction:column;gap:8px;padding:12px;font-size:13px}
+  .lab-step span{display:none}
+  .lab-step b{font-size:13px}
+  .dock{display:flex}
+  .nav .btn{display:none}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .case,.sheet,.panel{padding:20px}
+  .pick{grid-template-columns:1fr}
+  .pk{display:flex;justify-content:space-between;align-items:center;text-align:left;padding:14px 16px}
+  .pk small{margin:0}
+  .cols{grid-template-columns:1fr}
+  .col{min-height:0}
+  .it{grid-template-columns:44px 1fr;padding:16px}
+  .it .ic{width:44px;height:44px;font-size:20px}
+  .it .tag{grid-column:2}
+  .price-card .p{font-size:68px}
+  .cta-row .btn{width:100%}
+}
+</style>
+<script>
+/* VERT4: mensuração opcional, sem respostas do quiz ou dados da ficha. */
+(function(){
+'use strict';
+var ID='2345575089312148', KEY='vert4-marketing-consent-v1', choice=null, ready=false;
+var page=document.documentElement.dataset.vert4Page||'mapa';
+try{choice=localStorage.getItem(KEY);}catch(e){}
+function start(){
+ if(ready)return;ready=true;
+ if(!window.fbq){var n=window.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};n.push=n;n.loaded=true;n.version='2.0';n.queue=[];window._fbq=n;
+ var s=document.createElement('script');s.async=true;s.src='https://connect.facebook.net/en_US/fbevents.js';document.head.appendChild(s);}
+ window.fbq('consent','grant');window.fbq('set','autoConfig',false,ID);window.fbq('init',ID);
+ send('track','PageView',{});
+ send('track','ViewContent',{content_name:page==='quiz'?'Quiz VERT4':'Mapa de Oportunidades VERT4',content_category:page});
+}
+function send(type,event,params){
+ if(choice!=='accepted'||!ready)return;
+ var data=Object.assign({page_type:page},params);
+ window.fbq(type==='track'?'trackSingle':'trackSingleCustom',ID,event,data);
+ (window.dataLayer=window.dataLayer||[]).push(Object.assign({event:event},data));
+}
+var allowed={quiz_inicio:1,quiz_concluido:1,quiz_clique_oferta:1,quiz_clique_whatsapp:1,mapa_clique_compra:1,mapa_aula_inicio:1,mapa_aula_concluida:1,mapa_simulador:1,mapa_ficha_registro:1,mapa_view:1};
+var once={};
+window.vert4Track=function(event){
+ if(!allowed[event]||choice!=='accepted')return;
+ if((event==='quiz_inicio'||event==='quiz_concluido')&&once[event])return;
+ once[event]=true;
+ send('custom',event,{});
+ /* InitiateCheckout é enviado pela Hotmart ao abrir o checkout.
+    O clique de saída é medido separadamente para evitar duplicação. */
+};
+function choose(value){
+ choice=value;try{localStorage.setItem(KEY,value);}catch(e){}
+ if(value==='accepted')start();else if(window.fbq)window.fbq('consent','revoke');
+ document.getElementById('v4Cookies').hidden=true;
+}
+function ui(){
+ var style=document.createElement('style');style.textContent='#v4Cookies{position:fixed;z-index:99999;bottom:16px;left:16px;right:16px;max-width:780px;margin:auto;background:#F2EFE6;color:#17292E;border:1px solid #CCAC7D;border-radius:16px;padding:20px;box-shadow:0 8px 40px #0004;font:14px/1.5 Arial,sans-serif}#v4Cookies[hidden]{display:none}#v4Cookies p{margin:0 0 14px}#v4Cookies button,#v4Privacy{font:inherit;cursor:pointer;border:1px solid #17292E;border-radius:8px;padding:10px 14px;background:#F2EFE6;color:#17292E}#v4Cookies button{margin:0 8px 6px 0}#v4Cookies button[data-consent="accepted"]{background:#17292E;color:#F2EFE6}#v4Privacy{display:block;margin:24px auto;font-size:12px}';document.head.appendChild(style);
+ var box=document.createElement('section');box.id='v4Cookies';box.setAttribute('aria-label','Preferências de cookies');box.innerHTML='<p><b>Você escolhe os cookies de publicidade.</b><br>Com seu aceite, usamos o pixel da Meta para medir visitas e interações no quiz e na oferta. A Meta pode receber dados do navegador e da visita. Não enviamos suas respostas do quiz nem os textos da ficha. Você pode continuar sem aceitar e mudar sua escolha abaixo.</p><button type="button" data-consent="rejected">Continuar sem aceitar</button><button type="button" data-consent="accepted">Aceitar publicidade</button>';box.hidden=choice==='accepted'||choice==='rejected';document.body.appendChild(box);
+ box.addEventListener('click',function(e){var b=e.target.closest('[data-consent]');if(b)choose(b.dataset.consent);});
+ var btn=document.createElement('button');btn.id='v4Privacy';btn.type='button';btn.textContent='Preferências de cookies';btn.addEventListener('click',function(){box.hidden=false;});document.body.appendChild(btn);
+ if(choice==='accepted')start();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ui);else ui();
+})();
+</script>
+<style>.official-logo{display:grid;gap:5px}.official-logo img{width:245px;height:auto;max-width:100%}.footer-brand{display:block;width:280px;max-width:80%;height:auto;margin:0 auto 24px}@media(max-width:520px){.official-logo img{width:190px}}</style><style>
+/* Oferta Black e canais oficiais */
+.btn[data-go][href^="https://pay.hotmart.com/"],.total .btn,.price-card .btn,.done-card a.btn{background:#167345;color:#fff;box-shadow:0 10px 28px #16734533}
+.btn[data-go][href^="https://pay.hotmart.com/"]:hover,.done-card a.btn:hover{background:#105c36}
+.black-offer{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 16px;font-size:16px}
+.black-offer del{color:var(--dmuted)}.light .black-offer del{color:var(--muted)}
+.black-offer strong{background:#B42332;color:#fff;padding:5px 10px;border-radius:8px;font-size:13px}
+.price-card .black-offer{justify-content:center}
+.week-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+.week-grid article{padding:24px;background:#fff;border:1px solid var(--line);border-radius:18px}
+.week-grid h3{font-size:20px;margin-bottom:12px}.week-grid p{font-size:15px;color:var(--muted)}
+.social-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;margin-top:24px}
+.social-links a{padding:8px;text-underline-offset:4px}
+.support-float{position:fixed;right:18px;bottom:22px;z-index:70;background:#167345;color:#fff;padding:13px 18px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 6px 24px #0003}
+a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4px}
+@media(max-width:700px){.week-grid{grid-template-columns:1fr}.support-float{bottom:100px;right:12px;padding:11px 14px}}
+</style></head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo official-logo" href="../" aria-label="VERT4® página inicial"><img src="../assets/logo-vert4.svg" alt="VERT4® Aceleradora Comercial" width="2082" height="318"><small>Mapa de Oportunidades</small></a>
+    <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero o Mapa · R$ 47</a>
+  </div>
+  <div class="progress" id="prog"></div>
+</header>
+
+<main>
+<!-- 1. Abertura -->
+<section class="hero" id="topo">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Mapa de Oportunidades VERT4®</span>
+      <h1>Antes de buscar mais interessados, entenda por que <em>os atuais não avançam.</em></h1>
+      <p class="lead">Um minicurso prático para empresários de serviços. Você analisa dez oportunidades reais com a matriz Público, Oferta e Comercial e sai com uma prioridade clara do que investigar primeiro.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa por R$ 47</a>
+        <a class="btn line" href="#aula">Experimentar o método agora ↓</a>
+      </div>
+      <div class="meta"><span>Pagamento único</span><span>5 etapas com atividade prática</span><span>4 ferramentas de análise</span></div>
+    </div>
+    <div class="stage reveal" aria-label="Animação: dez oportunidades sendo classificadas nas três dimensões">
+      <div class="stage-top"><span>Prévia do método</span><span id="stageState">Classificando</span></div>
+      <svg viewBox="0 0 400 320" id="stageSvg" role="img" aria-hidden="true">
+        <g font-family="Manrope, Arial" font-weight="700" font-size="12" fill="#E3D5B3" text-anchor="middle">
+          <rect x="18" y="120" width="112" height="170" rx="16" fill="none" stroke="rgba(204,172,125,.28)"/>
+          <rect x="144" y="120" width="112" height="170" rx="16" fill="none" stroke="rgba(204,172,125,.28)"/>
+          <rect x="270" y="120" width="112" height="170" rx="16" fill="none" stroke="rgba(204,172,125,.28)"/>
+          <text x="74" y="142">PÚBLICO</text><text x="200" y="142">OFERTA</text><text x="326" y="142">COMERCIAL</text>
+        </g>
+        <g id="stageDots"></g>
+        <rect id="stageHi" x="0" y="0" width="0" height="0" rx="16" fill="rgba(204,172,125,.10)" stroke="#CCAC7D" stroke-width="1.5" opacity="0"/>
+      </svg>
+      <div class="stage-cap"><div><b class="num" id="capN">0/10</b>oportunidades mapeadas</div><div style="text-align:right"><b id="capP">…</b>prioridade</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. O problema: confrontar a reação automática -->
+<section class="light" id="problema">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">O que acontece hoje</span>
+      <h2 class="h2">O interesse chega. <em>A venda não acontece.</em></h2>
+      <p class="lead">Quando as vendas não vêm, quase toda empresa reage com uma destas três decisões. Toque na que você já tomou.</p>
+    </div>
+    <div class="react reveal">
+      <button class="rc" type="button"><span class="k">Reação 1</span><h3>Investir em mais divulgação</h3><span class="tap">Ver quando funciona →</span>
+        <div class="ans"><b style="color:var(--ok)">Funciona quando</b>o problema é volume e quem chega tem o perfil certo.<b style="color:var(--no)">Piora quando</b>a perda está na oferta ou no comercial: você paga para levar mais gente ao mesmo ponto de perda.</div></button>
+      <button class="rc" type="button"><span class="k">Reação 2</span><h3>Oferecer desconto</h3><span class="tap">Ver quando funciona →</span>
+        <div class="ans"><b style="color:var(--ok)">Funciona quando</b>o preço está de fato acima do que o seu público pode pagar.<b style="color:var(--no)">Piora quando</b>o cliente não entendeu o valor: a margem cai e a dúvida continua lá.</div></button>
+      <button class="rc" type="button"><span class="k">Reação 3</span><h3>Cobrar mais da equipe</h3><span class="tap">Ver quando funciona →</span>
+        <div class="ans"><b style="color:var(--ok)">Funciona quando</b>todos sabem em que etapa a oportunidade se perde.<b style="color:var(--no)">Piora quando</b>ninguém sabe: a cobrança vira pressão sem direção.</div></button>
+    </div>
+    <p class="punch reveal">As três podem funcionar. O problema é escolher antes de saber a causa. O Mapa existe para essa decisão vir <em>depois</em> da evidência.</p>
+  </div>
+</section>
+
+<!-- 3. Aula-teste: aprender fazendo -->
+<section class="dark deep" id="aula">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Aula-teste · 3 minutos</span>
+      <h2 class="h2">Experimente o método <em>antes de comprar.</em></h2>
+      <p class="lead">Três mensagens que chegam todos os dias em empresas de serviços. Para cada uma, decida onde está o ponto de perda. Você recebe a explicação na hora, do mesmo jeito que acontece dentro do Mapa.</p>
+    </div>
+    <div class="lab">
+      <div class="lab-side reveal" aria-hidden="true">
+        <div class="lab-step on" data-st="0"><i>1</i><div><b>Ler o fato</b><span>O que de fato aconteceu, sem interpretar.</span></div></div>
+        <div class="lab-step" data-st="1"><i>2</i><div><b>Classificar o sinal</b><span>Público, Oferta ou Comercial.</span></div></div>
+        <div class="lab-step" data-st="2"><i>3</i><div><b>Definir o que investigar</b><span>A pergunta que leva à evidência.</span></div></div>
+      </div>
+      <div class="case reveal" id="case" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Simulador de valor -->
+<section class="light" id="valor">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Simulador</span>
+      <h2 class="h2">Quanto vale <em>uma oportunidade que avança?</em></h2>
+      <p class="lead">Coloque os números da sua empresa e veja o que significa, em dinheiro, fazer só um pouco mais das conversas que já existem chegarem ao fim.</p>
+    </div>
+    <div class="sim reveal">
+      <div class="panel">
+        <div class="fld"><label for="sV">Interessados por mês <output id="oV" class="num"></output></label><input type="range" id="sV" min="5" max="300" step="5" value="40"><div class="hint">Mensagens, pedidos de orçamento e contatos.</div></div>
+        <div class="fld"><label for="sC">De cada 10, quantos fecham hoje <output id="oC" class="num"></output></label><input type="range" id="sC" min="0" max="8" step="1" value="2"></div>
+        <div class="fld" style="margin-bottom:0"><label for="sT">Valor médio de um cliente <output id="oT" class="num"></output></label><input type="range" id="sT" min="100" max="20000" step="100" value="1500"><div class="hint">O quanto entra, em média, por cliente fechado.</div></div>
+      </div>
+      <div class="panel out" aria-live="polite">
+        <span class="k">Hoje</span>
+        <div class="v" id="rNow">R$ 0</div>
+        <div class="s" id="rNowS"></div>
+        <hr>
+        <span class="k">Se 1 a mais em cada 20 interessados avançasse</span>
+        <div class="v" id="rPlus" style="color:var(--dou)">+R$ 0</div>
+        <div class="s" id="rPlusS"></div>
+        <div class="ratio"><div class="meter"><i id="rMeter"></i></div><b id="rRatio"></b></div>
+      </div>
+    </div>
+    <p class="honest reveal">Simulação ilustrativa feita só com os números que você informou. Não é promessa de resultado: o Mapa mostra onde investigar, e o resultado depende do que for corrigido depois.</p>
+  </div>
+</section>
+
+<!-- 5. A matriz -->
+<section class="dark" id="matriz">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">A matriz Público, Oferta e Comercial</span>
+      <h2 class="h2">Três lugares onde uma oportunidade <em>pode parar.</em></h2>
+      <p class="lead">Cada dimensão responde a uma pergunta diferente. Escolha uma para ver o que ela investiga.</p>
+    </div>
+    <div class="tabs reveal" role="tablist" aria-label="Dimensões da matriz">
+      <button class="tab" role="tab" aria-selected="true" data-t="p">Público</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="o">Oferta</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="c">Comercial</button>
+    </div>
+    <div class="tp reveal" id="tpanel" role="tabpanel"></div>
+  </div>
+</section>
+
+<!-- 6. Trilha pedagógica -->
+<section class="light" id="trilha">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Como você aprende</span>
+      <h2 class="h2">Cinco etapas. <em>Cada uma termina no seu caso real.</em></h2>
+      <p class="lead">Nada de assistir e esquecer. Cada aula segue o mesmo ciclo e só libera a próxima quando você aplica na sua empresa.</p>
+      <div class="cycle"><span>Entender o conceito</span><i>→</i><span>Ver um exemplo</span><i>→</i><span>Aplicar no seu caso</span><i>→</i><span>Registrar a evidência</span><i>→</i><span>Decidir</span></div>
+    </div>
+    <div class="path" id="path"></div>
+  </div>
+</section>
+
+<!-- 7. Ferramenta: ficha de evidências ao vivo -->
+<section class="dark deep" id="ferramentas">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Teste a ferramenta</span>
+      <h2 class="h2">Registre uma oportunidade e <em>veja o mapa se formar.</em></h2>
+      <p class="lead">Esta é uma versão simplificada da Ficha de evidências. Preencha com uma conversa recente da sua empresa. No Mapa, você faz isso com dez e o padrão aparece sozinho.</p>
+    </div>
+    <div class="tool">
+      <form class="sheet reveal" id="sheet" autocomplete="off">
+        <h3>Ficha de evidências</h3>
+        <p class="sub2">Fica só no seu navegador. Nada é enviado.</p>
+        <label for="fN">Oportunidade</label>
+        <input id="fN" maxlength="40" placeholder="Ex.: Orçamento de reforma, março">
+        <label for="fF">O que aconteceu (o fato, sem opinião)</label>
+        <textarea id="fF" maxlength="160" placeholder="Ex.: Recebeu a proposta, disse que ia pensar e parou de responder."></textarea>
+        <label>Onde está o sinal mais forte?</label>
+        <div class="seg" role="group" aria-label="Dimensão"><button type="button" data-d="p" aria-pressed="false">Público</button><button type="button" data-d="o" aria-pressed="false">Oferta</button><button type="button" data-d="c" aria-pressed="false">Comercial</button></div>
+        <button class="btn dk" type="submit">Adicionar ao mapa</button>
+      </form>
+      <div class="mapbox reveal">
+        <div class="top"><b>Seu mapa</b><span class="num" id="mCount">0 de 10 oportunidades</span></div>
+        <div class="cols">
+          <div class="col" data-c="p"><h4>Público <span class="num">0</span></h4></div>
+          <div class="col" data-c="o"><h4>Oferta <span class="num">0</span></h4></div>
+          <div class="col" data-c="c"><h4>Comercial <span class="num">0</span></h4></div>
+        </div>
+        <p class="verdict" id="verdict">Adicione a primeira oportunidade para começar. Já deixamos dois exemplos para você ver como fica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Pilha de valor -->
+<section class="light" id="recebe">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">O que você recebe</span>
+      <h2 class="h2">Um método e todas as ferramentas <em>para aplicar.</em></h2>
+    </div>
+    <div class="stack">
+      <div class="it reveal"><div class="ic">🎓</div><div><h3>Minicurso em 5 etapas</h3><p>Do conceito ao laboratório, com atividade prática em cada aula e liberação passo a passo.</p></div><span class="tag">Incluído</span></div>
+      <div class="it reveal"><div class="ic">🧭</div><div><h3>Diagnóstico VERT4® com relatório</h3><p>O primeiro passo da plataforma: um relatório com a sua prioridade e um plano de 7 dias.</p></div><span class="tag">Incluído</span></div>
+      <div class="it reveal"><div class="ic">🗺️</div><div><h3>Mapa de Oportunidades</h3><p>A visão das três dimensões e dos pontos de perda em uma única página.</p></div><span class="tag">Incluído</span></div>
+      <div class="it reveal"><div class="ic">📝</div><div><h3>Ficha de evidências</h3><p>Para registrar cada caso com fatos, não impressões.</p></div><span class="tag">Incluído</span></div>
+      <div class="it reveal"><div class="ic">▦</div><div><h3>Matriz Público, Oferta e Comercial</h3><p>Para classificar cada evidência na dimensão certa.</p></div><span class="tag">Incluído</span></div>
+      <div class="it reveal"><div class="ic">✅</div><div><h3>Checklist de priorização</h3><p>Para decidir, com critério, qual dimensão investigar primeiro.</p></div><span class="tag">Incluído</span></div>
+      <div class="it reveal"><div class="ic">🔬</div><div><h3>Laboratório das 10 oportunidades</h3><p>A etapa final: você aplica tudo nos seus casos e sai com uma prioridade definida.</p></div><span class="tag">Incluído</span></div>
+    </div>
+    <div class="total reveal">
+      <div><div class="black-offer"><del>De R$ 97</del><strong>BLACK · R$ 50 DE DESCONTO</strong></div><div class="k">Oferta Black · pagamento único</div><div class="p"><small>R$</small>47</div><p class="c" id="totalC">Menos do que custa uma única oportunidade perdida na maioria das empresas de serviços.</p></div>
+      <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa</a>
+    </div>
+  </div>
+</section>
+
+<!-- 9. Para quem é -->
+<section class="light" id="primeira-semana">
+  <div class="wrap reveal">
+    <span class="eyebrow">Sua primeira semana com o Mapa</span>
+    <h2 class="h2">Das conversas soltas a uma <em>prioridade definida.</em></h2>
+    <p class="lead">Um roteiro para aplicar as ferramentas nas oportunidades da sua empresa, no seu ritmo.</p>
+    <div class="week-grid">
+      <article><h3>Dias 1 e 2 · Reunir</h3><p>Separe dez oportunidades recentes e registre de onde vieram, o que buscavam e em que ponto cada conversa parou.</p></article>
+      <article><h3>Dias 3 e 4 · Analisar</h3><p>Use as aulas e a matriz Público, Oferta e Comercial para classificar os sinais e registrar as evidências.</p></article>
+      <article><h3>Dias 5 a 7 · Priorizar</h3><p>Compare os padrões, aplique o checklist e escolha uma melhoria para testar e acompanhar.</p></article>
+    </div>
+  </div>
+</section>
+<section class="light" id="paraquem" style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Para quem é</span>
+      <h2 class="h2">Feito para quem <em>já recebe interessados.</em></h2>
+    </div>
+    <div class="fit">
+      <div class="panel yes reveal"><h3>É para você se</h3><ul>
+        <li>Sua empresa é de serviços e recebe mensagens, pedidos de orçamento ou demonstrações de interesse.</li>
+        <li>Muitas dessas oportunidades não viram clientes e você não sabe exatamente por quê.</li>
+        <li>Você prefere entender a causa antes de investir em divulgação ou mexer no preço.</li>
+        <li>Você consegue reunir dez oportunidades recentes para analisar.</li></ul></div>
+      <div class="panel no reveal"><h3>Não é para você se</h3><ul>
+        <li>Sua empresa ainda não recebe interessados. Aqui o trabalho começa com quem já chegou.</li>
+        <li>Você procura uma solução pronta sem olhar para os próprios casos.</li>
+        <li>Você espera a implementação completa da operação comercial. Este é o primeiro diagnóstico.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Quem conduz -->
+<section class="dark" id="quem">
+  <div class="wrap who">
+    <div class="seal reveal"><div><b>VT4</b><span>Estratégia comercial</span></div></div>
+    <div class="reveal">
+      <span class="eyebrow">Quem conduz</span>
+      <h2>Aline Sanches, fundadora da VERT4®.</h2>
+      <p>O Mapa propõe uma leitura conectada de público, oferta e condução comercial, aplicada aos casos da própria empresa.</p>
+      <p>O ponto de partida é simples e exigente: observar o que aconteceu antes de decidir o que mudar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11. Investimento -->
+<section class="light" id="investimento">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Investimento</span>
+      <h2 class="h2">Seu próximo investimento pode começar <em>por uma leitura melhor.</em></h2>
+    </div>
+    <div class="buy">
+      <div class="panel reveal">
+        <h3 style="font-size:22px">Mapa de Oportunidades VERT4®</h3>
+        <ul>
+          <li>Minicurso prático em cinco etapas, com laboratório</li>
+          <li>Diagnóstico VERT4® com relatório e plano de 7 dias</li>
+          <li>Mapa de Oportunidades (mapa visual)</li>
+          <li>Ficha de evidências</li>
+          <li>Matriz Público, Oferta e Comercial</li>
+          <li>Checklist de priorização</li>
+        </ul>
+        <p class="small">O Mapa inclui o minicurso e as ferramentas listadas. Consultoria e implementação da operação são serviços separados. Complementos do checkout são opcionais.</p>
+      </div>
+      <div class="price-card reveal"><div class="black-offer"><del>De R$ 97</del><strong>BLACK · R$ 50 DE DESCONTO</strong></div>
+        <span class="k">Pagamento único</span>
+        <div class="p"><small>R$</small>47</div>
+        <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Continuar para o checkout →</a>
+        <span class="c">Antes de pagar, confira na plataforma o prazo de acesso, o suporte e as condições de reembolso.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. Perguntas frequentes -->
+<section class="light" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">Dúvidas frequentes</span><h2 class="h2">O que vale saber <em>antes de decidir.</em></h2></div>
+    <div class="faq reveal">
+      <details><summary>Preciso comprar os complementos do checkout?</summary><p>Não. O minicurso e as ferramentas desta página compõem o Mapa de R$ 47. Os complementos são opcionais e só alteram o total quando você os seleciona.</p></details>
+      <details><summary>O Mapa serve para a minha empresa?</summary><p>A proposta é voltada a empresas de serviços que já recebem interessados e conseguem reunir dez oportunidades recentes. Você trabalha sobre os próprios casos, tenham eles avançado ou não.</p></details>
+      <details><summary>O mapa vai me dizer exatamente por que não estou vendendo?</summary><p>Ele organiza as evidências e aponta qual dimensão investigar primeiro. Uma causa definitiva depende de evidências suficientes, e o método deixa claro quando elas ainda não existem.</p></details>
+      <details><summary>O que preciso ter em mãos para começar?</summary><p>Dez oportunidades comerciais recentes da sua empresa: contatos que chegaram por mensagem, pedido de orçamento ou outro canal, tenham ou não virado clientes.</p></details>
+      <details><summary>Não seria mais simples investir em mais divulgação?</summary><p>Se o problema estiver no público, talvez. Se estiver na oferta ou no comercial, mais divulgação traz mais pessoas para o mesmo ponto de perda. O Mapa ajuda você a saber qual é o caso antes de investir.</p></details>
+      <details><summary>Como recebo o acesso?</summary><p>O acesso é disponibilizado pelo canal informado na compra. Antes de contratar, confira na plataforma o prazo de acesso, o suporte e as condições de reembolso.</p></details>
+      <details><summary>E depois de identificar onde investigar?</summary><p>Você usa a dimensão priorizada para definir uma investigação ou melhoria. Se quiser apoio, a Consultoria pontual e o acompanhamento VERT4® são serviços separados.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 13. Fechamento -->
+<section class="dark deep final">
+  <div class="wrap reveal">
+    <span class="eyebrow">Antes de mudar o preço ou aumentar a divulgação</span>
+    <h2 class="h2">Saiba onde as suas oportunidades <em>estão parando.</em></h2>
+    <p class="lead">Dez oportunidades analisadas. Uma prioridade definida. R$ 47.</p>
+    <div class="cta-row" style="justify-content:center"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa por R$ 47</a><a class="btn line" href="quiz.html" data-go>Prefiro começar pelo quiz</a></div>
+  </div>
+</section>
+</main>
+
+<footer><img class="footer-brand" src="../assets/logo-vert4.svg" alt="VERT4® Aceleradora Comercial" width="2082" height="318" loading="lazy"><div class="wrap">VERT4® Aceleradora Comercial · Mapa de Oportunidades VERT4® · <a href="../">Conheça a VERT4®</a></div><nav class="social-links" aria-label="Redes sociais da VERT4">
+<a href="https://www.linkedin.com/in/aline-sanches-a46224a0/" target="_blank" rel="noopener noreferrer">LinkedIn · Aline Sanches</a>
+<a href="https://www.instagram.com/alinedayanesanches/" target="_blank" rel="noopener noreferrer">Instagram · @alinedayanesanches</a>
+<a href="https://www.instagram.com/_vert4/" target="_blank" rel="noopener noreferrer">Instagram · @_vert4</a>
+</nav></footer>
+
+<a class="support-float" href="https://wa.me/5569992947188?text=Ol%C3%A1%21%20Quero%20tirar%20uma%20d%C3%BAvida%20sobre%20o%20Mapa%20de%20Oportunidades%20VERT4." target="_blank" rel="noopener noreferrer" aria-label="Suporte VERT4 pelo WhatsApp">WhatsApp · Suporte</a>
+<div class="dock" id="dock"><div class="t">Mapa de Oportunidades<b>R$ 47</b></div><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero o Mapa</a></div>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(s,r){return (r||document).querySelector(s)}, $$ = function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+  var brl = function(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0})};
+  var DN = {p:"Público",o:"Oferta",c:"Comercial"};
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function track(ev){ if(window.vert4Track) window.vert4Track(ev); }
+
+
+  /* Repassa os parâmetros do anúncio para checkout e quiz */
+  (function(){
+    var sp = new URLSearchParams(location.search), keep = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid","origem"], q = [];
+    keep.forEach(function(k){ if(sp.get(k)) q.push(k+"="+encodeURIComponent(sp.get(k))); });
+    $$("[data-go]").forEach(function(a){
+      if(q.length){ var dest = new URL(a.getAttribute("href"), location.href); q.forEach(function(pair){ var part=pair.split("="); dest.searchParams.set(part[0],decodeURIComponent(part.slice(1).join("="))); }); a.href = dest.href; }
+      a.addEventListener("click", function(){ if(a.hostname==="pay.hotmart.com") track("mapa_clique_compra"); });
+    });
+  })();
+
+  /* Barra, progresso de leitura e barra fixa do celular */
+  var nav = $("#nav"), prog = $("#prog"), dock = $("#dock");
+  function onScroll(){
+    var y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    nav.classList.toggle("solid", y > 40);
+    prog.style.width = (h > 0 ? y/h*100 : 0) + "%";
+    dock.classList.toggle("show", y > innerHeight*0.8 && y < h - 300);
+  }
+  addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  /* Entradas suaves */
+  if("IntersectionObserver" in window && !reduce){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }); },{threshold:.12, rootMargin:"0px 0px -40px 0px"});
+    $$(".reveal").forEach(function(el){ io.observe(el); });
+  } else $$(".reveal").forEach(function(el){ el.classList.add("in"); });
+
+  /* 1. Animação da abertura: dez oportunidades caem nas três colunas e a prioridade aparece */
+  (function(){
+    var g = $("#stageDots"), hi = $("#stageHi"), capN = $("#capN"), capP = $("#capP"), st = $("#stageState");
+    var colX = {p:74,o:200,c:326}, NS = "http://www.w3.org/2000/svg";
+    var seqs = [["c","p","c","o","c","p","c","o","c","c"],["o","p","o","c","o","o","p","c","o","p"],["p","p","c","p","o","p","c","p","o","p"]], si = 0;
+    function run(){
+      g.innerHTML = ""; hi.setAttribute("opacity","0"); capP.textContent = "…"; st.textContent = "Classificando";
+      var seq = seqs[si++ % seqs.length], cnt = {p:0,o:0,c:0};
+      seq.forEach(function(d,k){
+        var x0 = 40 + k*35, c = document.createElementNS(NS,"circle");
+        c.setAttribute("r","9"); c.setAttribute("cx",x0); c.setAttribute("cy","60"); c.setAttribute("fill","#E3D5B3"); c.setAttribute("opacity",".9");
+        c.style.transition = "all .7s cubic-bezier(.2,.8,.2,1)";
+        g.appendChild(c);
+        setTimeout(function(){
+          var n = cnt[d]++, x = colX[d] - 30 + (n%3)*30, y = 176 + Math.floor(n/3)*30;
+          c.setAttribute("cx",x); c.setAttribute("cy",y); c.setAttribute("fill", "#CCAC7D");
+          capN.textContent = (k+1) + "/10";
+          if(k === seq.length-1) setTimeout(function(){
+            var top = Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a]})[0];
+            hi.setAttribute("x", colX[top]-56); hi.setAttribute("y",120); hi.setAttribute("width",112); hi.setAttribute("height",170); hi.setAttribute("opacity","1");
+            capP.textContent = DN[top]; st.textContent = "Prioridade definida";
+            setTimeout(run, 2600);
+          }, 600);
+        }, reduce ? 0 : 500 + k*380);
+      });
+    }
+    run();
+  })();
+
+  /* 2. Reações */
+  $$(".rc").forEach(function(b){ b.addEventListener("click", function(){ b.classList.toggle("open"); }); });
+
+  /* 3. Aula-teste */
+  var CASES = [
+    {who:"MR", tag:"Clínica odontológica particular", msg:"Oi! Vocês atendem pelo plano de saúde? Só consigo fazer se for pelo convênio.", time:"WhatsApp · 09:12",
+     ctx:"A clínica não trabalha com convênio. Esta é a terceira mensagem parecida da semana.", ans:"p",
+     why:"A pessoa até tem interesse, mas procura algo que a empresa não oferece. Nenhum atendimento caprichado resolve isso: o desencontro começa em quem está chegando.",
+     inv:"Que mensagem da divulgação pode estar atraindo quem procura convênio?"},
+    {who:"JP", tag:"Empresa de reformas", msg:"Recebi o orçamento, obrigado. Só não entendi bem: a visita técnica e o material estão incluídos nesse valor?", time:"WhatsApp · 14:40",
+     ctx:"O orçamento foi enviado em PDF, com o valor total e uma lista de serviços.", ans:"o",
+     why:"O interessado tem perfil e recebeu a proposta, mas não entendeu o que está incluído. Quem não entende a proposta não consegue defendê-la nem para si mesmo.",
+     inv:"Que três perguntas aparecem depois de toda proposta e ainda não estão respondidas nela?"},
+    {who:"CL", tag:"Escritório de contabilidade", msg:"Mandei mensagem na segunda e só me responderam na quinta. Já fechei com outro escritório, mas obrigada.", time:"WhatsApp · quinta, 17:05",
+     ctx:"O contato veio por indicação de um cliente e tinha o perfil ideal.", ans:"c",
+     why:"Perfil certo e interesse real. A oportunidade se perdeu no tempo de resposta. É a perda mais silenciosa: ninguém disse não, a conversa só esfriou.",
+     inv:"Quanto tempo leva, em média, a primeira resposta? E quem é responsável por ela?"}
+  ];
+  var ci = 0, hits = 0, caseEl = $("#case");
+  function setStep(n){ $$(".lab-step").forEach(function(s,k){ s.classList.toggle("on",k===n); s.classList.toggle("done",k<n); }); }
+  function renderCase(){
+    var c = CASES[ci]; setStep(0);
+    var dots = CASES.map(function(_,k){return '<i class="'+(k<=ci?'on':'')+'"></i>'}).join("");
+    caseEl.innerHTML = '<div class="case-top"><span>Caso '+(ci+1)+' de '+CASES.length+' · '+c.tag+'</span><span class="dots">'+dots+'</span></div>'+
+      '<div class="msg"><div class="av">'+c.who+'</div><div class="bubble">'+c.msg+'<small>'+c.time+'</small></div></div>'+
+      '<p class="ctx"><b>Contexto:</b> '+c.ctx+'</p><p class="ask">Onde está o ponto de perda?</p>'+
+      '<div class="pick">'+["p","o","c"].map(function(d){return '<button class="pk" data-d="'+d+'">'+DN[d]+'<small>'+({p:"quem chega",o:"como é apresentado",c:"como é conduzido"})[d]+'</small></button>'}).join("")+'</div><div id="fbx"></div>';
+    setTimeout(function(){ setStep(1); }, 700);
+  }
+  caseEl.addEventListener("click", function(e){
+    var b = e.target.closest(".pk"); if(b && !b.disabled){
+      var c = CASES[ci], ok = b.dataset.d === c.ans; if(ok) hits++;
+      $$(".pk",caseEl).forEach(function(x){ x.disabled = true; if(x.dataset.d===c.ans) x.classList.add("right"); else if(x===b) x.classList.add("wrong"); });
+      setStep(2);
+      $("#fbx").innerHTML = '<div class="fb"><h4>'+(ok?'Isso mesmo: ':'Quase. Aqui o sinal mais forte é ')+DN[c.ans]+'.</h4><p>'+c.why+'</p><p class="inv"><b>O que investigar:</b> '+c.inv+'</p><button class="btn dk sm" id="nextCase">'+(ci<CASES.length-1?'Próximo caso →':'Ver meu resultado →')+'</button></div>';
+      if(ci===0) track("mapa_aula_inicio");
+      return;
+    }
+    if(e.target.id === "nextCase"){ ci++; if(ci < CASES.length) renderCase(); else finishCase(); caseEl.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"}); }
+    if(e.target.id === "redoCase"){ ci=0; hits=0; renderCase(); }
+  });
+  function finishCase(){
+    $$(".lab-step").forEach(function(s){ s.classList.remove("on"); s.classList.add("done"); });
+    caseEl.innerHTML = '<div class="done-card"><div class="big num">'+hits+'/3</div><h3>'+(hits===3?'Você já pensa como analista.':hits===2?'Ótima leitura. Um ajuste fino e pronto.':'Agora você viu por que o método importa.')+'</h3>'+
+      '<p>Você acabou de fazer, em 3 casos, o que o Mapa faz com 10 oportunidades reais da sua empresa: ler o fato, classificar o sinal e definir o que investigar. Com ficha, matriz e checklist, o padrão aparece e a prioridade fica clara.</p>'+
+      '<div class="cta-row" style="justify-content:center"><a class="btn" href="'+$("[data-go]").href+'">Quero fazer com os meus casos · R$ 47</a><button class="btn line sm" id="redoCase" style="color:var(--ink);border-color:var(--line)">Refazer</button></div></div>';
+    track("mapa_aula_concluida",{acertos:hits});
+  }
+  renderCase();
+
+  /* 4. Simulador */
+  var sV=$("#sV"), sC=$("#sC"), sT=$("#sT");
+  function fill(r){ r.style.setProperty("--p", ((r.value-r.min)/(r.max-r.min)*100)+"%"); }
+  function sim(){
+    var v=+sV.value, c=+sC.value, t=+sT.value;
+    [sV,sC,sT].forEach(fill);
+    $("#oV").textContent = v; $("#oC").textContent = c + " de 10"; $("#oT").textContent = brl(t);
+    var now = v*c/10, plus = v/20;
+    $("#rNow").textContent = brl(Math.round(now*t)) + "/mês";
+    $("#rNowS").textContent = "≈ " + now.toLocaleString("pt-BR",{maximumFractionDigits:1}) + " clientes por mês.";
+    $("#rPlus").textContent = "+" + brl(Math.round(plus*t)) + "/mês";
+    $("#rPlusS").textContent = "≈ " + plus.toLocaleString("pt-BR",{maximumFractionDigits:1}) + " cliente(s) a mais por mês, com os mesmos interessados. Sem gastar mais com divulgação.";
+    var pct = 47/t*100;
+    $("#rMeter").style.width = Math.max(2, Math.min(100, pct)) + "%";
+    $("#rRatio").textContent = "R$ 47 = " + (pct < 1 ? pct.toLocaleString("pt-BR",{maximumFractionDigits:1}) : Math.round(pct)) + "% de um cliente";
+    $("#totalC").textContent = "Com os seus números, R$ 47 equivale a " + (pct < 1 ? pct.toLocaleString("pt-BR",{maximumFractionDigits:1}) : Math.round(pct)) + "% do valor de um único cliente.";
+  }
+  [sV,sC,sT].forEach(function(r){ r.addEventListener("input", sim); r.addEventListener("change", function(){ track("mapa_simulador",{interessados:+sV.value,fecham:+sC.value,ticket:+sT.value}); }); });
+  sim();
+
+  /* 5. Matriz */
+  var MX = {
+    p:{q:"Quem está chegando até a empresa?", d:"Antes de olhar para a venda, olhe para quem chegou. Se boa parte dos contatos não tem a necessidade, o momento ou o orçamento do seu serviço, nenhuma melhoria na proposta resolve.",
+       s:[["Perfil dos contatos","Pedidos de serviços que você não oferece ou orçamento incompatível."],["Adequação ao serviço","Os canais com mais contatos não são os que trazem clientes."]]},
+    o:{q:"Como os seus serviços são apresentados?", d:"O interessado tem perfil, mas não entende o que está incluído, por que custa o que custa ou o que diferencia a sua empresa. A decisão vai para o preço.",
+       s:[["Apresentação","Perguntas sobre o que está incluído mesmo depois da proposta."],["Percepção de valor","A conversa vira negociação de desconto."],["Diferenciação","A comparação acontece apenas pelo preço."]]},
+    c:{q:"Como cada oportunidade é conduzida?", d:"Perfil certo, oferta clara, e mesmo assim a conversa para. A perda está no tempo de resposta, nas perguntas que não foram feitas ou no acompanhamento que não aconteceu.",
+       s:[["Atendimento","A primeira resposta demora ou vai direto ao preço."],["Qualificação","Todos recebem a mesma atenção, sem critério."],["Negociação","O \"vou pensar\" encerra a conversa sem próximo passo."],["Acompanhamento","Propostas ficam sem retorno e ninguém retoma."]]}
+  };
+  function tab(t){
+    $$(".tab").forEach(function(b){ b.setAttribute("aria-selected", b.dataset.t===t); });
+    var m = MX[t];
+    $("#tpanel").innerHTML = '<div><span class="eyebrow">Dimensão '+({p:1,o:2,c:3})[t]+'</span><h3>'+DN[t]+'</h3><p class="q">'+m.q+'</p><p style="margin-top:14px;color:var(--dmuted)">'+m.d+'</p></div><div class="subs">'+m.s.map(function(x){return '<div class="sub"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>'}).join("")+'</div>';
+  }
+  $$(".tab").forEach(function(b){ b.addEventListener("click", function(){ tab(b.dataset.t); }); });
+  tab("p");
+
+  /* 6. Trilha */
+  var MODS = [
+    {t:"As três dimensões da análise comercial", s:"Público, oferta e comercial: o que cada uma explica e o que não explica.", o:"Separar um problema de público de um problema de oferta ou de condução.", a:"Classificar três situações recentes da sua empresa.", f:"Matriz Público, Oferta e Comercial"},
+    {t:"Sinais de público desalinhado", s:"Como ler o perfil dos contatos e a adequação deles ao seu serviço.", o:"Reconhecer quando o problema começa em quem chega.", a:"Comparar o perfil dos últimos clientes com o dos contatos que não fecharam.", f:"Ficha de evidências"},
+    {t:"A clareza da oferta", s:"Como avaliar apresentação, percepção de valor e diferenciação.", o:"Identificar o que o cliente não entende antes de decidir.", a:"Listar as perguntas que aparecem depois da sua proposta.", f:"Ficha de evidências"},
+    {t:"Perdas no processo comercial", s:"Atendimento, qualificação, negociação e acompanhamento.", o:"Localizar a etapa exata em que a conversa para.", a:"Medir o tempo de resposta e os próximos passos das conversas abertas.", f:"Checklist de priorização"},
+    {t:"Laboratório: dez oportunidades reais", s:"Você aplica a matriz nos seus casos e registra as evidências.", o:"Definir, com evidência, qual dimensão investigar primeiro.", a:"Mapear dez oportunidades recentes, do contato ao desfecho.", f:"Mapa de Oportunidades", lab:true}
+  ];
+  $("#path").innerHTML = MODS.map(function(m,k){
+    return '<details class="mod reveal'+(m.lab?' labm':'')+'"'+(k===0?' open':'')+'><summary><span class="n">'+(m.lab?'★':k+1)+'</span><div><h3>'+m.t+'</h3><p class="sm">'+m.s+'</p></div><span class="chev" aria-hidden="true">+</span></summary>'+
+      '<div class="mod-body"><div class="mb"><b>Ao final, você sabe</b>'+m.o+'</div><div class="mb"><b>Atividade no seu caso</b>'+m.a+'</div><div class="mb"><b>Ferramenta</b>'+m.f+'</div></div></details>';
+  }).join("");
+  if("IntersectionObserver" in window && !reduce){ $$("#path .reveal").forEach(function(el){ io.observe(el); }); } else $$("#path .reveal").forEach(function(el){ el.classList.add("in"); });
+
+  /* 7. Ficha de evidências */
+  var KEY = "vert4-mapa-demo-v1", sel = null, items;
+  try{ items = JSON.parse(localStorage.getItem(KEY)) || null; }catch(e){ items = null; }
+  if(!items) items = [
+    {n:"Exemplo: orçamento de limpeza", f:"Pediu valor, recebeu em 2 dias e já tinha contratado outra empresa.", d:"c", ex:true},
+    {n:"Exemplo: consulta particular", f:"Perguntou se atendia por convênio. Não atende.", d:"p", ex:true}
+  ];
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(items)); }catch(e){} }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]}); }
+  function drawMap(){
+    var cnt = {p:0,o:0,c:0};
+    ["p","o","c"].forEach(function(d){
+      var col = $('.col[data-c="'+d+'"]'), list = items.filter(function(i){return i.d===d});
+      cnt[d] = list.length;
+      col.innerHTML = '<h4>'+DN[d]+' <span class="num">'+list.length+'</span></h4>' + list.map(function(i){ return '<div class="chip"><b>'+esc(i.n)+'</b>'+esc(i.f)+'</div>'; }).join("");
+    });
+    var real = items.filter(function(i){return !i.ex}).length;
+    $("#mCount").textContent = items.length + " de 10 oportunidades";
+    var max = Math.max(cnt.p,cnt.o,cnt.c), tops = ["p","o","c"].filter(function(d){return cnt[d]===max});
+    var v = $("#verdict");
+    if(!real) v.innerHTML = "Adicione a primeira oportunidade para começar. Já deixamos dois exemplos para você ver como fica.";
+    else if(items.length < 10) v.innerHTML = (tops.length===1 ? "Até aqui, o sinal mais forte está em <b>"+DN[tops[0]]+"</b>. " : "Por enquanto, há empate entre <b>"+tops.map(function(d){return DN[d]}).join(" e ")+"</b>. ") + "Com " + (10-items.length) + " oportunidade(s) a mais, o padrão fica confiável. No Mapa, cada uma vem com evidência registrada e checklist para desempatar.";
+    else v.innerHTML = (tops.length===1 ? "Dez oportunidades mapeadas. Prioridade: <b>"+DN[tops[0]]+"</b>." : "Dez oportunidades e um empate entre <b>"+tops.map(function(d){return DN[d]}).join(" e ")+"</b>. O checklist de priorização do Mapa resolve exatamente isso.");
+  }
+  $$(".seg button").forEach(function(b){ b.addEventListener("click", function(){ sel = b.dataset.d; $$(".seg button").forEach(function(x){ x.setAttribute("aria-pressed", x===b); }); }); });
+  $("#sheet").addEventListener("submit", function(e){
+    e.preventDefault();
+    var n = $("#fN").value.trim(), f = $("#fF").value.trim();
+    if(!n){ $("#fN").focus(); return; }
+    if(f.length < 10){ $("#fF").focus(); $("#fF").placeholder = "Descreva o fato em pelo menos uma frase."; return; }
+    if(!sel){ $(".seg button").focus(); return; }
+    if(items.length >= 10) items = items.filter(function(i){return !i.ex}).slice(-9);
+    items.push({n:n, f:f, d:sel}); save(); drawMap();
+    $("#fN").value = ""; $("#fF").value = ""; sel = null; $$(".seg button").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+    track("mapa_ficha_registro",{dimensao:items[items.length-1].d});
+  });
+  drawMap();
+
+  track("mapa_view");
+})();
+</script>
+</body>
+</html>

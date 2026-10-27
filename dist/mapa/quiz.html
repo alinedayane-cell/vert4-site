@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="pt-BR" data-vert4-page="quiz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quiz VERT4® de Vendas</title>
+<meta name="description" content="Quiz rápido: descubra em 2 minutos onde os seus interessados param de avançar.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+<style>
+/* Quiz curto para tráfego de anúncio: abertura, 9 perguntas (uma por tela) e resultado com oferta */
+:root{
+  --pet:#17292E; --dou:#CCAC7D; --cha:#E3D5B3; --off:#F2EFE6;
+  --bg:#F2EFE6; --card:#FFFFFF; --ink:#17292E; --muted:#5B6A6E; --line:#E3D5B3;
+  --soft:#F8F5EE; --btn:#17292E; --btn-ink:#F2EFE6; --acc:#A8844F;
+  --font:"Manrope", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1C20; --card:#17292E; --ink:#F2EFE6; --muted:#B9B4A6; --line:#2C4248;
+    --soft:#1D3238; --btn:#CCAC7D; --btn-ink:#17292E; --acc:#CCAC7D; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1C20; --card:#17292E; --ink:#F2EFE6; --muted:#B9B4A6; --line:#2C4248;
+  --soft:#1D3238; --btn:#CCAC7D; --btn-ink:#17292E; --acc:#CCAC7D; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-weight:400;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+h1,h2,h3{font-weight:600;line-height:1.15;margin:0;letter-spacing:-.01em;text-wrap:balance}
+em{font-style:normal;color:var(--acc);font-weight:700}
+button{font-family:inherit}
+[hidden]{display:none!important}
+.top{background:var(--pet);color:var(--off);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:800;letter-spacing:.06em;font-size:15px}
+.brand span{color:var(--dou)}
+.top small{color:var(--cha);font-size:12px;font-weight:600}
+.wrap{max-width:620px;margin:0 auto;padding:20px 16px 48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:0 10px 30px rgba(23,41,46,.07)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;padding:14px 20px;border:0;border-radius:14px;background:var(--btn);color:var(--btn-ink);font-weight:700;font-size:17px;cursor:pointer;text-decoration:none;text-align:center;transition:transform .12s}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);font-size:15px;min-height:46px}
+.btn.wa{background:#1F7A4D;color:#fff}
+/* Abertura */
+.intro h1{font-size:clamp(28px,7vw,38px);margin:10px 0 12px}
+.intro p{color:var(--muted);margin:0 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:0;list-style:none}
+.chips li{background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700}
+.fine{font-size:12.5px;color:var(--muted);margin-top:14px;text-align:center}
+/* Perguntas */
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.bar{flex:1;height:8px;background:var(--soft);border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--dou);transition:width .3s}
+.count{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+.cheer{font-size:13px;color:var(--acc);font-weight:700;min-height:20px;margin-bottom:6px}
+.qtag{display:inline-block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.q h2{font-size:clamp(21px,5.4vw,26px);margin:6px 0 14px}
+.joke{background:var(--soft);border-left:4px solid var(--dou);border-radius:10px;padding:12px 14px;font-size:15px;margin-bottom:18px}
+.joke b{font-weight:800}
+.opts{display:grid;gap:10px}
+.opt{width:100%;text-align:left;min-height:52px;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:12px}
+.opt:hover{border-color:var(--dou)}
+.opt.sel{border-color:var(--pet);background:var(--soft)}
+.opt .e{font-size:20px;line-height:1;width:24px;text-align:center}
+.opt.unk{font-weight:400;color:var(--muted)}
+.back{background:none;border:0;color:var(--muted);font-size:14px;font-weight:600;padding:12px 0 0;cursor:pointer}
+/* Resultado */
+.res h1{font-size:clamp(26px,6.4vw,34px);margin:8px 0 10px}
+.res .lead{font-size:17px;margin:0 0 16px}
+.bars{display:grid;gap:12px;margin:18px 0 6px}
+.row{display:grid;grid-template-columns:96px 1fr 52px;align-items:center;gap:10px;font-size:14px;font-weight:700}
+.row .t{height:12px;background:var(--soft);border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.row .t i{display:block;height:100%;background:var(--muted);border-radius:99px}
+.row.hi .t i{background:var(--dou)}
+.row .v{text-align:right;font-variant-numeric:tabular-nums}
+.note{font-size:13px;color:var(--muted);margin:6px 0 0}
+.sec{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.sec h3{font-size:19px;margin-bottom:10px}
+.list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.list li{padding-left:24px;position:relative}
+.list li::before{content:"↳";position:absolute;left:0;color:var(--acc);font-weight:800}
+.offer{margin-top:22px;background:var(--pet);color:var(--off);border-radius:18px;padding:22px 20px}
+.offer .eyebrow{color:var(--dou)}
+.offer h3{font-size:22px;margin:8px 0 8px}
+.offer p{color:var(--cha);margin:0 0 14px;font-size:15px}
+.price{display:flex;align-items:baseline;gap:8px;margin:0 0 14px}
+.price b{font-size:34px;font-weight:800;color:var(--off);font-variant-numeric:tabular-nums}
+.price span{font-size:13px;color:var(--cha)}
+.offer .btn{background:var(--dou);color:var(--pet)}
+.stack{display:grid;gap:10px;margin-top:14px}
+.disc{font-size:12px;color:var(--muted);margin-top:18px;line-height:1.5}
+.fade{animation:fade .28s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fade{animation:none}.bar i{transition:none}}
+.company-profile{display:grid;gap:10px;margin-top:20px}.company-profile label{font-weight:700;margin-top:8px}.company-profile select{width:100%;min-height:50px;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--card);color:var(--ink);font:inherit}.company-profile select:focus-visible{outline:3px solid var(--dou);outline-offset:2px}.company-profile .btn{margin-top:12px}.profile-summary{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:18px}.profile-summary p{margin:6px 0;font-size:14px}
+</style>
+<script>
+/* VERT4: mensuração opcional, sem respostas do quiz ou dados da ficha. */
+(function(){
+'use strict';
+var ID='2345575089312148', KEY='vert4-marketing-consent-v1', choice=null, ready=false;
+var page=document.documentElement.dataset.vert4Page||'mapa';
+try{choice=localStorage.getItem(KEY);}catch(e){}
+function start(){
+ if(ready)return;ready=true;
+ if(!window.fbq){var n=window.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};n.push=n;n.loaded=true;n.version='2.0';n.queue=[];window._fbq=n;
+ var s=document.createElement('script');s.async=true;s.src='https://connect.facebook.net/en_US/fbevents.js';document.head.appendChild(s);}
+ window.fbq('consent','grant');window.fbq('set','autoConfig',false,ID);window.fbq('init',ID);
+ send('track','PageView',{});
+ send('track','ViewContent',{content_name:page==='quiz'?'Quiz VERT4':'Mapa de Oportunidades VERT4',content_category:page});
+}
+function send(type,event,params){
+ if(choice!=='accepted'||!ready)return;
+ var data=Object.assign({page_type:page},params);
+ window.fbq(type==='track'?'trackSingle':'trackSingleCustom',ID,event,data);
+ (window.dataLayer=window.dataLayer||[]).push(Object.assign({event:event},data));
+}
+var allowed={quiz_inicio:1,quiz_concluido:1,quiz_clique_oferta:1,quiz_clique_whatsapp:1,mapa_clique_compra:1,mapa_aula_inicio:1,mapa_aula_concluida:1,mapa_simulador:1,mapa_ficha_registro:1,mapa_view:1};
+var once={};
+window.vert4Track=function(event){
+ if(!allowed[event]||choice!=='accepted')return;
+ if((event==='quiz_inicio'||event==='quiz_concluido')&&once[event])return;
+ once[event]=true;
+ send('custom',event,{});
+ /* InitiateCheckout é enviado pela Hotmart ao abrir o checkout.
+    O clique de saída é medido separadamente para evitar duplicação. */
+};
+function choose(value){
+ choice=value;try{localStorage.setItem(KEY,value);}catch(e){}
+ if(value==='accepted')start();else if(window.fbq)window.fbq('consent','revoke');
+ document.getElementById('v4Cookies').hidden=true;
+}
+function ui(){
+ var style=document.createElement('style');style.textContent='#v4Cookies{position:fixed;z-index:99999;bottom:16px;left:16px;right:16px;max-width:780px;margin:auto;background:#F2EFE6;color:#17292E;border:1px solid #CCAC7D;border-radius:16px;padding:20px;box-shadow:0 8px 40px #0004;font:14px/1.5 Arial,sans-serif}#v4Cookies[hidden]{display:none}#v4Cookies p{margin:0 0 14px}#v4Cookies button,#v4Privacy{font:inherit;cursor:pointer;border:1px solid #17292E;border-radius:8px;padding:10px 14px;background:#F2EFE6;color:#17292E}#v4Cookies button{margin:0 8px 6px 0}#v4Cookies button[data-consent="accepted"]{background:#17292E;color:#F2EFE6}#v4Privacy{display:block;margin:24px auto;font-size:12px}';document.head.appendChild(style);
+ var box=document.createElement('section');box.id='v4Cookies';box.setAttribute('aria-label','Preferências de cookies');box.innerHTML='<p><b>Você escolhe os cookies de publicidade.</b><br>Com seu aceite, usamos o pixel da Meta para medir visitas e interações no quiz e na oferta. A Meta pode receber dados do navegador e da visita. Não enviamos suas respostas do quiz nem os textos da ficha. Você pode continuar sem aceitar e mudar sua escolha abaixo.</p><button type="button" data-consent="rejected">Continuar sem aceitar</button><button type="button" data-consent="accepted">Aceitar publicidade</button>';box.hidden=choice==='accepted'||choice==='rejected';document.body.appendChild(box);
+ box.addEventListener('click',function(e){var b=e.target.closest('[data-consent]');if(b)choose(b.dataset.consent);});
+ var btn=document.createElement('button');btn.id='v4Privacy';btn.type='button';btn.textContent='Preferências de cookies';btn.addEventListener('click',function(){box.hidden=false;});document.body.appendChild(btn);
+ if(choice==='accepted')start();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ui);else ui();
+})();
+</script>
+</head>
+<body>
+<header class="top"><div class="brand">VERT4<span>®</span></div><small>Quiz de vendas · 2 minutos</small></header>
+
+<main class="wrap">
+  <!-- Abertura -->
+  <section id="vIntro" class="card intro fade">
+    <div class="eyebrow">Quiz rápido VERT4®</div>
+    <h1>Os interessados chegam, mas não fecham? <em>Vamos achar onde eles param.</em></h1>
+    <p>9 situações do dia a dia e uma etapa curta sobre sua empresa, explicadas sem economês e com um pouco de bom humor. No final, você vê o ponto que mais pede atenção e o que fazer hoje.</p>
+    <ul class="chips"><li>⏱ 2 minutos</li><li>🙅 Sem cadastro</li><li>📊 Resultado na hora</li></ul>
+    <button class="btn" id="start">Começar o quiz</button>
+    <p class="fine">Prometemos: nenhuma pergunta sobre o seu signo.</p>
+  </section>
+
+  <!-- Pergunta -->
+  <section id="vQ" class="card q" hidden>
+    <div class="prog"><div class="bar"><i id="barFill"></i></div><span class="count" id="count">1 de 9</span></div>
+    <div class="cheer" id="cheer"></div>
+    <div id="qBox"></div>
+    <button class="back" id="back">← Voltar</button>
+  </section>
+
+<section id="vProfile" class="card fade" hidden aria-labelledby="profileTitle">
+<div class="eyebrow">Última etapa · Sua empresa</div>
+<h2 id="profileTitle">Conte um pouco sobre a sua operação.</h2>
+<p class="note">Essas informações ajudam a contextualizar sua leitura. Selecione uma opção em cada campo. Elas não alteram a pontuação do quiz.</p>
+<form id="companyProfile" class="company-profile">
+<label for="companyRevenue">Faturamento mensal aproximado</label>
+<select id="companyRevenue" required><option value="">Selecione uma faixa</option><option>Ainda não faturo</option><option>Até R$ 10 mil</option><option>Acima de R$ 10 mil até R$ 30 mil</option><option>Acima de R$ 30 mil até R$ 50 mil</option><option>Acima de R$ 50 mil até R$ 100 mil</option><option>Acima de R$ 100 mil até R$ 300 mil</option><option>Acima de R$ 300 mil</option></select>
+<label for="companyTeam">Tamanho da equipe, incluindo você</label>
+<select id="companyTeam" required><option value="">Selecione o tamanho</option><option>Trabalho sozinho(a)</option><option>2 a 5 pessoas</option><option>6 a 10 pessoas</option><option>11 a 20 pessoas</option><option>21 a 50 pessoas</option><option>Mais de 50 pessoas</option></select>
+<label for="companySize">Como você descreve o porte da empresa?</label>
+<select id="companySize" required aria-describedby="companySizeHelp"><option value="">Selecione o porte</option><option>Autônomo(a)</option><option>MEI</option><option>Microempresa</option><option>Pequena empresa</option><option>Média empresa</option><option>Grande empresa</option><option>Não sei dizer</option></select>
+<p class="note" id="companySizeHelp">Porte autodeclarado, sem enquadramento fiscal automático.</p>
+<p class="disc">As respostas ficam apenas nesta página, durante sua visita. Não são enviadas à Meta nem salvas no painel administrativo.</p>
+<button class="btn" type="submit">Ver meu resultado →</button>
+<button class="back" type="button" id="profileBack">← Revisar última resposta</button>
+</form></section>
+
+  <!-- Resultado -->
+  <section id="vR" class="card res" hidden></section>
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Ajuste aqui: link da página de vendas e WhatsApp. Os parâmetros do anúncio (utm, fbclid, gclid) são repassados. */
+  var LINK_VENDAS = "./";
+  var WHATS = "5569992947188";
+
+  var DIMS = {
+    p:{name:"Público", what:"quem chega até você"},
+    o:{name:"Oferta", what:"como o seu serviço é apresentado"},
+    c:{name:"Comercial", what:"como cada conversa é conduzida"}
+  };
+
+  var Q = [
+    {d:"p", t:"Chegam contatos procurando um serviço que a sua empresa não oferece.",
+     j:"É abrir uma pizzaria e receber pedido de sushi todo dia. Movimento tem. Venda, nem tanto."},
+    {d:"o", t:"Mesmo depois da proposta, o interessado pergunta o que está incluído.",
+     j:"Você mandou o cardápio inteiro e a pessoa responde: \"mas vem com batata?\". Sinal de que a proposta não ficou clara."},
+    {d:"c", t:"A primeira resposta a um novo contato demora mais de uma hora.",
+     j:"É atender o interfone quando a visita já foi embora. E ela foi tocar no vizinho."},
+    {d:"p", t:"Os interessados não têm orçamento compatível com o valor do seu serviço.",
+     j:"A pessoa ama o carro no test drive, mas o orçamento é de bicicleta. Conversa simpática, ninguém sai dirigindo."},
+    {d:"o", t:"A conversa vira negociação de desconto.",
+     j:"Você fala de qualidade, a pessoa responde \"e no Pix, faz quanto?\". Pronto: virou feira de domingo."},
+    {d:"c", t:"Um \"vou pensar\" encerra a conversa sem próximo passo combinado.",
+     j:"O \"vou pensar\" é o \"a gente marca um café\" do comercial. Se ninguém marca a data, o café nunca acontece."},
+    {d:"p", t:"Os canais que mais trazem contatos são os que menos geram clientes.",
+     j:"O Instagram traz a multidão, mas quem compra veio por indicação da sua tia. A festa está acontecendo na sala errada."},
+    {d:"o", t:"O interessado compara a sua proposta apenas pelo preço.",
+     j:"Se para o cliente tudo parece igual, ele escolhe como escolhe papel higiênico: o mais barato da prateleira."},
+    {d:"c", t:"Propostas ficam sem retorno e ninguém retoma o contato.",
+     j:"A proposta foi enviada e entrou no modo mistério: ninguém responde, ninguém pergunta. Igual mensagem no grupo da família às 23h."}
+  ];
+
+  var SCALE = [
+    {v:0, l:"Quase nunca", e:"😌"},
+    {v:1, l:"Às vezes", e:"🤔"},
+    {v:2, l:"Com frequência", e:"😬"},
+    {v:3, l:"Quase sempre", e:"🫠"},
+    {v:"u", l:"Não sei dizer", e:"🤷", unk:true}
+  ];
+
+  var CHEER = {3:"Um terço feito. O café ainda está quente. ☕", 6:"Faltam só 3. Você está indo melhor que muita reunião de segunda.", 8:"Última! Prometo que não tem pegadinha."};
+
+  var RES = {
+    p:{
+      title:"O ponto que mais pede atenção é o <em>Público</em>.",
+      joke:"Traduzindo: a sua vitrine está ótima, só que muita gente que entra na loja veio procurar outra coisa. Aí não tem atendimento caprichado que resolva.",
+      why:"Quando boa parte dos contatos não tem a necessidade, o momento ou o orçamento do seu serviço, a equipe gasta tempo em conversas que dificilmente fecham. Mais divulgação, nesse caso, traz mais do mesmo.",
+      today:["Liste os 5 últimos clientes que fecharam e anote o que eles tinham em comum: necessidade, momento e de onde vieram.","Escreva em 3 linhas para quem o seu serviço é indicado. E, mais corajoso ainda, para quem ele não é.","Coloque uma pergunta de filtro na primeira resposta, como \"qual é a sua principal necessidade hoje?\"."]
+    },
+    o:{
+      title:"O ponto que mais pede atenção é a <em>Oferta</em>.",
+      joke:"Traduzindo: o seu serviço pode ser ótimo, mas na cabeça do cliente ele está parecendo \"mais um\". E quando tudo parece igual, o preço vira o juiz da partida.",
+      why:"Quando o interessado não entende o que está incluído, por que custa o que custa ou o que diferencia a sua empresa, a decisão vai para o desconto. E desconto não explica nada: só diminui a margem.",
+      today:["Anote as 3 perguntas que mais aparecem depois da proposta e responda cada uma dentro da própria proposta.","Antes de falar o preço, mostre o problema que você resolve e como o cliente fica no final, com um exemplo real.","Pergunte a 3 clientes atuais por que escolheram você. Use as palavras deles, não as do folder."]
+    },
+    c:{
+      title:"O ponto que mais pede atenção é o <em>Comercial</em>.",
+      joke:"Traduzindo: o interessado chega com vontade, mas a conversa se perde no caminho. Ninguém disse não. A conversa simplesmente... sumiu, igual meia na máquina de lavar.",
+      why:"Tempo de resposta, falta de perguntas, \"vou pensar\" sem próximo passo e proposta sem acompanhamento. É o ponto de perda mais silencioso, porque a oportunidade não é recusada: ela para.",
+      today:["Defina um prazo máximo para a primeira resposta e quem é responsável por ela.","Termine toda conversa com um próximo passo: o que será enviado, por qual canal e quando.","Faça uma lista das propostas sem resposta dos últimos 30 dias e retome uma por uma ainda hoje."]
+    }
+  };
+
+  var A = new Array(Q.length).fill(null), i = 0, busy = false;
+  var $ = function(id){return document.getElementById(id)};
+
+  function track(ev){ if(window.vert4Track) window.vert4Track(ev); }
+
+  function withParams(url){
+    var keep = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid"], sp = new URLSearchParams(location.search), out = [];
+    keep.forEach(function(k){ if(sp.get(k)) out.push(k+"="+encodeURIComponent(sp.get(k))); });
+    out.push("origem=quiz-anuncio");
+    return url + (url.indexOf("?")>-1 ? "&" : "?") + out.join("&");
+  }
+  function show(id){ ["vIntro","vQ","vProfile","vR"].forEach(function(v){ $(v).hidden = v!==id; }); var el=$(id); el.classList.remove("fade"); void el.offsetWidth; el.classList.add("fade"); window.scrollTo(0,0); }
+
+  function renderQ(){
+    var q = Q[i];
+    $("barFill").style.width = (i/Q.length*100)+"%";
+    $("count").textContent = (i+1)+" de "+Q.length;
+    $("cheer").textContent = CHEER[i] || "";
+    var h = '<span class="qtag">Isso acontece na sua empresa?</span><h2>'+q.t+'</h2><div class="joke"><b>Explicando: </b>'+q.j+'</div><div class="opts" role="radiogroup" aria-label="Frequência">';
+    SCALE.forEach(function(s,k){ h += '<button class="opt'+(s.unk?' unk':'')+(A[i]===s.v?' sel':'')+'" role="radio" aria-checked="'+(A[i]===s.v)+'" data-k="'+k+'"><span class="e" aria-hidden="true">'+s.e+'</span>'+s.l+'</button>'; });
+    $("qBox").innerHTML = h + '</div>';
+    $("back").style.visibility = i===0 ? "hidden" : "visible";
+    busy = false;
+  }
+
+  $("qBox").addEventListener("click", function(e){
+    var b = e.target.closest(".opt"); if(!b || busy) return;
+    busy = true;
+    A[i] = SCALE[+b.dataset.k].v;
+    [].forEach.call(document.querySelectorAll(".opt"), function(o){ o.classList.toggle("sel", o===b); o.setAttribute("aria-checked", o===b); });
+    setTimeout(function(){ if(i < Q.length-1){ i++; show("vQ"); renderQ(); } else { $("barFill").style.width="100%"; show("vProfile"); $("companyRevenue").focus(); } }, 280);
+  });
+  $("back").addEventListener("click", function(){ if(i>0){ i--; renderQ(); } });
+  $("start").addEventListener("click", function(){ i=0; show("vQ"); renderQ(); track("quiz_inicio"); });
+  document.addEventListener("keydown", function(e){
+    if($("vQ").hidden) return;
+    var n = parseInt(e.key,10); if(n>=1 && n<=SCALE.length){ var b=document.querySelectorAll(".opt")[n-1]; if(b) b.click(); }
+  });
+
+  var company = null;
+  $("companyProfile").addEventListener("submit",function(e){
+    e.preventDefault();
+    if(!this.reportValidity())return;
+    company={revenue:$("companyRevenue").value,team:$("companyTeam").value,size:$("companySize").value};
+    result();
+  });
+  $("profileBack").addEventListener("click",function(){i=Q.length-1;show("vQ");renderQ();});
+  function safeText(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+  function score(){
+    var s = {}, unk = 0;
+    Object.keys(DIMS).forEach(function(d){ s[d] = {sum:0,n:0}; });
+    Q.forEach(function(q,k){ if(A[k]==="u"){unk++;return;} s[q.d].sum += A[k]; s[q.d].n++; });
+    var pct = {};
+    Object.keys(s).forEach(function(d){ pct[d] = s[d].n ? Math.round(s[d].sum/(s[d].n*3)*100) : null; });
+    return {pct:pct, unk:unk};
+  }
+
+  function result(){
+    var R = score(), pct = R.pct;
+    var valid = Object.keys(pct).filter(function(d){ return pct[d]!==null; });
+    var max = valid.length ? Math.max.apply(null, valid.map(function(d){return pct[d]})) : null;
+    var tops = valid.filter(function(d){ return pct[d]===max; });
+    var h = '<div class="eyebrow">Seu resultado</div>';
+    var main = null;
+
+    if(R.unk >= 6 || !valid.length){
+      h += '<h1>Seu resultado: <em>modo neblina</em>.</h1><p class="lead">Você respondeu \"não sei dizer\" em '+R.unk+' de 9 situações. Não é bronca: é o achado mais útil do quiz. Fica difícil corrigir o que ninguém está medindo.</p>';
+    } else if(max < 34){
+      h += '<h1>Nenhum sinal forte <em>por aqui</em>.</h1><p class="lead">As situações do quiz aparecem pouco na sua empresa. Ótima notícia, mas vale confirmar com números reais antes de comemorar com bolo.</p>';
+    } else if(tops.length > 1){
+      h += '<h1>Empate entre <em>'+tops.map(function(d){return DIMS[d].name}).join(" e ")+'</em>.</h1><p class="lead">Dois (ou três) pontos disputando a liderança, igual final de campeonato. O quiz sozinho não desempata: quem decide são as suas oportunidades reais.</p>';
+    } else {
+      main = tops[0];
+      h += '<h1>'+RES[main].title+'</h1><p class="lead">'+RES[main].joke+'</p>';
+    }
+
+    h += '<div class="bars" aria-label="Intensidade dos sinais por área">';
+    ["p","o","c"].forEach(function(d){
+      var v = pct[d];
+      h += '<div class="row'+(tops.indexOf(d)>-1 && max>=34 ? ' hi':'')+'"><span>'+DIMS[d].name+'</span><span class="t"><i style="width:'+(v||0)+'%"></i></span><span class="v">'+(v===null?'Sem dados':v+'%')+'</span></div>';
+    });
+    h += '</div><p class="note">Quanto maior a barra, mais vezes os sinais daquela área aparecem nas suas respostas.'+(R.unk && R.unk<6 ? ' Você marcou \"não sei dizer\" em '+R.unk+' situação'+(R.unk>1?'ões':'')+'.':'')+'</p>';
+
+    if(main){
+      h += '<div class="sec"><h3>Por que isso importa</h3><p style="margin:0">'+RES[main].why+'</p></div>';
+      h += '<div class="sec"><h3>Para fazer hoje, sem gastar nada</h3><ul class="list">'+RES[main].today.map(function(t){return '<li>'+t+'</li>'}).join("")+'</ul></div>';
+    } else {
+      h += '<div class="sec"><h3>Para fazer hoje, sem gastar nada</h3><ul class="list"><li>Pegue as últimas 10 pessoas que pediram informação e anote: de onde vieram, se tinham perfil e em que ponto a conversa parou.</li><li>Conte quantas pararam em cada ponto: quem chegou, a apresentação ou a condução da conversa.</li><li>O ponto com mais paradas é por onde começar. Simples assim, sem planilha de 40 abas.</li></ul></div>';
+    }
+
+    if(company)h+='<div class="profile-summary"><h3>Perfil da sua empresa</h3><p><b>Faturamento mensal:</b> '+safeText(company.revenue)+'</p><p><b>Equipe:</b> '+safeText(company.team)+'</p><p><b>Porte:</b> '+safeText(company.size)+'</p><button type="button" class="back" id="editCompany">Editar informações</button><p class="note">Essas respostas não alteram sua pontuação.</p></div>';
+    h += '<div class="offer"><div class="eyebrow">Próximo passo</div><h3>Mapa de Oportunidades VERT4®</h3><p>Minicurso prático, mapa visual, matriz Público, Oferta e Comercial e checklist de priorização para analisar as suas 10 oportunidades reais e confirmar onde agir primeiro.</p><div class="price"><b>R$ 47</b><span>pagamento único</span></div><a class="btn" id="ctaVendas" href="'+withParams(LINK_VENDAS)+'">Quero o Mapa de Oportunidades</a></div>';
+
+    var resumo = "Fiz o quiz VERT4®. Resultado: " + (main ? DIMS[main].name : (tops.length>1 && max>=34 ? "empate entre "+tops.map(function(d){return DIMS[d].name}).join(" e ") : "sem sinal definido")) + " | Público "+(pct.p===null?"sem dados":pct.p+"%")+", Oferta "+(pct.o===null?"sem dados":pct.o+"%")+", Comercial "+(pct.c===null?"sem dados":pct.c+"%")+". Quero entender o próximo passo.";
+    h += '<div class="stack"><a class="btn wa" id="ctaWhats" target="_blank" rel="noopener" href="https://wa.me/'+WHATS+'?text='+encodeURIComponent(resumo)+'">Falar com a VERT4® no WhatsApp</a><button class="btn ghost" id="redo">Refazer o quiz</button></div>';
+    h += '<p class="disc">Este quiz é uma leitura rápida e indicativa, feita só com as suas respostas. Não é um diagnóstico definitivo: ele aponta por onde começar a investigar. Nenhuma resposta é enviada a servidor; o WhatsApp só abre se você tocar no botão.</p>';
+
+    $("vR").innerHTML = h;
+    show("vR");
+    track("quiz_concluido", {prioridade: main || (tops.length>1 ? "empate" : "indefinido"), publico:pct.p, oferta:pct.o, comercial:pct.c});
+    $("ctaVendas").addEventListener("click", function(){ track("quiz_clique_oferta"); });
+    if(company)$("editCompany").addEventListener("click",function(){show("vProfile");$("companyRevenue").focus();});
+    $("ctaWhats").addEventListener("click", function(){ track("quiz_clique_whatsapp"); });
+    $("redo").addEventListener("click", function(){ A.fill(null); company=null; $("companyProfile").reset(); i=0; show("vIntro"); });
+  }
+})();
+</script>
+</body>
+</html>

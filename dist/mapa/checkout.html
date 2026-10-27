@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><style>body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<title>Order Bumps do Mapa VERT4®</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+
+
+<style>
+/* Layout: à esquerda, a prévia do checkout com os 3 bumps e o total ao vivo; abaixo, os textos de cada bump prontos para colar na plataforma */
+:root {
+  --bg: #F2F4F1;
+  --surface: #FFFFFF;
+  --ink: #152129;
+  --muted: #55646B;
+  --line: #D3DAD6;
+  --accent: #0D6656;
+  --accent-ink: #FFFFFF;
+  --mark: #F1C24B;
+  --bump: #FFF8E6;
+  --bump-line: #E2B23A;
+  --display: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F171B; --surface: #162127; --ink: #E6ECE9; --muted: #9AA9AF; --line: #2A3A42;
+    --accent: #3DB89F; --accent-ink: #0B1A16; --mark: #E8B93E;
+    --bump: #241F12; --bump-line: #A5822C;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F171B; --surface: #162127; --ink: #E6ECE9; --muted: #9AA9AF; --line: #2A3A42;
+  --accent: #3DB89F; --accent-ink: #0B1A16; --mark: #E8B93E;
+  --bump: #241F12; --bump-line: #A5822C;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(1.9rem, 4.4vw, 3rem); font-weight: 800; }
+h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+.muted { color: var(--muted); }
+header.top { padding-block: 22px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+header.top b { font-family: var(--display); font-weight: 800; letter-spacing: .02em; }
+.intro { padding-block: 48px 32px; display: flex; flex-direction: column; gap: 14px; max-width: 70ch; }
+.intro .lead { font-size: 1.1rem; color: var(--muted); }
+
+/* Prévia do checkout */
+.preview { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 28px; align-items: start; padding-bottom: 64px; }
+.preview > * { min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: clamp(18px, 3vw, 28px); display: flex; flex-direction: column; gap: 16px; }
+.product { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.product strong { font-family: var(--display); font-size: 1.05rem; }
+.price { font-family: var(--display); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.bump { border: 2px dashed var(--bump-line); background: var(--bump); border-radius: 8px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; transition: border-color .15s ease; }
+.bump.on { border-style: solid; border-color: var(--accent); }
+.bump label { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-weight: 600; }
+.bump input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--accent); flex: none; cursor: pointer; }
+.bump input:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+.bump .hl { font-family: var(--display); font-weight: 700; font-size: 1.05rem; }
+.bump .name { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.bump p { font-size: 0.95rem; }
+
+.summary { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); }
+.line { display: flex; justify-content: space-between; gap: 12px; font-size: 0.92rem; }
+.line span:first-child { min-width: 0; }
+.total { border-top: 1px solid var(--line); padding-top: 14px; display: flex; justify-content: space-between; align-items: baseline; }
+.total .price { font-size: 1.8rem; }
+.pay { display: block; text-align: center; background: var(--accent); color: var(--accent-ink); font-family: var(--display); font-weight: 700; padding: 14px 18px; border-radius: 6px; }
+.note { font-size: 0.8rem; color: var(--muted); }
+
+/* Textos para colar */
+.copies { padding-block: 56px 72px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 40px; }
+.copy-head { display: flex; flex-direction: column; gap: 8px; max-width: 70ch; }
+.bump-copy { display: grid; grid-template-columns: 260px 1fr; gap: 28px; padding-top: 28px; border-top: 1px solid var(--line); }
+.bump-copy > * { min-width: 0; }
+.bump-copy aside { display: flex; flex-direction: column; gap: 10px; }
+.bump-copy aside .tagprice { font-family: var(--display); font-weight: 800; font-size: 2rem; font-variant-numeric: tabular-nums; }
+.bump-copy aside dl { margin: 0; display: grid; gap: 8px; font-size: 0.88rem; }
+.bump-copy aside dt { font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.bump-copy aside dd { margin: 0; }
+.fields { display: flex; flex-direction: column; gap: 14px; }
+.field { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.field-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.field-top .eyebrow { font-size: 0.7rem; }
+.field-top .count { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.field .txt { white-space: pre-line; }
+.copy-btn { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: .06em; background: transparent; color: var(--accent); border: 1px solid var(--accent); border-radius: 4px; padding: 4px 10px; cursor: pointer; white-space: nowrap; }
+.copy-btn:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.copy-btn:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+.rules { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; max-width: 76ch; }
+.rules ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.rules li { display: flex; gap: 10px; }
+.rules li::before { content: "↳"; color: var(--accent); font-weight: 600; }
+
+@media (max-width: 860px) {
+  .preview { grid-template-columns: 1fr; }
+  .summary { position: static; }
+  .bump-copy { grid-template-columns: 1fr; gap: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top"><b>VERT4®</b><span class="eyebrow">Checkout · Etapa 2</span></header>
+
+  <div class="intro">
+    <span class="eyebrow">Order bumps do Mapa de Oportunidades VERT4®</span>
+    <h1>Três complementos, um para cada ponto de perda comercial.</h1>
+    <p class="lead">Cada bump aprofunda uma parte do diagnóstico: a leitura dos interessados, a condução das conversas e o acompanhamento das propostas. Marque as caixas para ver como o checkout fica e copie os textos lá embaixo para a sua plataforma.</p>
+  </div>
+
+  <div class="preview">
+    <div class="panel" aria-label="Prévia do checkout">
+      <div class="product">
+        <div><span class="eyebrow">Seu pedido</span><br><strong>Mapa de Oportunidades VERT4®</strong></div>
+        <span class="price">R$ 47,00</span>
+      </div>
+
+      <div class="bump" data-price="17">
+        <span class="name">Mapa dos 21 Sinais de Oportunidade VERT4® · R$ 17</span>
+        <div class="hl">Você sabe diferenciar curiosidade de uma oportunidade comercial?</div>
+        <p>Adicione o Mapa dos 21 Sinais de Oportunidade VERT4® e aprenda a interpretar perguntas, comportamentos e interações para decidir o próximo movimento com mais clareza.</p>
+        <label><input type="checkbox" id="bump-sinais"> Sim, quero o mapa por mais R$ 17.</label>
+      </div>
+
+      <div class="bump" data-price="27">
+        <span class="name">Conversas que Avançam VERT4® · R$ 27</span>
+        <div class="hl">Sua equipe responde mensagens. Mas essas conversas avançam?</div>
+        <p>Receba estruturas práticas para qualificar interessados, apresentar valor e organizar os próximos passos de cada conversa.</p>
+        <label><input type="checkbox" id="bump-conversas"> Sim, quero melhorar minhas conversas por mais R$ 27.</label>
+      </div>
+
+      <div class="bump" data-price="27">
+        <span class="name">Follow-up que Não Parece Cobrança · R$ 27</span>
+        <div class="hl">Quantas propostas estão paradas porque ninguém sabe quando retomar o contato?</div>
+        <p>Com o Follow-up que Não Parece Cobrança, você recebe um protocolo para acompanhar oportunidades sem insistência desnecessária.</p>
+        <label><input type="checkbox" id="bump-followup"> Sim, quero organizar meu follow-up por mais R$ 27.</label>
+      </div>
+    </div>
+
+    <div class="panel summary" aria-live="polite">
+      <span class="eyebrow">Resumo</span>
+      <div id="lines" style="display:flex;flex-direction:column;gap:8px">
+        <div class="line"><span>Mapa de Oportunidades</span><span class="price">R$ 47,00</span></div>
+      </div>
+      <div class="total"><span>Total</span><span class="price" id="total">R$ 47,00</span></div>
+      <span class="pay" aria-hidden="true">Finalizar compra</span>
+      <p class="note">Prévia ilustrativa. Com os três complementos, o pedido vai de R$ 47 para R$ 118.</p>
+    </div>
+  </div>
+
+  <section class="copies">
+    <div class="copy-head">
+      <span class="eyebrow">Textos para colar na plataforma</span>
+      <h2>Copy de cada order bump, campo a campo</h2>
+      <p class="muted">Os textos seguem o que está registrado na Plataforma Voar. A contagem de caracteres ajuda a respeitar o limite do seu checkout.</p>
+    </div>
+
+    <div class="bump-copy">
+      <aside>
+        <span class="eyebrow">Order bump 1</span>
+        <h3>Mapa dos 21 Sinais de Oportunidade VERT4®</h3>
+        <span class="tagprice">R$ 17</span>
+        <dl>
+          <div><dt>Entrega</dt><dd>Mapa visual, aula curta e ficha de classificação</dd></div>
+          <div><dt>Primeira conquista</dt><dd>Classificar cinco interessados e definir um próximo movimento para cada um</dd></div>
+          <div><dt>Complementa</dt><dd>A dimensão Público, com uma leitura mais detalhada dos interessados</dd></div>
+        </dl>
+      </aside>
+      <div class="fields">
+        <div class="field"><div class="field-top"><span class="eyebrow">Título</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Você sabe diferenciar curiosidade de uma oportunidade comercial?</p></div>
+        <div class="field"><div class="field-top"><span class="eyebrow">Descrição</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Adicione o Mapa dos 21 Sinais de Oportunidade VERT4® e aprenda a interpretar perguntas, comportamentos e interações para decidir o próximo movimento com mais clareza.</p></div>
+        <div class="field"><div class="field-top"><span class="eyebrow">Descrição longa (se houver campo)</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Uma pergunta sobre preço pode abrir uma conversa, mas, sozinha, não confirma uma decisão de compra. Com o mapa visual, a aula curta e a ficha de classificação, você classifica cinco interessados e decide quando investigar, nutrir ou avançar cada um.</p></div>
+        <div class="field"><div class="field-top"><span class="eyebrow">Texto da caixa de seleção</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Sim, quero o mapa por mais R$ 17.</p></div>
+      </div>
+    </div>
+
+    <div class="bump-copy">
+      <aside>
+        <span class="eyebrow">Order bump 2</span>
+        <h3>Conversas que Avançam VERT4®</h3>
+        <span class="tagprice">R$ 27</span>
+        <dl>
+          <div><dt>Entrega</dt><dd>Biblioteca de estruturas adaptáveis, guia de aplicação e exercícios</dd></div>
+          <div><dt>Primeira conquista</dt><dd>Revisar três conversas comerciais e melhorar perguntas, respostas e transições</dd></div>
+          <div><dt>Complementa</dt><dd>A dimensão Comercial, na condução das conversas</dd></div>
+        </dl>
+      </aside>
+      <div class="fields">
+        <div class="field"><div class="field-top"><span class="eyebrow">Título</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Sua equipe responde mensagens. Mas essas conversas avançam?</p></div>
+        <div class="field"><div class="field-top"><span class="eyebrow">Descrição</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Receba estruturas práticas para qualificar interessados, apresentar valor e organizar os próximos passos de cada conversa.</p></div>
+        <div class="field"><div class="field-top"><span class="eyebrow">Descrição longa (se houver campo)</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Responder é parte do atendimento. Conduzir exige compreender o contexto e ajudar a pessoa a decidir. Você recebe estruturas adaptáveis para abertura, qualificação, apresentação de valor, objeções e encaminhamento, sem scripts engessados, e revisa três conversas reais da sua operação.</p></div>
+        <div class="field"><div class="field-top"><span class="eyebrow">Texto da caixa de seleção</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Sim, quero melhorar minhas conversas por mais R$ 27.</p></div>
+      </div>
+    </div>
+
+    <div class="bump-copy">
+      <aside>
+        <span class="eyebrow">Order bump 3</span>
+        <h3>Follow-up que Não Parece Cobrança</h3>
+        <span class="tagprice">R$ 27</span>
+        <dl>
+          <div><dt>Entrega</dt><dd>Mini protocolo, Matriz R.N.A.E. e estruturas de retomada</dd></div>
+          <div><dt>Primeira conquista</dt><dd>Organizar cinco oportunidades paradas e definir a ação de cada uma</dd></div>
+          <div><dt>Complementa</dt><dd>A dimensão Comercial, no acompanhamento de propostas e conversas paradas</dd></div>
+        </dl>
+      </aside>
+      <div class="fields">
+        <div class="field"><div class="field-top"><span class="eyebrow">Título</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Quantas propostas estão paradas porque ninguém sabe quando retomar o contato?</p></div>
+        <div class="field"><div class="field-top"><span class="eyebrow">Descrição</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Com o Follow-up que Não Parece Cobrança, você recebe um protocolo para acompanhar oportunidades sem insistência desnecessária.</p></div>
+        <div class="field"><div class="field-top"><span class="eyebrow">Descrição longa (se houver campo)</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Você envia a proposta, a resposta não vem e o acompanhamento fica entre insistir e esquecer. Com o mini protocolo e a Matriz R.N.A.E. (Retomar, Nutrir, Avançar e Encerrar), você organiza cinco oportunidades paradas e decide o próximo movimento de cada uma com base no histórico da conversa.</p></div>
+        <div class="field"><div class="field-top"><span class="eyebrow">Texto da caixa de seleção</span><span class="count"></span><button class="copy-btn" type="button">Copiar</button></div><p class="txt">Sim, quero organizar meu follow-up por mais R$ 27.</p></div>
+      </div>
+    </div>
+
+    <div class="rules">
+      <h3>Configuração recomendada no checkout</h3>
+      <ul>
+        <li>Deixe as três caixas desmarcadas por padrão. A pessoa escolhe o que adicionar, coerente com o Não Vendo a Qualquer Custo.</li>
+        <li>Mantenha esta ordem: 21 Sinais (Público), Conversas (condução) e Follow-up (acompanhamento). Ela acompanha o caminho de uma oportunidade.</li>
+        <li>Use o mesmo nome e o mesmo preço em checkout, página de obrigado e mensagens de acesso.</li>
+        <li>Se a plataforma permitir só título e caixa de seleção, use esses dois campos e deixe a descrição de fora.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  var brl = function (v) { return "R$ " + v.toFixed(2).replace(".", ","); };
+  var bumps = Array.prototype.slice.call(document.querySelectorAll(".bump"));
+  var lines = document.getElementById("lines");
+  var total = document.getElementById("total");
+  function update() {
+    var sum = 47;
+    var html = '<div class="line"><span>Mapa de Oportunidades</span><span class="price">R$ 47,00</span></div>';
+    bumps.forEach(function (b) {
+      var cb = b.querySelector("input");
+      b.classList.toggle("on", cb.checked);
+      if (cb.checked) {
+        var p = Number(b.dataset.price);
+        sum += p;
+        var name = b.querySelector(".name").textContent.split(" · ")[0];
+        html += '<div class="line"><span>' + name + '</span><span class="price">' + brl(p) + '</span></div>';
+      }
+    });
+    lines.innerHTML = html;
+    total.textContent = brl(sum);
+  }
+  bumps.forEach(function (b) { b.querySelector("input").addEventListener("change", update); });
+  update();
+
+  document.querySelectorAll(".field").forEach(function (f) {
+    var txt = f.querySelector(".txt");
+    f.querySelector(".count").textContent = txt.textContent.trim().length + " caracteres";
+    var btn = f.querySelector(".copy-btn");
+    btn.addEventListener("click", function () {
+      var text = txt.textContent.trim();
+      var done = function () { btn.textContent = "Copiado"; setTimeout(function () { btn.textContent = "Copiar"; }, 1600); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(txt);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = "Selecionado";
+        setTimeout(function () { btn.textContent = "Copiar"; }, 1600);
+      };
+      try {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } catch (e) { fallback(); }
+    });
+  });
+})();
+</script>
+<style id="vert4-tipografia">
+:root, :root:not([data-theme="light"]), :root[data-theme="dark"], :root[data-theme="light"]{--bg:#F2EFE6!important;--surface:#FFFEFB!important;--ink:#17292E!important;--muted:#56646A!important;--line:#DED9CD!important;--accent:#17292E!important;--accent-ink:#FFFEFB!important;--mark:#CCAC7D!important;--pub:#2F6B6E!important;--ofe:#9A7C52!important;--com:#4A5F8A!important;--band:#17292E!important;--band-ink:#F2EFE6!important;--band-muted:#CFC6B2!important;--todo:#9C3B2E!important;--bump:#FAF4E8!important;--bump-line:#CCAC7D!important;--st-forte:#9C3B2E!important;--st-atencao:#9A7C52!important;--st-estavel:#3E6B55!important;--st-sem:#7A8288!important;--display:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif!important;--body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif!important;--mono:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif!important;color-scheme:light!important;}
+body{font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif!important;font-weight:400;line-height:1.65;letter-spacing:-0.003em;text-rendering:optimizeLegibility}
+h1{font-weight:700!important;letter-spacing:-0.028em!important;line-height:1.08!important}
+h2{font-weight:700!important;letter-spacing:-0.02em!important;line-height:1.15!important}
+h3,h4,.q-text,.hl,.dim-title h3{font-weight:600!important;letter-spacing:-0.01em!important}
+p,li,td,.lead,.muted,.q-hint,.cta-note,.note{font-weight:400}
+.lead,.reflexes li,.arrows li,b,strong{font-weight:500}
+b,strong{font-weight:600}
+.eyebrow,.q-label,.chip,.k,.lbl,.tag,.mine,.cell-pct,.count,.lab-badge,.f-head,.meta-row,.legend,.field-top .eyebrow,.sheet-head span{font-family:"Manrope",system-ui,sans-serif!important;font-weight:700!important;letter-spacing:.11em!important}
+button,.btn,.cta,.pay,.q-opt,.copy-btn,.fbtn,.link-btn,summary,.r-nav a{font-family:"Manrope",system-ui,sans-serif!important;font-weight:600!important;letter-spacing:0!important}
+.q-opt.unk{font-weight:500!important}
+.price,.big-price,.price-inline,.tagprice,.kpi,.total,.estimate b,.gauge-top b,.map-col header span,.f-tally b,.tally b,.cell-pct,.count,.num,.n,.day b,.r-bar b,.q-top span,#total,.line{font-variant-numeric:tabular-nums lining-nums!important}
+.price,.big-price,.price-inline,.tagprice,.estimate b,.f-tally b,.day b,.matrix h3{font-weight:700!important;letter-spacing:-0.02em!important}
+input,select,textarea{font-family:"Manrope",system-ui,sans-serif!important;font-weight:500}
+.copy-btn{font-size:.82rem!important;padding:7px 12px!important;min-height:36px}
+@media (max-width:560px){body{font-size:16px!important}h1{font-size:clamp(1.9rem,8.4vw,2.4rem)!important}h2{font-size:clamp(1.4rem,6.4vw,1.8rem)!important}.lead{font-size:1.06rem!important}.q-text{font-size:1.3rem!important}}
+</style>
+<style id="vert4-fonte-final">
+:root, :root:not([data-theme="light"]), :root[data-theme="dark"], :root[data-theme="light"]{--display:"Manrope", Arial, sans-serif!important;--body:"Manrope", Arial, sans-serif!important;--mono:"Manrope", Arial, sans-serif!important;--serif:"Manrope", Arial, sans-serif!important;--sans:"Manrope", Arial, sans-serif!important}
+html, body, body *:not(svg):not(path):not(i){font-family:"Manrope", Arial, sans-serif!important}
+body, p, li, td, th, dd, small, input, select, textarea, .lead, .muted, .mini, .note, .cta-note, .q-hint{font-weight:400!important}
+h1, h2, h3, h4, h5, .q-text, .hl, summary, .stage h3{font-weight:600!important}
+button, .btn, .cta, .pay, a.btn, .q-opt, .copy-btn, .fbtn, .link-btn, .nav a, .nav button, .r-nav a, label{font-weight:700!important}
+b, strong{font-weight:700!important}
+.eyebrow, .chip, .tag, .pill, .number, .price, .big-price, .price-inline, .tagprice, .kpi, .k, .stat strong, .total, .estimate b, .gauge-top b, .f-tally b, .tally b, .day b, .num, .n, .logo, .lab-badge, .verdict, .founder-mark, .phase b{font-weight:800!important}
+</style>
+</html>
