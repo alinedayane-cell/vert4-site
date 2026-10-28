@@ -198,18 +198,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
   <!-- 2. Perfil da empresa (primeira etapa) -->
   <section id="vProfile" class="card step" hidden aria-labelledby="profileTitle">
-    <div class="eyebrow">Antes de começar · Sua empresa</div>
-    <h2 id="profileTitle">Duas respostas rápidas para personalizar a sua leitura.</h2>
-    <fieldset class="grp">
-      <legend id="lgRev">Faturamento mensal aproximado</legend>
-      <div class="grid2" role="radiogroup" aria-labelledby="lgRev" data-group="revenue"></div>
-    </fieldset>
-    <fieldset class="grp">
-      <legend id="lgTeam">Quantas pessoas trabalham na empresa, incluindo você?</legend>
-      <div class="grid2" role="radiogroup" aria-labelledby="lgTeam" data-group="team"></div>
-    </fieldset>
-    <button class="btn" id="profileNext" disabled>Continuar →</button>
-    <p class="note">Usamos essas respostas para indicar o próximo passo certo para o tamanho da sua operação.</p>
+    <div class="prog"><div class="bar"><i id="pBar"></i></div><span class="count" id="pCount">1 de 2</span></div>
+    <div class="eyebrow" id="pEyebrow">Antes de começar · Sua empresa</div>
+    <h2 id="profileTitle"></h2>
+    <div class="opts" role="radiogroup" aria-labelledby="profileTitle" id="pBox"></div>
+    <p class="note" id="pNote" style="margin-top:14px"></p>
     <button class="back" type="button" id="profileBack">← Voltar</button>
   </section>
 
@@ -270,6 +263,12 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     {v:"2-5", l:"2 a 5 pessoas"},
     {v:"6-20", l:"6 a 20 pessoas"},
     {v:"20+", l:"Mais de 20"}
+  ];
+
+  /* Etapa da empresa: uma pergunta por tela, avanço automático */
+  var PSTEPS = [
+    {key:"revenue", list:REVENUE, t:"Qual é o faturamento mensal aproximado da sua empresa?", note:"Serve para indicar o próximo passo certo para o tamanho da sua operação. Pode ser uma estimativa."},
+    {key:"team", list:TEAM, t:"Quantas pessoas trabalham na empresa, incluindo você?", note:"Última antes das perguntas sobre as suas vendas."}
   ];
 
   var DIMS = {
@@ -382,19 +381,30 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   function show(id){ ["vIntro","vProfile","vQ","vLead","vR"].forEach(function(v){ $(v).hidden = v!==id; }); var el=$(id); el.classList.remove("fade"); void el.offsetWidth; el.classList.add("fade"); window.scrollTo(0,0); }
 
   /* ===== Perfil ===== */
-  function renderGroup(name, list){
-    var box = document.querySelector('[data-group="'+name+'"]'), h = "";
-    list.forEach(function(o){ var on = company[name]===o.v; h += '<button type="button" class="opt'+(on?' sel':'')+'" role="radio" aria-checked="'+on+'" data-v="'+o.v+'">'+o.l+'</button>'; });
-    box.innerHTML = h;
+  var pStep = 0, pBusy = false;
+  function renderProfile(){
+    var st = PSTEPS[pStep], hh = "";
+    $("pBar").style.width = ((pStep+1)/PSTEPS.length*100)+"%";
+    $("pCount").textContent = (pStep+1)+" de "+PSTEPS.length;
+    $("pEyebrow").textContent = pStep === 0 ? "Antes de começar · Sua empresa" : "Sua empresa · última";
+    $("profileTitle").textContent = st.t;
+    st.list.forEach(function(o){ var on = company[st.key]===o.v; hh += '<button type="button" class="opt'+(on?' sel':'')+'" role="radio" aria-checked="'+on+'" data-v="'+o.v+'">'+o.l+'</button>'; });
+    $("pBox").innerHTML = hh;
+    $("pNote").textContent = st.note;
+    pBusy = false;
   }
-  function renderProfile(){ renderGroup("revenue", REVENUE); renderGroup("team", TEAM); $("profileNext").disabled = !(company.revenue && company.team); }
-  $("vProfile").addEventListener("click", function(e){
-    var b = e.target.closest(".opt"); if(!b) return;
-    var g = b.parentNode.dataset.group; company[g] = b.dataset.v; renderProfile();
+  $("pBox").addEventListener("click", function(e){
+    var b = e.target.closest(".opt"); if(!b || pBusy) return;
+    pBusy = true;
+    var st = PSTEPS[pStep]; company[st.key] = b.dataset.v;
+    [].forEach.call(document.querySelectorAll("#pBox .opt"), function(o){ o.classList.toggle("sel", o===b); o.setAttribute("aria-checked", o===b); });
+    setTimeout(function(){
+      if(pStep < PSTEPS.length-1){ pStep++; show("vProfile"); renderProfile(); }
+      else { track("quiz_perfil"); i=0; show("vQ"); renderQ(); }
+    }, 280);
   });
-  $("profileNext").addEventListener("click", function(){ if(!(company.revenue&&company.team))return; track("quiz_perfil"); i=0; show("vQ"); renderQ(); });
-  $("profileBack").addEventListener("click", function(){ show("vIntro"); });
-  $("start").addEventListener("click", function(){ show("vProfile"); renderProfile(); track("quiz_inicio"); });
+  $("profileBack").addEventListener("click", function(){ if(pStep>0){ pStep--; renderProfile(); } else show("vIntro"); });
+  $("start").addEventListener("click", function(){ pStep=0; show("vProfile"); renderProfile(); track("quiz_inicio"); });
 
   /* ===== Perguntas ===== */
   function optsFor(q){ return q.opts ? q.opts : SCALE; }
@@ -421,7 +431,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       else { $("barFill").style.width="100%"; show("vLead"); track("quiz_captura_vista"); $("lName").focus(); }
     }, 280);
   });
-  $("back").addEventListener("click", function(){ if(i>0){ i--; renderQ(); } else { show("vProfile"); renderProfile(); } });
+  $("back").addEventListener("click", function(){ if(i>0){ i--; renderQ(); } else { pStep=PSTEPS.length-1; show("vProfile"); renderProfile(); } });
   document.addEventListener("keydown", function(e){
     if($("vQ").hidden) return;
     var n = parseInt(e.key,10); if(n>=1 && n<=optsFor(Q[i]).length){ var b=document.querySelectorAll("#qBox .opt")[n-1]; if(b) b.click(); }
