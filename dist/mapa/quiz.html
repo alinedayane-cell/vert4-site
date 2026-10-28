@@ -248,9 +248,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   /* ===== Configuração ===== */
   var LINK_VENDAS = "./";
   var WHATS = "5569992947188";
-  /* Endereço que recebe os contatos (ex.: um webhook do n8n). Recebe um POST com JSON.
-     Enquanto estiver vazio, o quiz funciona normalmente, mas os contatos NÃO são guardados. */
-  var LEAD_ENDPOINT = "";
+  /* Servidor da VERT4® que guarda os leads e as contagens anônimas por etapa (Painel do Administrador → Leads do quiz). */
+  var API = "https://aluno.vert4comercial.com";
+  var LEAD_ENDPOINT = API + "/quiz/lead";
+  var EVENT_ENDPOINT = API + "/quiz/evento";
   /* Depoimentos REAIS por resultado. Formato: {texto:"...", nome:"...", contexto:"Clínica, Curitiba"}.
      Lista vazia = o bloco não aparece. Não preencher com exemplos inventados. */
   var PROVA = { p:[], o:[], c:[] };
@@ -351,7 +352,18 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   var A = new Array(Q.length).fill(null), i = 0, busy = false;
   var company = {revenue:null, team:null}, lead = null, lastResult = null;
   var $ = function(id){return document.getElementById(id)};
-  function track(ev, params){ if(window.vert4Track) window.vert4Track(ev, params); }
+  /* Contagem anônima da etapa no servidor da VERT4® (sem cookies, sem dados da pessoa) */
+  var counted = {};
+  function step(name){
+    if(!EVENT_ENDPOINT || counted[name]) return; counted[name] = true;
+    try{ fetch(EVENT_ENDPOINT, {method:"POST", headers:{"Content-Type":"text/plain"}, body:JSON.stringify({evento:name}), keepalive:true}).catch(function(){}); }catch(e){}
+  }
+  var STEP = {quiz_inicio:"inicio", quiz_perfil:"perfil", quiz_captura_vista:"captura_vista", quiz_captura:"captura", quiz_concluido:"concluido", quiz_clique_oferta:"clique_mapa", quiz_clique_whatsapp:"clique_wa"};
+  function track(ev, params){
+    if(ev === "quiz_pergunta" && params && params.pergunta) step("p"+params.pergunta);
+    else if(STEP[ev]) step(STEP[ev]);
+    if(window.vert4Track) window.vert4Track(ev, params);
+  }
   function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function labelOf(list, v){ for(var k=0;k<list.length;k++){ if(list[k].v===v) return list[k].l; } return ""; }
 
@@ -486,7 +498,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       respostas:respostas, anuncio:adParams(), pagina:location.pathname
     };
     try{
-      fetch(LEAD_ENDPOINT, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload), keepalive:true}).catch(function(){});
+      fetch(LEAD_ENDPOINT, {method:"POST", headers:{"Content-Type":"text/plain"}, body:JSON.stringify(payload), keepalive:true}).catch(function(){});
     }catch(e){}
   }
 
@@ -531,7 +543,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
     h += offerBlock(r);
     h += '<div class="stack"><button class="btn ghost" id="redo">Refazer o quiz</button></div>';
-    h += '<p class="disc">Este quiz é uma leitura rápida e indicativa, feita só com as suas respostas. Não é um diagnóstico definitivo: ele aponta por onde começar a investigar.</p>';
+    h += '<p class="disc">Este quiz é uma leitura rápida e indicativa, feita só com as suas respostas. Não é um diagnóstico definitivo: ele aponta por onde começar a investigar. Contamos de forma anônima, sem cookies, quantas pessoas passam por cada etapa do quiz.</p>';
 
     $("vR").innerHTML = h;
     show("vR");
@@ -539,7 +551,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     [].forEach.call(document.querySelectorAll("[data-cta]"), function(a){
       a.addEventListener("click", function(){ track(a.dataset.cta==="wa" ? "quiz_clique_whatsapp" : "quiz_clique_oferta", {balde:bucketSlug(r), rota:r.route}); });
     });
-    $("redo").addEventListener("click", function(){ A.fill(null); company={revenue:null,team:null}; lead=null; $("leadForm").reset(); $("leadErr").hidden=true; i=0; show("vIntro"); });
+    $("redo").addEventListener("click", function(){ counted = {}; A.fill(null); company={revenue:null,team:null}; lead=null; $("leadForm").reset(); $("leadErr").hidden=true; i=0; show("vIntro"); });
   }
 
   function waLink(r, intent){
