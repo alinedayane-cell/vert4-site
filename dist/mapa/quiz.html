@@ -119,6 +119,52 @@ button{font-family:inherit}
 .fade{animation:fade .28s ease}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.fade{animation:none}.bar i{transition:none}}
+/* Resultado dinâmico */
+.calc{text-align:center;padding:40px 10px}
+.calc p{font-weight:700;margin:16px 0 14px;min-height:24px}
+.calc .bar{max-width:260px;margin:0 auto}
+.spin{width:46px;height:46px;margin:0 auto;border-radius:50%;border:4px solid var(--line);border-top-color:var(--dou);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-res{padding-bottom:4px}
+.row .t i{transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.btn.jump{margin-top:16px;background:var(--dou);color:var(--pet)}
+.chips-res{display:grid;gap:8px;margin-top:12px}
+.chip-res{background:var(--soft);border:1px solid var(--line);border-left:4px solid var(--dou);border-radius:10px;padding:10px 12px;font-size:15px}
+.chip-res b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:2px}
+.chip-res.forte{border-left-color:#B5533C}
+.chip-res.forte b{color:#B5533C}
+.cost{margin-top:18px;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.cost p{margin:6px 0 0}
+.todo{display:grid;gap:10px}
+.todo-i{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:15px;cursor:pointer}
+.todo-i .ck{flex:none;width:22px;height:22px;border-radius:6px;border:2px solid var(--dou);margin-top:1px;display:grid;place-items:center}
+.todo-i[aria-pressed="true"]{background:var(--soft);border-color:var(--dou)}
+.todo-i[aria-pressed="true"] .ck{background:var(--dou)}
+.todo-i[aria-pressed="true"] .ck::after{content:"✓";color:var(--pet);font-weight:800;font-size:14px;line-height:1}
+.todo-i[aria-pressed="true"] span:last-child{text-decoration:line-through;text-decoration-color:var(--dou);opacity:.75}
+.offer{scroll-margin-top:16px}
+.foco{background:rgba(204,172,125,.14);border:1px solid rgba(204,172,125,.4);border-radius:12px;padding:12px 14px;margin:0 0 14px}
+.foco span{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dou);font-weight:700}
+.foco b{display:block;color:var(--off);font-size:17px;margin:4px 0}
+.foco p{margin:0!important}
+.inclui{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:8px}
+.inclui li{padding-left:26px;position:relative;color:var(--cha);font-size:15px}
+.inclui li::before{content:"✓";position:absolute;left:0;color:var(--dou);font-weight:800}
+.valor{background:rgba(242,239,230,.06);border:1px solid rgba(227,213,179,.25);border-radius:12px;padding:14px;margin:0 0 16px}
+.valor label{display:flex;justify-content:space-between;gap:10px;font-weight:700;font-size:14px;color:var(--off)}
+.valor output{color:var(--dou);font-variant-numeric:tabular-nums}
+.valor input{width:100%;margin:12px 0 10px;accent-color:#CCAC7D}
+.valor .meter{height:8px;background:rgba(242,239,230,.15);border-radius:99px;overflow:hidden}
+.valor .meter i{display:block;height:100%;background:var(--dou);border-radius:99px}
+.valor p{margin:8px 0 0!important;font-size:14px}
+.valor p b{color:var(--off)}
+.sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;max-width:596px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--pet);color:var(--off);border-radius:16px;padding:10px 10px 10px 16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.sticky[hidden]{display:none}
+.sticky b{display:block;font-size:14px}
+.sticky span{font-size:12px;color:var(--cha)}
+.sticky .btn{width:auto;min-height:44px;padding:10px 16px;font-size:15px;background:var(--dou);color:var(--pet)}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}.row .t i{transition:none}}
+
 </style>
 <script>
 /* VERT4: mensuração opcional. Envia à Meta apenas o nome do evento e, quando houver,
@@ -513,56 +559,119 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }catch(e){}
   }
 
-  /* ===== Resultado ===== */
-  function result(r){
-    var pct = r.pct, main = r.main, goal = answer("objetivo"), first = lead ? esc(lead.nome.split(" ")[0]) : "";
-    var h = '<div class="eyebrow">'+(first ? first+', este é o seu resultado' : 'Seu resultado')+'</div>';
+  /* ===== Resultado =====
+     Prescrição: revela o diagnóstico, mostra o que pesou e o custo de não agir,
+     entrega o curativo (3 ações para marcar) e só então a cura (Mapa), com
+     calculadora do valor de um cliente e barra fixa de compra. Sem urgência falsa. */
+  var MODULO = {
+    p:{t:"Sinais de público desalinhado", a:"Você sai sabendo reconhecer quando o problema começa em quem chega."},
+    o:{t:"A clareza da oferta", a:"Você sai sabendo identificar o que o cliente não entende antes de decidir."},
+    c:{t:"Perdas no processo comercial", a:"Você sai sabendo localizar a etapa exata em que a conversa para."}
+  };
+  var INCLUI = ["Minicurso prático em 5 etapas, cada uma aplicada ao seu caso","Matriz Público, Oferta e Comercial","Ficha de evidências para registrar cada oportunidade","Laboratório das 10 oportunidades reais","Mapa visual e checklist de priorização","Diagnóstico VERT4® com relatório e plano de 7 dias"];
+  var HOJE_NEUTRO = ["Pegue as últimas 10 pessoas que pediram informação e anote: de onde vieram, se tinham perfil e em que ponto a conversa parou.","Conte quantas pararam em cada ponto: quem chegou, a apresentação ou a condução da conversa.","O ponto com mais paradas é por onde começar. Simples assim, sem planilha de 40 abas."];
+  var reduz = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  function result(r){
+    var steps = ["Lendo as suas respostas…","Comparando Público, Oferta e Comercial…","Montando a sua leitura…"], k = 0;
+    $("vR").innerHTML = '<div class="calc" role="status" aria-live="polite"><div class="spin" aria-hidden="true"></div><p id="calcTxt">'+steps[0]+'</p><div class="bar"><i id="calcBar"></i></div></div>';
+    show("vR");
+    if(reduz){ render(r); return; }
+    var t = setInterval(function(){
+      k++; if($("calcBar")) $("calcBar").style.width = Math.min(100, k/steps.length*100)+"%";
+      if(k < steps.length){ $("calcTxt").textContent = steps[k]; }
+      else { clearInterval(t); render(r); }
+    }, 650);
+    setTimeout(function(){ if($("calcBar")) $("calcBar").style.width = "33%"; }, 30);
+  }
+
+  function render(r){
+    var pct = r.pct, main = r.main, goal = answer("objetivo"), first = lead ? esc(lead.nome.split(" ")[0]) : "";
+    var vende = r.route === "mapa" || r.route === "confirmar";
+    var h = '';
+
+    /* 1. Revelação */
+    h += '<div class="hero-res"><div class="eyebrow">'+(first ? first+', este é o seu resultado' : 'Seu resultado')+'</div>';
     if(r.kind === "neblina"){
       h += '<h1>Seu resultado: <em>modo neblina</em>.</h1><p class="lead">Você respondeu "não sei dizer" em '+r.R.unk+' de '+SIGNALS.length+' situações. Não é bronca: é o achado mais útil do quiz. Fica difícil corrigir o que ninguém está medindo.</p>';
-      h += '<p>Quando a empresa não acompanha de onde vêm os contatos, o que eles perguntam e onde as conversas param, cada decisão comercial vira palpite: mais divulgação, desconto, troca de roteiro. Às vezes acerta, quase sempre custa caro.</p>';
-      if(main) h += '<p>Pela sua escolha na última pergunta, a sua intuição aponta para <b>'+DIMS[main].name+'</b>. Vale começar a medir por aí, mas trate como hipótese até ver os casos reais.</p>';
     } else if(r.kind === "sem_sinal"){
       h += '<h1>Nenhum sinal forte <em>por aqui</em>.</h1><p class="lead">As situações do quiz aparecem pouco na sua empresa. Ótima notícia, mas vale confirmar com números reais antes de comemorar com bolo.</p>';
-      h += '<p>Um quiz mede a percepção de quem responde. Às vezes a operação vai bem mesmo; às vezes os sinais existem, só que ninguém está olhando para eles. A forma de saber é olhar as últimas oportunidades, uma por uma.</p>';
     } else {
       h += '<h1>'+RES[main].title+'</h1><p class="lead">'+RES[main].joke+'</p>';
-      if(r.tieNote) h += '<p class="note" style="margin:0 0 12px">'+r.tieNote+'</p>';
-      h += '<p>'+RES[main].why+'</p>';
-      var hot = r.R.hot[main];
-      if(hot.length){
-        h += '<p><b>O que pesou nas suas respostas:</b> '+hot.map(function(x){ return '"'+x.t.replace(/\.$/,"")+'" ('+x.l.toLowerCase()+')'; }).join("; ")+'.</p>';
-      }
-      if(GOAL[goal]) h += '<p>Você disse que quer <b>'+GOAL[goal]+'</b>. Enquanto o ponto de '+DIMS[main].name+' não for resolvido, '+RES[main].cost+'.</p>';
+      if(r.tieNote) h += '<p class="note" style="margin:0 0 6px">'+r.tieNote+'</p>';
     }
-
     h += '<div class="bars" aria-label="Intensidade dos sinais por área">';
     ["p","o","c"].forEach(function(d){
       var v = pct[d];
-      h += '<div class="row'+(d===main && r.kind==="balde" ? ' hi':'')+'"><span>'+DIMS[d].name+'</span><span class="t"><i style="width:'+(v||0)+'%"></i></span><span class="v">'+(v===null?'Sem dados':v+'%')+'</span></div>';
+      h += '<div class="row'+(d===main && r.kind==="balde" ? ' hi':'')+'"><span>'+DIMS[d].name+'</span><span class="t"><i data-w="'+(v||0)+'" style="width:0"></i></span><span class="v" data-n="'+(v===null?'':v)+'">'+(v===null?'Sem dados':'0%')+'</span></div>';
     });
-    h += '</div><p class="note">Quanto maior a barra, mais vezes os sinais daquela área aparecem nas suas respostas.'+(r.R.unk && r.kind!=="neblina" ? ' Você marcou "não sei dizer" em '+r.R.unk+' situação'+(r.R.unk>1?'ões':'')+'.':'')+'</p>';
+    h += '</div>';
+    if(vende) h += '<a class="btn jump" href="#oferta" data-jump>Ver como resolver isso →</a>';
+    h += '</div>';
 
-    h += '<div class="sec"><h3>Para fazer hoje, sem gastar nada</h3><ul class="list">';
-    if(r.kind === "balde") h += RES[main].today.map(function(t){return '<li>'+t+'</li>'}).join("");
-    else h += '<li>Pegue as últimas 10 pessoas que pediram informação e anote: de onde vieram, se tinham perfil e em que ponto a conversa parou.</li><li>Conte quantas pararam em cada ponto: quem chegou, a apresentação ou a condução da conversa.</li><li>O ponto com mais paradas é por onde começar. Simples assim, sem planilha de 40 abas.</li>';
-    h += '</ul></div>';
+    /* 2. O que pesou e por quê */
+    if(r.kind === "balde"){
+      var hot = r.R.hot[main];
+      h += '<div class="sec"><h3>Por que este é o seu ponto</h3><p>'+RES[main].why+'</p>';
+      if(hot.length) h += '<div class="chips-res">'+hot.map(function(x){ return '<div class="chip-res'+(x.l==="Quase sempre"?' forte':'')+'"><b>'+esc(x.l)+'</b>'+esc(x.t.replace(/\.$/,""))+'</div>'; }).join("")+'</div>';
+      h += '</div>';
+      if(GOAL[goal]) h += '<div class="cost"><span class="eyebrow">Se nada mudar</span><p>Você quer <b>'+GOAL[goal]+'</b>. Enquanto o ponto de '+DIMS[main].name+' não for resolvido, '+RES[main].cost+'.</p></div>';
+    } else if(r.kind === "neblina"){
+      h += '<div class="sec"><h3>O que isso significa</h3><p>Quando a empresa não acompanha de onde vêm os contatos, o que eles perguntam e onde as conversas param, cada decisão comercial vira palpite: mais divulgação, desconto, troca de roteiro. Às vezes acerta, quase sempre custa caro.</p>'+(main ? '<p>Pela sua escolha na última pergunta, a sua intuição aponta para <b>'+DIMS[main].name+'</b>. Trate como hipótese até ver os casos reais.</p>' : '')+'</div>';
+    } else {
+      h += '<div class="sec"><h3>O que isso significa</h3><p>Um quiz mede a percepção de quem responde. Às vezes a operação vai bem mesmo; às vezes os sinais existem, só que ninguém está olhando para eles. A forma de saber é olhar as últimas oportunidades, uma por uma.</p></div>';
+    }
 
+    /* 3. Curativo: ações para marcar */
+    var hoje = r.kind === "balde" ? RES[main].today : HOJE_NEUTRO;
+    h += '<div class="sec"><h3>Para fazer hoje, sem gastar nada</h3><p class="note" style="margin:0 0 10px">Toque em cada ação quando fizer. <span id="feitas">0 de '+hoje.length+' feitas</span></p><div class="todo">'+
+      hoje.map(function(t,n){ return '<button type="button" class="todo-i" aria-pressed="false" data-todo="'+n+'"><span class="ck" aria-hidden="true"></span><span>'+t+'</span></button>'; }).join("")+'</div>'+
+      (vende ? '<p class="note" style="margin-top:12px">Estas ações aliviam o sintoma. Para saber a causa nas suas conversas reais, existe o próximo passo abaixo.</p>' : '')+'</div>';
+
+    /* 4. Prova real (só quando houver) */
     if(r.kind === "balde" && PROVA[main] && PROVA[main].length){
       h += '<div class="sec"><h3>Quem estava no mesmo ponto</h3>'+PROVA[main].map(function(q){ return '<div class="quote"><p>"'+esc(q.texto)+'"</p><span>'+esc(q.nome)+(q.contexto?' · '+esc(q.contexto):'')+'</span></div>'; }).join("")+'</div>';
     }
 
+    /* 5. Cura */
     h += offerBlock(r);
     h += '<div class="stack"><button class="btn ghost" id="redo">Refazer o quiz</button></div>';
     h += '<p class="disc">Este quiz é uma leitura rápida e indicativa, feita só com as suas respostas. Não é um diagnóstico definitivo: ele aponta por onde começar a investigar. Contamos de forma anônima, sem cookies, quantas pessoas passam por cada etapa do quiz.</p>';
+    if(vende) h += '<div class="sticky" id="sticky" hidden><div><b>Mapa de Oportunidades</b><span>R$ 47 · pagamento único</span></div><a class="btn" data-cta="mapa" href="'+withParams(LINK_VENDAS)+'">Quero o Mapa</a></div>';
 
     $("vR").innerHTML = h;
-    show("vR");
+    window.scrollTo(0,0);
     track("quiz_concluido", {balde:bucketSlug(r), rota:r.route});
+
+    /* Barras e números sobem até o valor */
+    setTimeout(function(){
+      [].forEach.call(document.querySelectorAll("#vR .row .t i"), function(i){ i.style.width = i.dataset.w+"%"; });
+      [].forEach.call(document.querySelectorAll("#vR .row .v[data-n]"), function(s){
+        var alvo = s.dataset.n; if(alvo==="") return; alvo = +alvo;
+        if(reduz){ s.textContent = alvo+"%"; return; }
+        var t0 = null; (function passo(ts){ if(!t0) t0 = ts; var p = Math.min(1,(ts-t0)/700); s.textContent = Math.round(alvo*p)+"%"; if(p<1) requestAnimationFrame(passo); })(performance.now());
+      });
+    }, 60);
+
     [].forEach.call(document.querySelectorAll("[data-cta]"), function(a){
       a.addEventListener("click", function(){ track(a.dataset.cta==="wa" ? "quiz_clique_whatsapp" : "quiz_clique_oferta", {balde:bucketSlug(r), rota:r.route}); });
     });
-    $("redo").addEventListener("click", function(){ counted = {}; A.fill(null); company={revenue:null,team:null}; lead=null; $("leadForm").reset(); $("leadErr").hidden=true; i=0; show("vIntro"); });
+    var jump = document.querySelector("[data-jump]");
+    if(jump) jump.addEventListener("click", function(e){ e.preventDefault(); var o=$("oferta"); if(o) o.scrollIntoView({behavior: reduz ? "auto" : "smooth", block:"start"}); });
+    var feitos = 0;
+    [].forEach.call(document.querySelectorAll("[data-todo]"), function(b){
+      b.addEventListener("click", function(){ var on = b.getAttribute("aria-pressed")!=="true"; b.setAttribute("aria-pressed", on); feitos += on ? 1 : -1; $("feitas").textContent = feitos+" de "+hoje.length+" feitas"+(feitos===hoje.length?" ✓":""); });
+    });
+    var sv = $("valorCli");
+    if(sv){ var upd = function(){ var v=+sv.value, p=47/v*100; $("valorOut").textContent = "R$ "+v.toLocaleString("pt-BR"); $("valorRatio").textContent = (p<1 ? p.toLocaleString("pt-BR",{maximumFractionDigits:1}) : Math.round(p))+"%"; $("valorFill").style.width = Math.min(100,p)+"%"; }; sv.addEventListener("input", upd); upd(); }
+    var st = $("sticky"), of = $("oferta"), hero = document.querySelector(".hero-res");
+    if(st && of && hero && "IntersectionObserver" in window){
+      var vistoHero = true, vistoOferta = false;
+      var atual = function(){ st.hidden = vistoHero || vistoOferta; };
+      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.target===hero) vistoHero = e.isIntersecting; else vistoOferta = e.isIntersecting; }); atual(); }).observe(hero);
+      new IntersectionObserver(function(es){ es.forEach(function(e){ vistoOferta = e.isIntersecting; }); atual(); }, {threshold:0.15}).observe(of);
+    }
+    $("redo").addEventListener("click", function(){ counted = {}; A.fill(null); company={revenue:null,team:null}; lead=null; $("leadForm").reset(); $("leadErr").hidden=true; i=0; pStep=0; show("vIntro"); });
   }
 
   function waLink(r, intent){
@@ -574,30 +683,31 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   function offerBlock(r){
     var mapaBtn = '<a class="btn" data-cta="mapa" href="'+withParams(LINK_VENDAS)+'">Quero o Mapa de Oportunidades</a>';
     var price = '<div class="price"><b>R$ 47</b><span>pagamento único</span></div>';
-    var h = '<div class="offer">';
+    var h = '<div class="offer" id="oferta">';
 
     if(r.route === "conversa"){
       h += '<div class="eyebrow">Próximo passo para o seu porte</div><h3>Conversa com a VERT4®</h3>';
       h += '<p>Com o faturamento que você informou, o ponto de '+(r.main ? DIMS[r.main].name : "perda")+' costuma envolver equipe, processo e mais de um canal ao mesmo tempo. Vale uma conversa para entender a sua operação antes de indicar um caminho.</p>';
       h += '<a class="btn wa" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero conversar sobre a minha operação.")+'">Conversar com a VERT4® no WhatsApp</a>';
       h += '<div class="stack"><a class="btn ghost" data-cta="mapa" href="'+withParams(LINK_VENDAS)+'">Prefiro começar pelo Mapa (R$ 47)</a></div>';
-    } else if(r.route === "inicio"){
+      return h + '</div>';
+    }
+    if(r.route === "inicio"){
       h += '<div class="eyebrow">Próximo passo, com honestidade</div><h3>Comece pelas ações de hoje</h3>';
       h += '<p>O Mapa de Oportunidades trabalha sobre 10 oportunidades reais da sua empresa. Se ainda chegam poucos interessados, ele ainda não é o melhor investimento. Aplique as três ações acima e, quando tiver mais conversas acontecendo, ele passa a fazer sentido.</p>';
       h += '<a class="btn wa" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero entender por onde começar.")+'">Tirar uma dúvida no WhatsApp</a>';
-    } else if(r.route === "confirmar"){
-      h += '<div class="eyebrow">Se quiser confirmar</div><h3>Mapa de Oportunidades VERT4®</h3>';
-      h += '<p>Se os sinais aparecem pouco, o próximo passo é confirmar com fatos. O Mapa traz a ficha de evidências e a matriz Público, Oferta e Comercial para você analisar as suas 10 oportunidades reais e ver se existe alguma perda escondida.</p>';
-      h += price + mapaBtn;
-    } else {
-      var bridge = r.kind === "neblina"
-        ? "O Mapa começa justamente pela ficha de evidências: você registra 10 oportunidades reais com fatos, não impressões, e a neblina vira uma prioridade clara."
-        : RES[r.main].bridge;
-      h += '<div class="eyebrow">Próximo passo</div><h3>Mapa de Oportunidades VERT4®</h3>';
-      h += '<p>'+bridge+'</p><p>Minicurso prático, mapa visual, matriz Público, Oferta e Comercial e checklist de priorização.</p>';
-      h += price + mapaBtn;
-      h += '<div class="stack"><a class="btn ghost" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero entender o próximo passo.")+'">Tenho uma dúvida antes de comprar</a></div>';
+      return h + '</div>';
     }
+
+    var bridge = r.route === "confirmar"
+      ? "Se os sinais aparecem pouco, o próximo passo é confirmar com fatos. O Mapa traz a ficha de evidências e a matriz Público, Oferta e Comercial para você analisar as suas 10 oportunidades reais e ver se existe alguma perda escondida."
+      : (r.kind === "neblina" ? "O Mapa começa justamente pela ficha de evidências: você registra 10 oportunidades reais com fatos, não impressões, e a neblina vira uma prioridade clara." : RES[r.main].bridge);
+    h += '<div class="eyebrow">'+(r.route==="confirmar" ? "Se quiser confirmar" : "Do sintoma à causa")+'</div><h3>Mapa de Oportunidades VERT4®</h3><p>'+bridge+'</p>';
+    if(r.kind === "balde" && MODULO[r.main]) h += '<div class="foco"><span>Para o seu caso, a etapa que mais vai ajudar</span><b>'+MODULO[r.main].t+'</b><p>'+MODULO[r.main].a+'</p></div>';
+    h += '<ul class="inclui">'+INCLUI.map(function(t){ return '<li>'+t+'</li>'; }).join("")+'</ul>';
+    h += '<div class="valor"><label for="valorCli">Quanto vale, em média, um cliente seu? <output id="valorOut"></output></label><input type="range" id="valorCli" min="100" max="20000" step="100" value="1500"><div class="ratio"><div class="meter"><i id="valorFill"></i></div><p>R$ 47 equivalem a <b id="valorRatio"></b> de um único cliente.</p></div></div>';
+    h += price + mapaBtn;
+    h += '<div class="stack"><a class="btn ghost" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero entender o próximo passo.")+'">Tenho uma dúvida antes de comprar</a></div>';
     return h + '</div>';
   }
 })();
