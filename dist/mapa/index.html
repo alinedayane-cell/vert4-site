@@ -405,6 +405,8 @@ h1,h2,h3,h4{letter-spacing:-.045em}
 #faq .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:start}#faq .wrap>.eyebrow{grid-column:1;justify-self:start}#faq .h2{grid-column:1;margin-top:-8px}#faq .faq{grid-column:2;grid-row:1/span 2}
 .final{background:radial-gradient(ellipse at bottom,#ccac7d18,transparent 70%);padding-bottom:110px}
 footer{background:#081115}.seal{border-radius:2px;width:210px;height:240px}
+.seal.photo{margin:0;padding:0;overflow:hidden;border-radius:4px;width:240px;height:320px;background:none}.seal.photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+@media(max-width:900px){.seal.photo{width:min(260px,70vw);height:auto;aspect-ratio:3/4}}
 .reading-rail{position:fixed;z-index:40;left:20px;top:50%;transform:translateY(-45%);width:145px;display:grid;gap:0}.reading-rail:before{content:"";position:absolute;left:10px;top:45px;bottom:20px;width:1px;background:var(--line)}.reading-rail .rail-title{font-size:8px;letter-spacing:.16em;color:var(--muted);padding:0 0 22px 2px}.reading-rail a{position:relative;display:flex;align-items:center;gap:12px;padding:11px 0;font-size:10px;color:#829895;text-decoration:none;transition:color .2s}.reading-rail a span{width:21px;height:21px;background:#0b1519;border:1px solid #3c5053;display:grid;place-items:center;font-size:8px;transition:all .2s}.reading-rail a[aria-current="location"]{color:#E3D5B3}.reading-rail a[aria-current="location"] span{background:var(--dou);border-color:var(--dou);color:#17292E;box-shadow:0 0 20px #ccac7d33}
 @media(min-width:1500px){main>.hero>.wrap,main>section>.wrap,.nav>.wrap,footer>.wrap{transform:translateX(50px)}}
 @media(max-width:1499px){.reading-rail{left:auto;right:14px;width:27px}.reading-rail .rail-title,.reading-rail a b{display:none}.reading-rail a{padding:8px 0}.reading-rail:before{top:12px;bottom:12px}.wrap{max-width:1080px;padding-left:30px;padding-right:50px}}
@@ -646,7 +648,7 @@ footer{background:#081115}.seal{border-radius:2px;width:210px;height:240px}
 <!-- 10. Quem conduz -->
 <section class="dark" id="quem">
   <div class="wrap who">
-    <div class="seal reveal"><div><b>VT4</b><span>Estratégia comercial</span></div></div>
+    <figure class="seal photo reveal"><picture><source srcset="../assets/aline-sanches.webp" type="image/webp"><img src="../assets/aline-sanches.jpg" alt="Aline Sanches, fundadora da VERT4®" width="640" height="960" loading="lazy" decoding="async"></picture></figure>
     <div class="reveal">
       <span class="eyebrow">Quem conduz</span>
       <h2>Aline Sanches, fundadora da VERT4®.</h2>
