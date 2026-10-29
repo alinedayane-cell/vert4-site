@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mapa de Oportunidades VERT4®</title>
-<meta name="description" content="Minicurso prático com ferramentas para analisar dez oportunidades reais com a matriz Público, Oferta e Comercial e definir onde investigar primeiro. R$ 47.">
+<meta name="description" content="Para mentores, consultores, clínicas e empresas de serviços: analise dez oportunidades reais com a matriz Público, Oferta e Comercial e descubra onde suas vendas param. R$ 47.">
 <meta property="og:title" content="Mapa de Oportunidades VERT4®">
-<meta property="og:description" content="Antes de buscar mais interessados, entenda por que os atuais não avançam.">
+<meta property="og:description" content="Para mentores, consultores, clínicas e empresas de serviços: antes de buscar mais interessados, entenda por que os atuais não avançam.">
 <link rel="icon" href="../assets/favicon-vert4.svg?v=2" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
@@ -66,10 +66,10 @@ section{padding:96px 0;position:relative}
 .progress{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--dou)}
 
 /* Abertura */
-.hero{padding:140px 0 90px;background:radial-gradient(1200px 600px at 80% -10%,rgba(204,172,125,.14),transparent 60%),var(--void);color:var(--off);overflow:hidden}
+.hero{padding:116px 0 80px;background:radial-gradient(1200px 600px at 80% -10%,rgba(204,172,125,.14),transparent 60%),var(--void);color:var(--off);overflow:hidden}
 .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-.hero h1{font-size:clamp(36px,5.6vw,64px);font-weight:600;margin:18px 0 20px;letter-spacing:-.025em}
-.hero .lead{margin-bottom:30px}
+.hero h1{font-size:clamp(34px,4.4vw,54px);font-weight:600;margin:14px 0 18px;letter-spacing:-.025em}
+.hero .lead{margin-bottom:24px}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:20px;font-size:14px;color:var(--dmuted)}
 .meta span::before{content:"✓ ";color:var(--dou);font-weight:800}
@@ -368,6 +368,19 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 .support-float{position:fixed;right:18px;bottom:22px;z-index:70;background:#167345;color:#fff;padding:13px 18px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 6px 24px #0003}
 a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4px}
 @media(max-width:700px){.week-grid{grid-template-columns:1fr}.support-float{bottom:100px;right:12px;padding:11px 14px}}
+.quiz-cont{display:none;margin:0 0 18px;padding:12px 16px;border:1px solid var(--dline);border-left:3px solid var(--dou);border-radius:12px;background:rgba(204,172,125,.08);color:var(--cha);font-size:15px;max-width:640px}
+.quiz-cont.show{display:block}.quiz-cont b{color:var(--off)}
+.aud{margin-top:26px;max-width:640px}
+.aud>span{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dou);font-weight:700;margin-bottom:10px}
+.aud ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;margin:0;padding:0}
+.aud li{font-size:14px;color:var(--dmuted);line-height:1.4}.aud li b{color:var(--off);font-weight:700}
+@media(max-width:700px){.aud ul{grid-template-columns:1fr}}
+.seal img{width:96px;height:auto;display:block;margin:0 auto 10px}
+.creds{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px;max-width:640px}
+.creds li{color:var(--dmuted);font-size:15px;padding-left:22px;position:relative}.creds li::before{content:"✓";position:absolute;left:0;color:var(--dou);font-weight:800}
+.black-fim{display:block;width:100%;font-size:13px;color:var(--muted)}.dark .black-fim{color:var(--dmuted)}.price-card .black-fim{text-align:center}
+.guarantee{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--soft);font-size:14px;color:var(--ink);text-align:left}
+.guarantee b{display:block;margin-bottom:2px}
 </style></head>
 <body>
 
@@ -386,12 +399,19 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     <div class="reveal">
       <span class="eyebrow">Mapa de Oportunidades VERT4®</span>
       <h1>Antes de buscar mais interessados, entenda por que <em>os atuais não avançam.</em></h1>
-      <p class="lead">Um minicurso prático para empresários de serviços. Você analisa dez oportunidades reais com a matriz Público, Oferta e Comercial e sai com uma prioridade clara do que investigar primeiro.</p>
+      <p class="quiz-cont" id="quizCont" role="status"></p>
+      <p class="lead">Um minicurso prático de R$ 47 para mentores, consultores, clínicas e empresas de serviços. Você analisa dez oportunidades reais com a matriz Público, Oferta e Comercial e sai com uma prioridade clara do que investigar primeiro.</p>
       <div class="cta-row">
         <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa por R$ 47</a>
         <a class="btn line" href="#aula">Experimentar o método agora ↓</a>
       </div>
-      <div class="meta"><span>Pagamento único</span><span>5 etapas com atividade prática</span><span>4 ferramentas de análise</span></div>
+      <div class="meta"><span>Pagamento único</span><span>5 etapas com atividade prática</span><span>4 ferramentas de análise</span><span>7 dias para desistir</span></div>
+      <div class="aud"><span>Para quem já recebe interessados</span><ul>
+        <li><b>Mentores:</b> aplicações e calls que não viram matrícula</li>
+        <li><b>Consultores:</b> propostas enviadas que ficam sem resposta</li>
+        <li><b>Clínicas:</b> avaliações agendadas que não viram tratamento</li>
+        <li><b>Empresas de serviços:</b> orçamentos pedidos que não fecham</li>
+      </ul></div>
     </div>
     <div class="stage reveal" aria-label="Animação: dez oportunidades sendo classificadas nas três dimensões">
       <div class="stage-top"><span>Prévia do método</span><span id="stageState">Classificando</span></div>
@@ -405,7 +425,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
         <g id="stageDots"></g>
         <rect id="stageHi" x="0" y="0" width="0" height="0" rx="16" fill="rgba(204,172,125,.10)" stroke="#CCAC7D" stroke-width="1.5" opacity="0"/>
       </svg>
-      <div class="stage-cap"><div><b class="num" id="capN">0/10</b>oportunidades mapeadas</div><div style="text-align:right"><b id="capP">…</b>prioridade</div></div>
+      <div class="stage-cap"><div><b class="num" id="capN">0/10</b>oportunidades mapeadas</div><div style="text-align:right"><b id="capP">em análise</b>prioridade</div></div>
     </div>
   </div>
 </section>
@@ -436,7 +456,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     <div class="reveal">
       <span class="eyebrow">Aula-teste · 3 minutos</span>
       <h2 class="h2">Experimente o método <em>antes de comprar.</em></h2>
-      <p class="lead">Três mensagens que chegam todos os dias em empresas de serviços. Para cada uma, decida onde está o ponto de perda. Você recebe a explicação na hora, do mesmo jeito que acontece dentro do Mapa.</p>
+      <p class="lead">Três mensagens reais do dia a dia de uma clínica, uma consultoria e uma mentoria. Para cada uma, decida onde está o ponto de perda. Você recebe a explicação na hora, do mesmo jeito que acontece dentro do Mapa.</p>
     </div>
     <div class="lab">
       <div class="lab-side reveal" aria-hidden="true">
@@ -459,7 +479,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     </div>
     <div class="sim reveal">
       <div class="panel">
-        <div class="fld"><label for="sV">Interessados por mês <output id="oV" class="num"></output></label><input type="range" id="sV" min="5" max="300" step="5" value="40"><div class="hint">Mensagens, pedidos de orçamento e contatos.</div></div>
+        <div class="fld"><label for="sV">Interessados por mês <output id="oV" class="num"></output></label><input type="range" id="sV" min="5" max="300" step="5" value="40"><div class="hint">Mensagens, aplicações, pedidos de orçamento e agendamentos de avaliação.</div></div>
         <div class="fld"><label for="sC">De cada 10, quantos fecham hoje <output id="oC" class="num"></output></label><input type="range" id="sC" min="0" max="8" step="1" value="2"></div>
         <div class="fld" style="margin-bottom:0"><label for="sT">Valor médio de um cliente <output id="oT" class="num"></output></label><input type="range" id="sT" min="100" max="20000" step="100" value="1500"><div class="hint">O quanto entra, em média, por cliente fechado.</div></div>
       </div>
@@ -521,7 +541,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
         <h3>Ficha de evidências</h3>
         <p class="sub2">Fica só no seu navegador. Nada é enviado.</p>
         <label for="fN">Oportunidade</label>
-        <input id="fN" maxlength="40" placeholder="Ex.: Orçamento de reforma, março">
+        <input id="fN" maxlength="40" placeholder="Ex.: Avaliação de implante, março">
         <label for="fF">O que aconteceu (o fato, sem opinião)</label>
         <textarea id="fF" maxlength="160" placeholder="Ex.: Recebeu a proposta, disse que ia pensar e parou de responder."></textarea>
         <label>Onde está o sinal mais forte?</label>
@@ -558,7 +578,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
       <div class="it reveal"><div class="ic">🔬</div><div><h3>Laboratório das 10 oportunidades</h3><p>A etapa final: você aplica tudo nos seus casos e sai com uma prioridade definida.</p></div><span class="tag">Incluído</span></div>
     </div>
     <div class="total reveal">
-      <div><div class="black-offer"><del>De R$ 97</del><strong>BLACK · R$ 50 DE DESCONTO</strong></div><div class="k">Oferta Black · pagamento único</div><div class="p"><small>R$</small>47</div><p class="c" id="totalC">Menos do que custa uma única oportunidade perdida na maioria das empresas de serviços.</p></div>
+      <div><div class="black-offer"><del>De R$ 97</del><strong>BLACK · R$ 50 DE DESCONTO</strong><span class="black-fim" hidden></span></div><div class="k">Oferta Black · pagamento único</div><div class="p"><small>R$</small>47</div><p class="c" id="totalC">Menos do que custa uma única oportunidade perdida na maioria dos negócios de serviços.</p></div>
       <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa</a>
     </div>
   </div>
@@ -581,11 +601,11 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
   <div class="wrap">
     <div class="reveal">
       <span class="eyebrow">Para quem é</span>
-      <h2 class="h2">Feito para quem <em>já recebe interessados.</em></h2>
+      <h2 class="h2">Feito para mentores, consultores, clínicas e empresas de serviços que <em>já recebem interessados.</em></h2>
     </div>
     <div class="fit">
       <div class="panel yes reveal"><h3>É para você se</h3><ul>
-        <li>Sua empresa é de serviços e recebe mensagens, pedidos de orçamento ou demonstrações de interesse.</li>
+        <li>Você é mentor, consultor, tem uma clínica ou uma empresa de serviços e recebe mensagens, aplicações, pedidos de orçamento ou agendamentos de avaliação.</li>
         <li>Muitas dessas oportunidades não viram clientes e você não sabe exatamente por quê.</li>
         <li>Você prefere entender a causa antes de investir em divulgação ou mexer no preço.</li>
         <li>Você consegue reunir dez oportunidades recentes para analisar.</li></ul></div>
@@ -600,12 +620,17 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
 <!-- 10. Quem conduz -->
 <section class="dark" id="quem">
   <div class="wrap who">
-    <div class="seal reveal"><div><b>VT4</b><span>Estratégia comercial</span></div></div>
+    <div class="seal reveal"><div><img src="../assets/mark-vert4.svg" alt="" width="96" height="96" loading="lazy"><span>Aceleradora Comercial</span></div></div>
     <div class="reveal">
       <span class="eyebrow">Quem conduz</span>
       <h2>Aline Sanches, fundadora da VERT4®.</h2>
       <p>O Mapa propõe uma leitura conectada de público, oferta e condução comercial, aplicada aos casos da própria empresa.</p>
       <p>O ponto de partida é simples e exigente: observar o que aconteceu antes de decidir o que mudar.</p>
+      <ul class="creds">
+        <li>Mais de 17 anos em vendas, operações, compras, contratos e gestão financeira.</li>
+        <li>Fundadora da VERT4®, que estrutura a aquisição comercial de mentores, consultorias, especialistas, clínicas e empresas B2B.</li>
+        <li>Trabalha sob uma regra: Não Vendo a Qualquer Custo. Por isso o Mapa começa pela evidência, não pela promessa.</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -630,11 +655,12 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
         </ul>
         <p class="small">O Mapa inclui o minicurso e as ferramentas listadas. Consultoria e implementação da operação são serviços separados. Complementos do checkout são opcionais.</p>
       </div>
-      <div class="price-card reveal"><div class="black-offer"><del>De R$ 97</del><strong>BLACK · R$ 50 DE DESCONTO</strong></div>
+      <div class="price-card reveal"><div class="black-offer"><del>De R$ 97</del><strong>BLACK · R$ 50 DE DESCONTO</strong><span class="black-fim" hidden></span></div>
         <span class="k">Pagamento único</span>
         <div class="p"><small>R$</small>47</div>
         <a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Continuar para o checkout →</a>
-        <span class="c">Antes de pagar, confira na plataforma o prazo de acesso, o suporte e as condições de reembolso.</span>
+        <div class="guarantee"><span aria-hidden="true">🛡️</span><div><b>7 dias para desistir</b>Se não fizer sentido para você, peça o reembolso pela Hotmart em até 7 dias após a compra.</div></div>
+        <span class="c">Antes de pagar, confira na plataforma o prazo de acesso e o suporte.</span>
       </div>
     </div>
   </div>
@@ -646,11 +672,12 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     <div class="reveal"><span class="eyebrow">Dúvidas frequentes</span><h2 class="h2">O que vale saber <em>antes de decidir.</em></h2></div>
     <div class="faq reveal">
       <details><summary>Preciso comprar os complementos do checkout?</summary><p>Não. O minicurso e as ferramentas desta página compõem o Mapa de R$ 47. Os complementos são opcionais e só alteram o total quando você os seleciona.</p></details>
-      <details><summary>O Mapa serve para a minha empresa?</summary><p>A proposta é voltada a empresas de serviços que já recebem interessados e conseguem reunir dez oportunidades recentes. Você trabalha sobre os próprios casos, tenham eles avançado ou não.</p></details>
+      <details><summary>O Mapa serve para a minha empresa?</summary><p>Serve para mentores, consultores, clínicas e empresas de serviços que já recebem interessados e conseguem reunir dez oportunidades recentes, como uma call de aplicação, uma proposta enviada, uma avaliação agendada ou um pedido de orçamento. Você trabalha sobre os próprios casos, tenham eles avançado ou não.</p></details>
       <details><summary>O mapa vai me dizer exatamente por que não estou vendendo?</summary><p>Ele organiza as evidências e aponta qual dimensão investigar primeiro. Uma causa definitiva depende de evidências suficientes, e o método deixa claro quando elas ainda não existem.</p></details>
-      <details><summary>O que preciso ter em mãos para começar?</summary><p>Dez oportunidades comerciais recentes da sua empresa: contatos que chegaram por mensagem, pedido de orçamento ou outro canal, tenham ou não virado clientes.</p></details>
+      <details><summary>O que preciso ter em mãos para começar?</summary><p>Dez oportunidades comerciais recentes: contatos que chegaram por mensagem, aplicação, pedido de orçamento, agendamento de avaliação ou outro canal, tenham ou não virado clientes.</p></details>
       <details><summary>Não seria mais simples investir em mais divulgação?</summary><p>Se o problema estiver no público, talvez. Se estiver na oferta ou no comercial, mais divulgação traz mais pessoas para o mesmo ponto de perda. O Mapa ajuda você a saber qual é o caso antes de investir.</p></details>
-      <details><summary>Como recebo o acesso?</summary><p>O acesso é disponibilizado pelo canal informado na compra. Antes de contratar, confira na plataforma o prazo de acesso, o suporte e as condições de reembolso.</p></details>
+      <details><summary>Como recebo o acesso?</summary><p>O acesso é disponibilizado pelo canal informado na compra. Antes de contratar, confira na plataforma o prazo de acesso e o suporte.</p></details>
+      <details><summary>E se eu comprar e não fizer sentido?</summary><p>Você tem 7 dias após a compra para pedir o reembolso pela Hotmart, sem precisar justificar.</p></details>
       <details><summary>E depois de identificar onde investigar?</summary><p>Você usa a dimensão priorizada para definir uma investigação ou melhoria. Se quiser apoio, a Consultoria pontual e o acompanhamento VERT4® são serviços separados.</p></details>
     </div>
   </div>
@@ -662,7 +689,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     <span class="eyebrow">Antes de mudar o preço ou aumentar a divulgação</span>
     <h2 class="h2">Saiba onde as suas oportunidades <em>estão parando.</em></h2>
     <p class="lead">Dez oportunidades analisadas. Uma prioridade definida. R$ 47.</p>
-    <div class="cta-row" style="justify-content:center"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa por R$ 47</a><a class="btn line" href="quiz.html" data-go>Prefiro começar pelo quiz</a></div>
+    <div class="cta-row" style="justify-content:center"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa por R$ 47</a><a class="btn line" href="quiz.html" data-go id="finalQuiz">Prefiro começar pelo quiz</a></div>
   </div>
 </section>
 </main>
@@ -697,6 +724,30 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     });
   })();
 
+  /* Continuidade para quem chega do quiz (o quiz envia origem=quiz-anuncio e resultado=p|o|c|empate|neblina) */
+  (function(){
+    var sp = new URLSearchParams(location.search), org = sp.get("origem") || "", res = sp.get("resultado") || "";
+    if(org.indexOf("quiz") !== 0) return;
+    var box = $("#quizCont"), txt;
+    if(DN[res]) txt = 'Seu quiz apontou sinais mais fortes em <b>'+DN[res]+'</b>. O Mapa confirma isso com dez oportunidades reais antes de você mudar qualquer coisa.';
+    else if(res === "empate") txt = 'Seu quiz terminou em <b>empate</b>. O Mapa desempata com dez oportunidades reais e um checklist de priorização.';
+    else if(res === "neblina") txt = 'Seu quiz mostrou que <b>faltam dados</b> para decidir. O Mapa começa exatamente aí: registrar dez oportunidades reais com fatos.';
+    else txt = '<b>Você já fez o quiz.</b> O próximo passo é confirmar a leitura com dez oportunidades reais da sua empresa.';
+    box.innerHTML = txt; box.classList.add("show");
+    var fq = $("#finalQuiz"); if(fq) fq.remove();
+  })();
+
+  /* Oferta Black: defina a data final (AAAA-MM-DD). Vazio = não mostra data. Depois da data, o selo Black some. */
+  (function(){
+    var BLACK_FIM = "";
+    if(!BLACK_FIM) return;
+    var fim = new Date(BLACK_FIM + "T23:59:59-03:00");
+    if(isNaN(fim)) return;
+    if(Date.now() > fim.getTime()){ $$(".black-offer").forEach(function(el){ el.remove(); }); return; }
+    var d = fim.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit",timeZone:"America/Sao_Paulo"});
+    $$(".black-fim").forEach(function(el){ el.textContent = "Condição Black válida até " + d + "."; el.hidden = false; });
+  })();
+
   /* Barra, progresso de leitura e barra fixa do celular */
   var nav = $("#nav"), prog = $("#prog"), dock = $("#dock");
   function onScroll(){
@@ -719,7 +770,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     var colX = {p:74,o:200,c:326}, NS = "http://www.w3.org/2000/svg";
     var seqs = [["c","p","c","o","c","p","c","o","c","c"],["o","p","o","c","o","o","p","c","o","p"],["p","p","c","p","o","p","c","p","o","p"]], si = 0;
     function run(){
-      g.innerHTML = ""; hi.setAttribute("opacity","0"); capP.textContent = "…"; st.textContent = "Classificando";
+      g.innerHTML = ""; hi.setAttribute("opacity","0"); capP.textContent = "em análise"; st.textContent = "Classificando";
       var seq = seqs[si++ % seqs.length], cnt = {p:0,o:0,c:0};
       seq.forEach(function(d,k){
         var x0 = 40 + k*35, c = document.createElementNS(NS,"circle");
@@ -751,12 +802,12 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
      ctx:"A clínica não trabalha com convênio. Esta é a terceira mensagem parecida da semana.", ans:"p",
      why:"A pessoa até tem interesse, mas procura algo que a empresa não oferece. Nenhum atendimento caprichado resolve isso: o desencontro começa em quem está chegando.",
      inv:"Que mensagem da divulgação pode estar atraindo quem procura convênio?"},
-    {who:"JP", tag:"Empresa de reformas", msg:"Recebi o orçamento, obrigado. Só não entendi bem: a visita técnica e o material estão incluídos nesse valor?", time:"WhatsApp · 14:40",
-     ctx:"O orçamento foi enviado em PDF, com o valor total e uma lista de serviços.", ans:"o",
+    {who:"JP", tag:"Consultoria empresarial", msg:"Recebi a proposta, obrigado. Só não entendi bem: as reuniões de acompanhamento e a implantação estão incluídas nesse valor?", time:"WhatsApp · 14:40",
+     ctx:"A proposta foi enviada em PDF, com o valor total e uma lista de entregas.", ans:"o",
      why:"O interessado tem perfil e recebeu a proposta, mas não entendeu o que está incluído. Quem não entende a proposta não consegue defendê-la nem para si mesmo.",
      inv:"Que três perguntas aparecem depois de toda proposta e ainda não estão respondidas nela?"},
-    {who:"CL", tag:"Escritório de contabilidade", msg:"Mandei mensagem na segunda e só me responderam na quinta. Já fechei com outro escritório, mas obrigada.", time:"WhatsApp · quinta, 17:05",
-     ctx:"O contato veio por indicação de um cliente e tinha o perfil ideal.", ans:"c",
+    {who:"CL", tag:"Mentoria de negócios", msg:"Fiz a aplicação na segunda e só me chamaram para a call na quinta. Já entrei em outra mentoria, mas obrigada.", time:"Direct · quinta, 17:05",
+     ctx:"A aplicação veio por indicação de uma mentorada e tinha o perfil ideal.", ans:"c",
      why:"Perfil certo e interesse real. A oportunidade se perdeu no tempo de resposta. É a perda mais silenciosa: ninguém disse não, a conversa só esfriou.",
      inv:"Quanto tempo leva, em média, a primeira resposta? E quem é responsável por ela?"}
   ];
