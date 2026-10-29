@@ -164,6 +164,10 @@ button{font-family:inherit}
 .sticky span{font-size:12px;color:var(--cha)}
 .sticky .btn{width:auto;min-height:44px;padding:10px 16px;font-size:15px;background:var(--dou);color:var(--pet)}
 @media (prefers-reduced-motion:reduce){.spin{animation:none}.row .t i{transition:none}}
+.aviso-mail{display:flex;gap:12px;align-items:flex-start;background:var(--soft);border:1px solid var(--line);border-left:4px solid var(--dou);border-radius:12px;padding:12px 14px;margin:0 0 18px;font-size:15px}
+.aviso-mail .env{flex:none;width:32px;height:32px;border-radius:50%;background:var(--dou);color:var(--pet);display:grid;place-items:center;font-size:16px}
+.aviso-mail p{margin:0}
+.convite{color:var(--off)!important;font-size:16px!important;font-weight:600;margin:6px 0 2px!important}
 /* Leitura guiada e botões interativos */
 .trilha{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 10px;position:sticky;top:0;z-index:5;background:var(--card);padding:8px 0}
 .trilha button{font:inherit;font-size:11.5px;font-weight:700;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:7px 4px;display:grid;justify-items:center;gap:3px;cursor:pointer;transition:all .2s}
@@ -295,15 +299,15 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   <!-- 4. Captura (depois da última pergunta, antes do resultado) -->
   <section id="vLead" class="card step" hidden aria-labelledby="leadTitle">
     <div class="eyebrow">Sua leitura está pronta</div>
-    <h2 id="leadTitle">Para onde envio a sua leitura?</h2>
-    <p class="note" style="margin:0 0 18px">Você vê o resultado na próxima tela. Pelo WhatsApp, enviamos a leitura e conteúdos sobre o ponto que mais pede atenção na sua empresa.</p>
+    <h2 id="leadTitle">Para onde enviamos o seu resultado?</h2>
+    <p class="note" style="margin:0 0 18px">Informe o seu melhor e-mail. Vamos enviar o seu resultado personalizado junto com um vídeo explicando o que ele significa e o que fazer a respeito.</p>
     <form id="leadForm" novalidate>
       <div class="fld"><label for="lName">Seu nome</label><input id="lName" name="nome" autocomplete="given-name" required maxlength="80"></div>
+      <div class="fld"><label for="lMail">Seu melhor e-mail</label><input id="lMail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="voce@empresa.com.br" required maxlength="120"></div>
       <div class="fld"><label for="lWa">WhatsApp com DDD</label><input id="lWa" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(69) 99999-9999" required maxlength="20"></div>
-      <div class="fld"><label for="lMail">E-mail <small>(opcional)</small></label><input id="lMail" name="email" type="email" autocomplete="email" maxlength="120"></div>
-      <label class="consent"><input type="checkbox" id="lOk" required><span>Autorizo a VERT4® a guardar meus dados e respostas deste quiz para me enviar a leitura e entrar em contato sobre o tema. Posso pedir a exclusão a qualquer momento pelo WhatsApp da VERT4®.</span></label>
+      <label class="consent"><input type="checkbox" id="lOk" required><span>Autorizo a VERT4® a guardar meus dados e respostas deste quiz para me enviar o resultado e o vídeo por e-mail e entrar em contato sobre o tema. Posso pedir a exclusão a qualquer momento pelo WhatsApp da VERT4®.</span></label>
       <p class="err" id="leadErr" role="alert" hidden></p>
-      <button class="btn" type="submit">Ver meu resultado →</button>
+      <button class="btn" type="submit">Enviar e ver meu resultado →</button>
     </form>
     <button class="back" type="button" id="leadBack">← Revisar última resposta</button>
   </section>
@@ -561,7 +565,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     var name = $("lName").value.trim(), wa = onlyDigits($("lWa").value), mail = $("lMail").value.trim(), err = "";
     if(name.length < 2) err = "Escreva o seu nome.";
     else if(wa.length < 10 || wa.length > 13) err = "Confira o WhatsApp com DDD.";
-    else if(mail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) err = "Confira o e-mail ou deixe em branco.";
+    else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) err = "Confira o seu e-mail: é para ele que enviamos o resultado.";
     else if(!$("lOk").checked) err = "Para enviar a leitura, precisamos da sua autorização.";
     $("leadErr").hidden = !err; $("leadErr").textContent = err;
     if(err) return;
@@ -631,8 +635,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     h += '<nav class="trilha" aria-label="Etapas da sua leitura">'+ETAPAS.map(function(e,n){ return '<button type="button" data-go="'+n+'"'+(n?' disabled':'')+' class="'+(n?'':'on')+'"><b>'+(n+1)+'</b>'+e+'</button>'; }).join("")+'</nav>';
     h += '<button type="button" class="pular" data-next="3">Já entendi, quero ver a solução ↓</button>';
 
-    /* Etapa 1: Diagnóstico */
-    h += '<section class="etapa on" data-etapa="0"><div class="eyebrow">'+(first ? first+', este é o seu resultado' : 'Seu resultado')+'</div>';
+    /* Etapa 1: Diagnóstico, com o aviso do e-mail */
+    h += '<section class="etapa on" data-etapa="0"><div class="aviso-mail"><span class="env" aria-hidden="true">✉</span><p><b>'+(first ? first+', o' : 'O')+' seu resultado e o vídeo devem chegar em '+(lead && lead.email ? esc(lead.email) : 'seu e-mail')+' entre 20 e 30 minutos.</b> Enquanto isso, quero falar sobre o que eles significam e o que você deve fazer a respeito. Então vamos direto ao assunto.</p></div><div class="eyebrow">'+(first ? first+', este é o seu resultado' : 'Seu resultado')+'</div>';
     if(r.kind === "neblina") h += '<h1>Seu resultado: <em>modo neblina</em>.</h1><p class="lead">Você respondeu "não sei dizer" em '+r.R.unk+' de '+SIGNALS.length+' situações. Não é bronca: é o achado mais útil do quiz. Fica difícil corrigir o que ninguém está medindo.</p>';
     else if(r.kind === "sem_sinal") h += '<h1>Nenhum sinal forte <em>por aqui</em>.</h1><p class="lead">As situações do quiz aparecem pouco na sua empresa. Ótima notícia, mas vale confirmar com números reais antes de comemorar com bolo.</p>';
     else { h += '<h1>'+RES[main].title+'</h1><p class="lead">'+RES[main].joke+'</p>'; if(r.tieNote) h += '<p class="note" style="margin:0 0 6px">'+r.tieNote+'</p>'; }
@@ -744,7 +748,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }
     var bridge = r.route === "confirmar" ? "Se os sinais aparecem pouco, o próximo passo é confirmar com fatos. O Mapa traz a ficha de evidências e a matriz Público, Oferta e Comercial para você analisar as suas 10 oportunidades reais e ver se existe alguma perda escondida."
       : (r.kind === "neblina" ? "O Mapa começa justamente pela ficha de evidências: você registra 10 oportunidades reais com fatos, não impressões, e a neblina vira uma prioridade clara." : (r.kind === "balde" ? RES[r.main].bridge : "O Mapa traz a matriz Público, Oferta e Comercial para você analisar as suas 10 oportunidades reais e decidir onde agir primeiro."));
-    h += '<div class="eyebrow">Do sintoma à causa</div><h3>Mapa de Oportunidades VERT4®</h3><p>'+bridge+'</p>';
+    h += '<div class="eyebrow">Do sintoma à causa</div><p class="convite">Se você quer fazer algo a respeito disso, quero te apresentar o que criamos para essa situação:</p><h3>Mapa de Oportunidades VERT4®</h3><p>'+bridge+'</p>';
     if(r.kind === "balde" && MODULO[r.main]) h += '<div class="foco"><span>Para o seu caso, a etapa que mais vai ajudar</span><b>'+MODULO[r.main].t+'</b><p>'+MODULO[r.main].a+'</p></div>';
     h += '<ul class="inclui">'+INCLUI.map(function(t){ return '<li>'+t+'</li>'; }).join("")+'</ul>';
     h += '<div class="valor"><label for="valorCli">Quanto vale, em média, um cliente seu? <output id="valorOut"></output></label><input type="range" id="valorCli" min="100" max="20000" step="100" value="1500"><div class="ratio"><div class="meter"><i id="valorFill"></i></div><p>R$ 47 equivalem a <b id="valorRatio"></b> de um único cliente.</p></div></div>';
