@@ -9,7 +9,7 @@
 <meta property="og:description" content="Antes de buscar mais interessados, entenda por que os atuais não avançam.">
 <link rel="icon" href="../assets/favicon-vert4.svg?v=2" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
 <style>
 /* Página de vendas do Mapa: seções escuras (petróleo) e claras (off-white) alternadas.
    Arco pedagógico da página: perceber o problema → experimentar o método (aula-teste) → medir o valor (simulador) → conhecer a trilha → ver as ferramentas → decidir. */
@@ -18,7 +18,7 @@
   --ink:#17292E; --muted:#5B6A6E; --line:#E3D5B3; --card:#FFFFFF; --soft:#F8F5EE;
   --dmuted:#B9C2BF; --dline:rgba(204,172,125,.22);
   --ok:#2F7A55; --no:#A6463A;
-  --font:"Manrope", Arial, sans-serif;
+  --font:"Montserrat", Arial, sans-serif;
   --r:18px;
 }
 *{box-sizing:border-box}
@@ -368,7 +368,36 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 .support-float{position:fixed;right:18px;bottom:22px;z-index:70;background:#167345;color:#fff;padding:13px 18px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 6px 24px #0003}
 a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4px}
 @media(max-width:700px){.week-grid{grid-template-columns:1fr}.support-float{bottom:100px;right:12px;padding:11px 14px}}
-</style></head>
+</style>
+<style>
+/* Estilo de conversão: Montserrat pesada, botões em pílula dourada, botão ao fim de cada seção, layout fluido */
+.wrap{max-width:min(1280px,100%);padding:0 clamp(16px,4vw,56px)}
+@media (min-width:1600px){.wrap{max-width:1380px}body{font-size:18px}}
+h1,h2,h3,h4{font-weight:800;letter-spacing:-.02em}
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 80px}
+.hero .wrap{width:100%}
+.hero h1{font-weight:800;font-size:clamp(34px,4.9vw,72px);line-height:1.06}
+.h2{font-size:clamp(28px,3.8vw,50px);line-height:1.1}
+.lead{font-weight:500}
+.btn,.btn[data-go][href^="https://pay.hotmart.com/"],.total .btn,.price-card .btn,.done-card a.btn{border-radius:999px;background:linear-gradient(135deg,#EBCB93 0%,#CCAC7D 48%,#A8844F 100%);color:#17292E;text-transform:uppercase;letter-spacing:.05em;font-weight:800;font-size:15px;padding:17px 30px;box-shadow:0 12px 30px rgba(204,172,125,.32),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn[data-go][href^="https://pay.hotmart.com/"]:hover,.btn:hover,.done-card a.btn:hover{background:linear-gradient(135deg,#F2D7A6 0%,#D6B888 48%,#B08D57 100%);transform:translateY(-2px);box-shadow:0 18px 40px rgba(204,172,125,.45)}
+.btn.line{border-radius:999px;text-transform:none;letter-spacing:0;font-weight:700;background:transparent;box-shadow:none}
+.btn.dk{background:var(--pet);color:var(--off)}
+.nav .btn{padding:10px 18px;font-size:12.5px}
+.cta-sec{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:52px;text-align:center}
+.cta-sec .btn{max-width:100%;white-space:normal;line-height:1.25}
+.cta-sec span{font-size:13px;color:var(--muted)}
+.dark .cta-sec span{color:var(--dmuted)}
+.se-voce{max-width:720px;margin:8px auto 30px;text-align:left;border:1px solid var(--dline);border-radius:20px;padding:26px 28px;background:rgba(255,255,255,.03)}
+.se-voce h3{font-size:24px;margin-bottom:14px;text-align:center}
+.se-voce ul{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:12px}
+.se-voce li{padding-left:30px;position:relative;color:var(--off)}
+.se-voce li::before{content:"✓";position:absolute;left:0;color:var(--dou);font-weight:800}
+.se-voce p{text-align:center;font-weight:700;font-size:18px}
+@media (max-width:700px){.support-float{right:10px;bottom:96px;padding:8px 12px;font-size:12px;opacity:.92}}
+@media (max-width:520px){.btn,.btn[data-go][href^="https://pay.hotmart.com/"]{font-size:14px;padding:16px 22px}.cta-row .btn{width:100%}.hero{min-height:auto;padding:110px 0 64px}.se-voce{padding:22px 18px}}
+</style>
+</head>
 <body>
 
 <header class="nav" id="nav">
@@ -396,7 +425,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     <div class="stage reveal" aria-label="Animação: dez oportunidades sendo classificadas nas três dimensões">
       <div class="stage-top"><span>Prévia do método</span><span id="stageState">Classificando</span></div>
       <svg viewBox="0 0 400 320" id="stageSvg" role="img" aria-hidden="true">
-        <g font-family="Manrope, Arial" font-weight="700" font-size="12" fill="#E3D5B3" text-anchor="middle">
+        <g font-family="Montserrat, Arial" font-weight="700" font-size="12" fill="#E3D5B3" text-anchor="middle">
           <rect x="18" y="120" width="112" height="170" rx="16" fill="none" stroke="rgba(204,172,125,.28)"/>
           <rect x="144" y="120" width="112" height="170" rx="16" fill="none" stroke="rgba(204,172,125,.28)"/>
           <rect x="270" y="120" width="112" height="170" rx="16" fill="none" stroke="rgba(204,172,125,.28)"/>
@@ -428,6 +457,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     </div>
     <p class="punch reveal">As três podem funcionar. O problema é escolher antes de saber a causa. O Mapa existe para essa decisão vir <em>depois</em> da evidência.</p>
   </div>
+<div class="wrap"><div class="cta-sec reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero descobrir onde minhas vendas param · R$ 47</a><span>Pagamento único · você aplica nos seus próprios casos</span></div></div>
 </section>
 
 <!-- 3. Aula-teste: aprender fazendo -->
@@ -476,6 +506,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     </div>
     <p class="honest reveal">Simulação ilustrativa feita só com os números que você informou. Não é promessa de resultado: o Mapa mostra onde investigar, e o resultado depende do que for corrigido depois.</p>
   </div>
+<div class="wrap"><div class="cta-sec reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero recuperar essas oportunidades · R$ 47</a><span>Pagamento único · você aplica nos seus próprios casos</span></div></div>
 </section>
 
 <!-- 5. A matriz -->
@@ -493,6 +524,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     </div>
     <div class="tp reveal" id="tpanel" role="tabpanel"></div>
   </div>
+<div class="wrap"><div class="cta-sec reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero saber qual é o meu ponto · R$ 47</a><span>Pagamento único · você aplica nos seus próprios casos</span></div></div>
 </section>
 
 <!-- 6. Trilha pedagógica -->
@@ -506,6 +538,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     </div>
     <div class="path" id="path"></div>
   </div>
+<div class="wrap"><div class="cta-sec reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero começar as 5 etapas · R$ 47</a><span>Pagamento único · você aplica nos seus próprios casos</span></div></div>
 </section>
 
 <!-- 7. Ferramenta: ficha de evidências ao vivo -->
@@ -539,6 +572,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
       </div>
     </div>
   </div>
+<div class="wrap"><div class="cta-sec reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero mapear minhas 10 oportunidades · R$ 47</a><span>Pagamento único · você aplica nos seus próprios casos</span></div></div>
 </section>
 
 <!-- 8. Pilha de valor -->
@@ -576,6 +610,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
       <article><h3>Dias 5 a 7 · Priorizar</h3><p>Compare os padrões, aplique o checklist e escolha uma melhoria para testar e acompanhar.</p></article>
     </div>
   </div>
+<div class="wrap"><div class="cta-sec reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero minha prioridade definida · R$ 47</a><span>Pagamento único · você aplica nos seus próprios casos</span></div></div>
 </section>
 <section class="light" id="paraquem" style="padding-top:0">
   <div class="wrap">
@@ -595,6 +630,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
         <li>Você espera a implementação completa da operação comercial. Este é o primeiro diagnóstico.</li></ul></div>
     </div>
   </div>
+<div class="wrap"><div class="cta-sec reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>É para mim, quero meu Mapa · R$ 47</a><span>Pagamento único · você aplica nos seus próprios casos</span></div></div>
 </section>
 
 <!-- 10. Quem conduz -->
@@ -608,6 +644,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
       <p>O ponto de partida é simples e exigente: observar o que aconteceu antes de decidir o que mudar.</p>
     </div>
   </div>
+<div class="wrap"><div class="cta-sec reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero aprender com a VERT4® · R$ 47</a><span>Pagamento único · você aplica nos seus próprios casos</span></div></div>
 </section>
 
 <!-- 11. Investimento -->
@@ -654,6 +691,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
       <details><summary>E depois de identificar onde investigar?</summary><p>Você usa a dimensão priorizada para definir uma investigação ou melhoria. Se quiser apoio, a Consultoria pontual e o acompanhamento VERT4® são serviços separados.</p></details>
     </div>
   </div>
+<div class="wrap"><div class="cta-sec reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Tirei minhas dúvidas, quero meu Mapa · R$ 47</a><span>Pagamento único · você aplica nos seus próprios casos</span></div></div>
 </section>
 
 <!-- 13. Fechamento -->
@@ -662,6 +700,11 @@ a:focus-visible,button:focus-visible{outline:3px solid #CCAC7D;outline-offset:4p
     <span class="eyebrow">Antes de mudar o preço ou aumentar a divulgação</span>
     <h2 class="h2">Saiba onde as suas oportunidades <em>estão parando.</em></h2>
     <p class="lead">Dez oportunidades analisadas. Uma prioridade definida. R$ 47.</p>
+    <div class="se-voce"><h3>Se você:</h3><ul>
+      <li>Recebe mensagens, pedidos de orçamento ou demonstrações de interesse;</li>
+      <li>Vê boa parte dessas oportunidades não virar cliente sem saber exatamente por quê;</li>
+      <li>Prefere entender a causa antes de investir em divulgação ou mexer no preço…</li>
+    </ul><p>Comece pela leitura das suas <em>10 oportunidades reais.</em></p></div>
     <div class="cta-row" style="justify-content:center"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Quero meu Mapa por R$ 47</a><a class="btn line" href="quiz.html" data-go>Prefiro começar pelo quiz</a></div>
   </div>
 </section>
