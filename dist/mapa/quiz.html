@@ -212,6 +212,33 @@ button{font-family:inherit}
 .d1 .btn.next.gold{animation:pulse 1.6s ease-in-out 3s 3}
 @media (prefers-reduced-motion:reduce){.r-in,.d1 h1 em,.d1 h1 em::after,.dx-c.pop,.aviso-mail .env,.dx-hint span,.dx-det.troca,.d1 .btn.next.gold{animation:none}.d1 h1 em::after{transform:scaleX(1)}.dx-ring .fg{transition:none}}
 @media (max-width:420px){.dx{gap:8px}.dx-n{font-size:13px;white-space:nowrap}.dx-n span{display:none}.aviso-mail{font-size:14px;padding:10px 12px}.dx-c{padding:16px 4px 10px}}
+/* Contraste de leitura: escala de calor Alto / Atenção / Baixo */
+:root{--hot:#D9644A;--warm:#C89A55;--cool:#5E8F80;--hot-bg:rgba(217,100,74,.10);--pill-ink:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hot:#F08A6E;--warm:#E2BD7F;--cool:#8CC2B1;--hot-bg:rgba(240,138,110,.10);--pill-ink:#17292E}}
+:root[data-theme="dark"]{--hot:#F08A6E;--warm:#E2BD7F;--cool:#8CC2B1;--hot-bg:rgba(240,138,110,.10);--pill-ink:#17292E}
+.dx-l{border-radius:30px;padding:3px 10px;font-size:11px}
+.dx-l.n3{background:var(--hot);color:var(--pill-ink)}
+.dx-l.n2{background:var(--warm);color:var(--pill-ink)}
+.dx-l.n1{background:var(--cool);color:var(--pill-ink)}
+.dx-l.n0{background:var(--line);color:var(--muted)}
+.dx-c.n3 .fg{stroke:var(--hot)}.dx-c.n2 .fg{stroke:var(--warm)}.dx-c.n1 .fg{stroke:var(--cool)}
+.dx-c.n3 .v{color:var(--hot)}.dx-c.n2 .v{color:var(--warm)}.dx-c.n1 .v{color:var(--cool)}
+.dx-c.hi .fg{stroke:var(--hot)}
+.dx-ring .bg{stroke:var(--line);opacity:.9}
+.dx-c .fg[data-w="0"]{opacity:0}
+.dx-c{opacity:.78}
+.dx-c.on,.dx-c.hi,.dx-c:hover{opacity:1}
+.dx-c.hi{border:2px solid var(--hot);background:var(--hot-bg)}
+.dx-c.hi.on{background:var(--hot-bg);box-shadow:0 0 0 4px var(--hot-bg),0 10px 26px rgba(0,0,0,.18)}
+.dx-c.on:not(.hi){border-color:var(--ink);box-shadow:none}
+.dx-badge{background:var(--hot);color:var(--pill-ink);box-shadow:0 4px 14px var(--hot-bg)}
+.dx-det{border-left-color:var(--hot)}.dx-det:has(.dx-det-top .n2){border-left-color:var(--warm)}.dx-det:has(.dx-det-top .n1){border-left-color:var(--cool)}.dx-det:has(.dx-det-top .n0){border-left-color:var(--line)}
+.dx-tag{background:var(--warm);color:var(--pill-ink)}
+.dx-tag.forte{background:var(--hot);color:var(--pill-ink)}
+.trilha button{color:var(--ink);opacity:.6}
+.trilha button.on,.trilha button.ok{opacity:1}
+.trilha button.on{background:var(--dou);color:var(--pet);border-color:var(--dou)}
+.trilha button.on b{background:var(--pet);color:var(--dou)}
 .convite{color:var(--off)!important;font-size:16px!important;font-weight:600;margin:6px 0 2px!important}
 /* Leitura guiada e botões interativos */
 .trilha{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 10px;position:sticky;top:0;z-index:5;background:var(--card);padding:8px 0}
@@ -691,17 +718,17 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     h += '<div class="dx" role="group" aria-label="Seus três pontos. Toque em cada um para ver o que pesou">';
     ["p","o","c"].forEach(function(d){
       var v = pct[d], crit = d===main && r.kind==="balde";
-      h += '<button type="button" class="dx-c'+(crit?' hi':'')+(d===sel?' on':'')+ri()+' data-dx="'+d+'" aria-pressed="'+(d===sel)+'">'+
+      h += '<button type="button" class="dx-c '+nivel(v).c+(crit?' hi':'')+(d===sel?' on':'')+ri()+' data-dx="'+d+'" aria-pressed="'+(d===sel)+'">'+
         (crit ? '<span class="dx-badge">Ponto crítico</span>' : '')+
         '<span class="dx-ring"><svg viewBox="0 0 44 44" aria-hidden="true"><circle class="bg" cx="22" cy="22" r="18" pathLength="100"/><circle class="fg" cx="22" cy="22" r="18" pathLength="100" data-w="'+(v||0)+'"/></svg><b class="v" data-n="'+(v===null?'':v)+'">'+(v===null?'—':'0%')+'</b></span>'+
-        '<span class="dx-n"><span aria-hidden="true">'+ICO[d]+'</span> '+DIMS[d].name+'</span><span class="dx-l '+nivel(v).c+'">'+nivel(v).t+'</span></button>';
+        '<span class="dx-n">'+DIMS[d].name+'</span><span class="dx-l '+nivel(v).c+'">'+nivel(v).t+'</span></button>';
     });
     h += '</div><p class="dx-hint'+ri()+'><span aria-hidden="true">👆</span> Toque em cada ponto para ver o que pesou</p><div class="dx-det'+ri()+' id="dxDet" aria-live="polite">'+detalhe(sel)+'</div>';
     h += '<div class="'+ri().slice(1)+'>'+prox(r.kind==="balde" ? "Por que isso acontece?" : "O que isso significa?", 1, "gold")+'</div></section>';
     function nivel(v){ return v===null ? {t:"Sem dados",c:"n0"} : v>=67 ? {t:"Alto",c:"n3"} : v>=34 ? {t:"Atenção",c:"n2"} : {t:"Baixo",c:"n1"}; }
     function detalhe(d){
       var v = pct[d], hot = r.R.hot[d] || [], nv = nivel(v);
-      var x = '<div class="dx-det-top"><b>'+ICO[d]+' '+DIMS[d].name+(v===null?'':' · '+v+'%')+'</b><span class="dx-l '+nv.c+'">'+nv.t+'</span></div><p>Mede '+DIMS[d].what+'.</p>';
+      var x = '<div class="dx-det-top"><b>'+DIMS[d].name+(v===null?'':' · '+v+'%')+'</b><span class="dx-l '+nv.c+'">'+nv.t+'</span></div><p>Mede '+DIMS[d].what+'.</p>';
       if(v===null) x += '<p class="dx-sem">Você marcou "não sei dizer" nas situações deste ponto. Medir isso já é o primeiro passo.</p>';
       else if(hot.length) x += '<span class="dx-sub">O que pesou nas suas respostas</span><ul>'+hot.map(function(it){ return '<li><span class="dx-tag'+(it.l==="Quase sempre"?' forte':'')+'">'+esc(it.l)+'</span>'+esc(it.t.replace(/\.$/,""))+'</li>'; }).join("")+'</ul>';
       else x += '<p class="dx-sem">Nenhuma situação deste ponto apareceu com frequência. Por aqui, o sinal é fraco.</p>';
