@@ -164,6 +164,38 @@ button{font-family:inherit}
 .sticky span{font-size:12px;color:var(--cha)}
 .sticky .btn{width:auto;min-height:44px;padding:10px 16px;font-size:15px;background:var(--dou);color:var(--pet)}
 @media (prefers-reduced-motion:reduce){.spin{animation:none}.row .t i{transition:none}}
+/* Leitura guiada e botões interativos */
+.trilha{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 10px;position:sticky;top:0;z-index:5;background:var(--card);padding:8px 0}
+.trilha button{font:inherit;font-size:11.5px;font-weight:700;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:7px 4px;display:grid;justify-items:center;gap:3px;cursor:pointer;transition:all .2s}
+.trilha button b{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--line);color:var(--ink)}
+.trilha button.on{border-color:var(--dou);color:var(--ink)}
+.trilha button.on b,.trilha button.ok b{background:var(--dou);color:var(--pet)}
+.trilha button.ok{color:var(--ink)}
+.trilha button:disabled{opacity:.55;cursor:default}
+.pular{display:block;margin:0 0 12px auto;background:none;border:0;color:var(--acc);font:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:4px 0}
+.etapa{scroll-margin-top:72px}
+.etapa + .etapa{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.etapa h2{font-size:clamp(22px,5.6vw,27px);margin:6px 0 10px}
+.etapa.entra{animation:entra .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes entra{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.enum{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.btn.next{margin-top:18px;justify-content:space-between;padding:14px 18px;position:relative;overflow:hidden}
+.btn.next i,.btn.cta i{font-style:normal;transition:transform .2s;display:inline-block}
+.btn.next:hover i,.btn.cta:hover i{transform:translateX(5px)}
+.btn.next.gold{background:var(--dou);color:var(--pet)}
+.btn.next i{animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{0%,60%,100%{transform:none}30%{transform:translateX(5px)}}
+.btn.pulse{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(204,172,125,.55)}50%{box-shadow:0 0 0 10px rgba(204,172,125,0)}}
+.btn.cta{position:relative;overflow:hidden;justify-content:space-between;gap:10px;padding:16px 18px;font-size:16.5px;text-align:left}
+.btn.cta::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:brilho 3.2s ease-in-out infinite}
+@keyframes brilho{0%,55%{left:-60%}85%,100%{left:130%}}
+.btn:active{transform:scale(.97)}
+.ponte{margin-top:16px;background:var(--soft);border:1px dashed var(--dou);border-radius:12px;padding:12px 14px;font-size:15px}
+.small-note{font-size:13px;color:var(--cha);margin:14px 0 0!important}
+.offer{margin-top:10px}
+@media (prefers-reduced-motion:reduce){.btn.next i,.btn.pulse,.btn.cta::after,.etapa.entra{animation:none}}
+
 
 </style>
 <script>
@@ -560,9 +592,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
 
   /* ===== Resultado =====
-     Prescrição: revela o diagnóstico, mostra o que pesou e o custo de não agir,
-     entrega o curativo (3 ações para marcar) e só então a cura (Mapa), com
-     calculadora do valor de um cliente e barra fixa de compra. Sem urgência falsa. */
+     Leitura guiada em 4 etapas (Diagnóstico → Causa → Ações → Solução). Cada etapa
+     termina num botão que conduz à próxima, até o Mapa de R$ 47. Sem urgência falsa
+     nem prova inventada. */
   var MODULO = {
     p:{t:"Sinais de público desalinhado", a:"Você sai sabendo reconhecer quando o problema começa em quem chega."},
     o:{t:"A clareza da oferta", a:"Você sai sabendo identificar o que o cliente não entende antes de decidir."},
@@ -570,74 +602,73 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   };
   var INCLUI = ["Minicurso prático em 5 etapas, cada uma aplicada ao seu caso","Matriz Público, Oferta e Comercial","Ficha de evidências para registrar cada oportunidade","Laboratório das 10 oportunidades reais","Mapa visual e checklist de priorização","Diagnóstico VERT4® com relatório e plano de 7 dias"];
   var HOJE_NEUTRO = ["Pegue as últimas 10 pessoas que pediram informação e anote: de onde vieram, se tinham perfil e em que ponto a conversa parou.","Conte quantas pararam em cada ponto: quem chegou, a apresentação ou a condução da conversa.","O ponto com mais paradas é por onde começar. Simples assim, sem planilha de 40 abas."];
+  var ETAPAS = ["Diagnóstico","Causa","Ações","Solução"];
   var reduz = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function vibra(){ try{ if(navigator.vibrate) navigator.vibrate(12); }catch(e){} }
 
   function result(r){
     var steps = ["Lendo as suas respostas…","Comparando Público, Oferta e Comercial…","Montando a sua leitura…"], k = 0;
     $("vR").innerHTML = '<div class="calc" role="status" aria-live="polite"><div class="spin" aria-hidden="true"></div><p id="calcTxt">'+steps[0]+'</p><div class="bar"><i id="calcBar"></i></div></div>';
     show("vR");
     if(reduz){ render(r); return; }
+    setTimeout(function(){ if($("calcBar")) $("calcBar").style.width = "33%"; }, 30);
     var t = setInterval(function(){
-      k++; if($("calcBar")) $("calcBar").style.width = Math.min(100, k/steps.length*100)+"%";
+      k++; if($("calcBar")) $("calcBar").style.width = Math.min(100, (k+1)/steps.length*100)+"%";
       if(k < steps.length){ $("calcTxt").textContent = steps[k]; }
       else { clearInterval(t); render(r); }
     }, 650);
-    setTimeout(function(){ if($("calcBar")) $("calcBar").style.width = "33%"; }, 30);
   }
+
+  function nomeRes(r){ return r.kind==="balde" ? DIMS[r.main].name : (r.kind==="neblina" ? "modo neblina" : "sem sinal forte"); }
+  function ctaTxt(r){ return r.kind==="balde" ? "Quero resolver o ponto de "+DIMS[r.main].name+" · R$ 47" : "Quero o Mapa de Oportunidades · R$ 47"; }
+  function prox(txt, alvo, extra){ return '<button type="button" class="btn next'+(extra?' '+extra:'')+'" data-next="'+alvo+'"><span>'+txt+'</span><i aria-hidden="true">→</i></button>'; }
 
   function render(r){
     var pct = r.pct, main = r.main, goal = answer("objetivo"), first = lead ? esc(lead.nome.split(" ")[0]) : "";
-    var vende = r.route === "mapa" || r.route === "confirmar";
+    var hoje = r.kind === "balde" ? RES[main].today : HOJE_NEUTRO;
     var h = '';
 
-    /* 1. Revelação */
-    h += '<div class="hero-res"><div class="eyebrow">'+(first ? first+', este é o seu resultado' : 'Seu resultado')+'</div>';
-    if(r.kind === "neblina"){
-      h += '<h1>Seu resultado: <em>modo neblina</em>.</h1><p class="lead">Você respondeu "não sei dizer" em '+r.R.unk+' de '+SIGNALS.length+' situações. Não é bronca: é o achado mais útil do quiz. Fica difícil corrigir o que ninguém está medindo.</p>';
-    } else if(r.kind === "sem_sinal"){
-      h += '<h1>Nenhum sinal forte <em>por aqui</em>.</h1><p class="lead">As situações do quiz aparecem pouco na sua empresa. Ótima notícia, mas vale confirmar com números reais antes de comemorar com bolo.</p>';
-    } else {
-      h += '<h1>'+RES[main].title+'</h1><p class="lead">'+RES[main].joke+'</p>';
-      if(r.tieNote) h += '<p class="note" style="margin:0 0 6px">'+r.tieNote+'</p>';
-    }
-    h += '<div class="bars" aria-label="Intensidade dos sinais por área">';
-    ["p","o","c"].forEach(function(d){
-      var v = pct[d];
-      h += '<div class="row'+(d===main && r.kind==="balde" ? ' hi':'')+'"><span>'+DIMS[d].name+'</span><span class="t"><i data-w="'+(v||0)+'" style="width:0"></i></span><span class="v" data-n="'+(v===null?'':v)+'">'+(v===null?'Sem dados':'0%')+'</span></div>';
-    });
-    h += '</div>';
-    if(vende) h += '<a class="btn jump" href="#oferta" data-jump>Ver como resolver isso →</a>';
-    h += '</div>';
+    h += '<nav class="trilha" aria-label="Etapas da sua leitura">'+ETAPAS.map(function(e,n){ return '<button type="button" data-go="'+n+'"'+(n?' disabled':'')+' class="'+(n?'':'on')+'"><b>'+(n+1)+'</b>'+e+'</button>'; }).join("")+'</nav>';
+    h += '<button type="button" class="pular" data-next="3">Já entendi, quero ver a solução ↓</button>';
 
-    /* 2. O que pesou e por quê */
+    /* Etapa 1: Diagnóstico */
+    h += '<section class="etapa on" data-etapa="0"><div class="eyebrow">'+(first ? first+', este é o seu resultado' : 'Seu resultado')+'</div>';
+    if(r.kind === "neblina") h += '<h1>Seu resultado: <em>modo neblina</em>.</h1><p class="lead">Você respondeu "não sei dizer" em '+r.R.unk+' de '+SIGNALS.length+' situações. Não é bronca: é o achado mais útil do quiz. Fica difícil corrigir o que ninguém está medindo.</p>';
+    else if(r.kind === "sem_sinal") h += '<h1>Nenhum sinal forte <em>por aqui</em>.</h1><p class="lead">As situações do quiz aparecem pouco na sua empresa. Ótima notícia, mas vale confirmar com números reais antes de comemorar com bolo.</p>';
+    else { h += '<h1>'+RES[main].title+'</h1><p class="lead">'+RES[main].joke+'</p>'; if(r.tieNote) h += '<p class="note" style="margin:0 0 6px">'+r.tieNote+'</p>'; }
+    h += '<div class="bars" aria-label="Intensidade dos sinais por área">';
+    ["p","o","c"].forEach(function(d){ var v = pct[d]; h += '<div class="row'+(d===main && r.kind==="balde" ? ' hi':'')+'"><span>'+DIMS[d].name+'</span><span class="t"><i data-w="'+(v||0)+'" style="width:0"></i></span><span class="v" data-n="'+(v===null?'':v)+'">'+(v===null?'Sem dados':'0%')+'</span></div>'; });
+    h += '</div>'+prox(r.kind==="balde" ? "Por que isso acontece?" : "O que isso significa?", 1)+'</section>';
+
+    /* Etapa 2: Causa e custo */
+    h += '<section class="etapa" data-etapa="1" hidden><span class="enum">2 de 4 · Causa</span>';
     if(r.kind === "balde"){
       var hot = r.R.hot[main];
-      h += '<div class="sec"><h3>Por que este é o seu ponto</h3><p>'+RES[main].why+'</p>';
+      h += '<h2>Por que o seu ponto é o '+DIMS[main].name+'</h2><p>'+RES[main].why+'</p>';
       if(hot.length) h += '<div class="chips-res">'+hot.map(function(x){ return '<div class="chip-res'+(x.l==="Quase sempre"?' forte':'')+'"><b>'+esc(x.l)+'</b>'+esc(x.t.replace(/\.$/,""))+'</div>'; }).join("")+'</div>';
-      h += '</div>';
       if(GOAL[goal]) h += '<div class="cost"><span class="eyebrow">Se nada mudar</span><p>Você quer <b>'+GOAL[goal]+'</b>. Enquanto o ponto de '+DIMS[main].name+' não for resolvido, '+RES[main].cost+'.</p></div>';
     } else if(r.kind === "neblina"){
-      h += '<div class="sec"><h3>O que isso significa</h3><p>Quando a empresa não acompanha de onde vêm os contatos, o que eles perguntam e onde as conversas param, cada decisão comercial vira palpite: mais divulgação, desconto, troca de roteiro. Às vezes acerta, quase sempre custa caro.</p>'+(main ? '<p>Pela sua escolha na última pergunta, a sua intuição aponta para <b>'+DIMS[main].name+'</b>. Trate como hipótese até ver os casos reais.</p>' : '')+'</div>';
+      h += '<h2>O que isso significa</h2><p>Quando a empresa não acompanha de onde vêm os contatos, o que eles perguntam e onde as conversas param, cada decisão comercial vira palpite: mais divulgação, desconto, troca de roteiro. Às vezes acerta, quase sempre custa caro.</p>'+(main ? '<div class="cost"><span class="eyebrow">Sua intuição</span><p>Pela sua escolha na última pergunta, o ponto provável é <b>'+DIMS[main].name+'</b>. Trate como hipótese até ver os casos reais.</p></div>' : '');
     } else {
-      h += '<div class="sec"><h3>O que isso significa</h3><p>Um quiz mede a percepção de quem responde. Às vezes a operação vai bem mesmo; às vezes os sinais existem, só que ninguém está olhando para eles. A forma de saber é olhar as últimas oportunidades, uma por uma.</p></div>';
+      h += '<h2>O que isso significa</h2><p>Um quiz mede a percepção de quem responde. Às vezes a operação vai bem mesmo; às vezes os sinais existem, só que ninguém está olhando para eles. A forma de saber é olhar as últimas oportunidades, uma por uma.</p>';
     }
+    h += prox("O que eu faço hoje?", 2)+'</section>';
 
-    /* 3. Curativo: ações para marcar */
-    var hoje = r.kind === "balde" ? RES[main].today : HOJE_NEUTRO;
-    h += '<div class="sec"><h3>Para fazer hoje, sem gastar nada</h3><p class="note" style="margin:0 0 10px">Toque em cada ação quando fizer. <span id="feitas">0 de '+hoje.length+' feitas</span></p><div class="todo">'+
+    /* Etapa 3: Ações (curativo) */
+    h += '<section class="etapa" data-etapa="2" hidden><span class="enum">3 de 4 · Ações</span><h2>Para fazer hoje, sem gastar nada</h2><p class="note" style="margin:0 0 10px">Toque em cada ação quando fizer. <span id="feitas">0 de '+hoje.length+' feitas</span></p><div class="todo">'+
       hoje.map(function(t,n){ return '<button type="button" class="todo-i" aria-pressed="false" data-todo="'+n+'"><span class="ck" aria-hidden="true"></span><span>'+t+'</span></button>'; }).join("")+'</div>'+
-      (vende ? '<p class="note" style="margin-top:12px">Estas ações aliviam o sintoma. Para saber a causa nas suas conversas reais, existe o próximo passo abaixo.</p>' : '')+'</div>';
+      '<div class="ponte"><b>Estas ações aliviam o sintoma.</b> Para encontrar a causa nas suas conversas reais e saber exatamente onde agir, existe um próximo passo.</div>'+
+      prox("Quero resolver a causa", 3, "gold")+'</section>';
 
-    /* 4. Prova real (só quando houver) */
+    /* Etapa 4: Solução (Mapa R$ 47) */
+    h += '<section class="etapa" data-etapa="3" hidden><span class="enum">4 de 4 · Solução</span>'+offerBlock(r)+'</section>';
+
     if(r.kind === "balde" && PROVA[main] && PROVA[main].length){
-      h += '<div class="sec"><h3>Quem estava no mesmo ponto</h3>'+PROVA[main].map(function(q){ return '<div class="quote"><p>"'+esc(q.texto)+'"</p><span>'+esc(q.nome)+(q.contexto?' · '+esc(q.contexto):'')+'</span></div>'; }).join("")+'</div>';
+      h += '<div class="sec prova" hidden><h3>Quem estava no mesmo ponto</h3>'+PROVA[main].map(function(q){ return '<div class="quote"><p>"'+esc(q.texto)+'"</p><span>'+esc(q.nome)+(q.contexto?' · '+esc(q.contexto):'')+'</span></div>'; }).join("")+'</div>';
     }
-
-    /* 5. Cura */
-    h += offerBlock(r);
     h += '<div class="stack"><button class="btn ghost" id="redo">Refazer o quiz</button></div>';
     h += '<p class="disc">Este quiz é uma leitura rápida e indicativa, feita só com as suas respostas. Não é um diagnóstico definitivo: ele aponta por onde começar a investigar. Contamos de forma anônima, sem cookies, quantas pessoas passam por cada etapa do quiz.</p>';
-    if(vende) h += '<div class="sticky" id="sticky" hidden><div><b>Mapa de Oportunidades</b><span>R$ 47 · pagamento único</span></div><a class="btn" data-cta="mapa" href="'+withParams(LINK_VENDAS)+'">Quero o Mapa</a></div>';
+    h += '<div class="sticky" id="sticky" hidden><div><b>Mapa de Oportunidades</b><span>R$ 47 · pagamento único</span></div><a class="btn" data-cta="mapa" href="'+withParams(LINK_VENDAS)+'">Quero o Mapa</a></div>';
 
     $("vR").innerHTML = h;
     window.scrollTo(0,0);
@@ -649,65 +680,77 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       [].forEach.call(document.querySelectorAll("#vR .row .v[data-n]"), function(s){
         var alvo = s.dataset.n; if(alvo==="") return; alvo = +alvo;
         if(reduz){ s.textContent = alvo+"%"; return; }
-        var t0 = null; (function passo(ts){ if(!t0) t0 = ts; var p = Math.min(1,(ts-t0)/700); s.textContent = Math.round(alvo*p)+"%"; if(p<1) requestAnimationFrame(passo); })(performance.now());
+        var t0 = null; (function passo(ts){ if(!t0) t0 = ts; var p = Math.min(1,(ts-t0)/800); s.textContent = Math.round(alvo*p)+"%"; if(p<1) requestAnimationFrame(passo); })(performance.now());
       });
     }, 60);
 
-    [].forEach.call(document.querySelectorAll("[data-cta]"), function(a){
-      a.addEventListener("click", function(){ track(a.dataset.cta==="wa" ? "quiz_clique_whatsapp" : "quiz_clique_oferta", {balde:bucketSlug(r), rota:r.route}); });
+    /* Avanço entre etapas */
+    var atual = 0;
+    function abrir(n){
+      if(n > 3) n = 3;
+      for(var x=1; x<=n; x++){ var s = document.querySelector('[data-etapa="'+x+'"]'); if(s && s.hidden){ s.hidden = false; s.classList.add("entra"); } }
+      [].forEach.call(document.querySelectorAll(".trilha button"), function(b,k){ b.disabled = k > n; b.classList.toggle("on", k === n); b.classList.toggle("ok", k < n); });
+      [].forEach.call(document.querySelectorAll('[data-next]'), function(b){ var de = b.closest(".etapa"); if(de && +de.dataset.etapa < n) b.hidden = true; });
+      if(n === 3){ var pv = document.querySelector(".prova"); if(pv) pv.hidden = false; var pj = document.querySelector(".pular"); if(pj) pj.hidden = true; }
+      atual = Math.max(atual, n);
+      var alvo = document.querySelector('[data-etapa="'+n+'"]');
+      if(alvo) setTimeout(function(){ alvo.scrollIntoView({behavior: reduz ? "auto" : "smooth", block:"start"}); }, 40);
+    }
+    $("vR").addEventListener("click", function(e){
+      var nx = e.target.closest("[data-next]"); if(nx){ vibra(); abrir(+nx.dataset.next); return; }
+      var go = e.target.closest("[data-go]"); if(go && !go.disabled){ var s = document.querySelector('[data-etapa="'+go.dataset.go+'"]'); if(s) s.scrollIntoView({behavior: reduz ? "auto" : "smooth", block:"start"}); return; }
     });
-    var jump = document.querySelector("[data-jump]");
-    if(jump) jump.addEventListener("click", function(e){ e.preventDefault(); var o=$("oferta"); if(o) o.scrollIntoView({behavior: reduz ? "auto" : "smooth", block:"start"}); });
-    var feitos = 0;
+
+    [].forEach.call(document.querySelectorAll("[data-cta]"), function(a){
+      a.addEventListener("click", function(){ vibra(); track(a.dataset.cta==="wa" ? "quiz_clique_whatsapp" : "quiz_clique_oferta", {balde:bucketSlug(r), rota:r.route}); });
+    });
+    var feitos = 0, prox3 = document.querySelector('[data-etapa="2"] [data-next]');
     [].forEach.call(document.querySelectorAll("[data-todo]"), function(b){
-      b.addEventListener("click", function(){ var on = b.getAttribute("aria-pressed")!=="true"; b.setAttribute("aria-pressed", on); feitos += on ? 1 : -1; $("feitas").textContent = feitos+" de "+hoje.length+" feitas"+(feitos===hoje.length?" ✓":""); });
+      b.addEventListener("click", function(){
+        vibra(); var on = b.getAttribute("aria-pressed")!=="true"; b.setAttribute("aria-pressed", on); feitos += on ? 1 : -1;
+        $("feitas").textContent = feitos+" de "+hoje.length+" feitas"+(feitos===hoje.length?" ✓":"");
+        if(prox3){ prox3.querySelector("span").textContent = feitos===hoje.length ? "Ações feitas. Agora a causa" : "Quero resolver a causa"; prox3.classList.toggle("pulse", feitos===hoje.length); }
+      });
     });
     var sv = $("valorCli");
     if(sv){ var upd = function(){ var v=+sv.value, p=47/v*100; $("valorOut").textContent = "R$ "+v.toLocaleString("pt-BR"); $("valorRatio").textContent = (p<1 ? p.toLocaleString("pt-BR",{maximumFractionDigits:1}) : Math.round(p))+"%"; $("valorFill").style.width = Math.min(100,p)+"%"; }; sv.addEventListener("input", upd); upd(); }
-    var st = $("sticky"), of = $("oferta"), hero = document.querySelector(".hero-res");
+
+    /* Barra fixa: aparece depois do diagnóstico, some quando a oferta está na tela */
+    var st = $("sticky"), of = $("oferta"), hero = document.querySelector('[data-etapa="0"]');
     if(st && of && hero && "IntersectionObserver" in window){
-      var vistoHero = true, vistoOferta = false;
-      var atual = function(){ st.hidden = vistoHero || vistoOferta; };
-      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.target===hero) vistoHero = e.isIntersecting; else vistoOferta = e.isIntersecting; }); atual(); }).observe(hero);
-      new IntersectionObserver(function(es){ es.forEach(function(e){ vistoOferta = e.isIntersecting; }); atual(); }, {threshold:0.15}).observe(of);
+      var vH = true, vO = false, upd2 = function(){ st.hidden = vH || vO || atual < 1; };
+      new IntersectionObserver(function(es){ es.forEach(function(e){ vH = e.isIntersecting; }); upd2(); }, {threshold:0.35}).observe(hero);
+      new IntersectionObserver(function(es){ es.forEach(function(e){ vO = e.isIntersecting && !of.closest(".etapa").hidden; }); upd2(); }, {threshold:0.1}).observe(of);
+      $("vR").addEventListener("click", function(){ setTimeout(upd2, 50); });
     }
     $("redo").addEventListener("click", function(){ counted = {}; A.fill(null); company={revenue:null,team:null}; lead=null; $("leadForm").reset(); $("leadErr").hidden=true; i=0; pStep=0; show("vIntro"); });
   }
 
   function waLink(r, intent){
-    var res = r.kind==="balde" ? DIMS[r.main].name : (r.kind==="neblina" ? "modo neblina" : "sem sinal forte");
-    var msg = "Fiz o quiz VERT4®. Resultado: "+res+" | Público "+(r.pct.p===null?"sem dados":r.pct.p+"%")+", Oferta "+(r.pct.o===null?"sem dados":r.pct.o+"%")+", Comercial "+(r.pct.c===null?"sem dados":r.pct.c+"%")+". Faturamento: "+labelOf(REVENUE, company.revenue)+". "+intent;
+    var msg = "Fiz o quiz VERT4®. Resultado: "+nomeRes(r)+" | Público "+(r.pct.p===null?"sem dados":r.pct.p+"%")+", Oferta "+(r.pct.o===null?"sem dados":r.pct.o+"%")+", Comercial "+(r.pct.c===null?"sem dados":r.pct.c+"%")+". Faturamento: "+labelOf(REVENUE, company.revenue)+". "+intent;
     return "https://wa.me/"+WHATS+"?text="+encodeURIComponent(msg);
   }
 
   function offerBlock(r){
-    var mapaBtn = '<a class="btn" data-cta="mapa" href="'+withParams(LINK_VENDAS)+'">Quero o Mapa de Oportunidades</a>';
-    var price = '<div class="price"><b>R$ 47</b><span>pagamento único</span></div>';
+    var mapaBtn = '<a class="btn cta" data-cta="mapa" href="'+withParams(LINK_VENDAS)+'"><span>'+ctaTxt(r)+'</span><i aria-hidden="true">→</i></a>';
     var h = '<div class="offer" id="oferta">';
-
-    if(r.route === "conversa"){
-      h += '<div class="eyebrow">Próximo passo para o seu porte</div><h3>Conversa com a VERT4®</h3>';
-      h += '<p>Com o faturamento que você informou, o ponto de '+(r.main ? DIMS[r.main].name : "perda")+' costuma envolver equipe, processo e mais de um canal ao mesmo tempo. Vale uma conversa para entender a sua operação antes de indicar um caminho.</p>';
-      h += '<a class="btn wa" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero conversar sobre a minha operação.")+'">Conversar com a VERT4® no WhatsApp</a>';
-      h += '<div class="stack"><a class="btn ghost" data-cta="mapa" href="'+withParams(LINK_VENDAS)+'">Prefiro começar pelo Mapa (R$ 47)</a></div>';
-      return h + '</div>';
-    }
     if(r.route === "inicio"){
-      h += '<div class="eyebrow">Próximo passo, com honestidade</div><h3>Comece pelas ações de hoje</h3>';
-      h += '<p>O Mapa de Oportunidades trabalha sobre 10 oportunidades reais da sua empresa. Se ainda chegam poucos interessados, ele ainda não é o melhor investimento. Aplique as três ações acima e, quando tiver mais conversas acontecendo, ele passa a fazer sentido.</p>';
-      h += '<a class="btn wa" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero entender por onde começar.")+'">Tirar uma dúvida no WhatsApp</a>';
+      h += '<div class="eyebrow">Próximo passo, com honestidade</div><h3>Mapa de Oportunidades VERT4®</h3>';
+      h += '<p>O Mapa trabalha sobre 10 oportunidades reais da sua empresa. Se ainda chegam poucos interessados, comece pelas três ações acima. Quando tiver conversas acontecendo, ele é o próximo passo para saber onde cada uma para.</p>';
+      h += '<ul class="inclui">'+INCLUI.map(function(t){ return '<li>'+t+'</li>'; }).join("")+'</ul>';
+      h += '<div class="price"><b>R$ 47</b><span>pagamento único</span></div>'+mapaBtn;
+      h += '<div class="stack"><a class="btn ghost" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero entender por onde começar.")+'">Tirar uma dúvida no WhatsApp</a></div>';
       return h + '</div>';
     }
-
-    var bridge = r.route === "confirmar"
-      ? "Se os sinais aparecem pouco, o próximo passo é confirmar com fatos. O Mapa traz a ficha de evidências e a matriz Público, Oferta e Comercial para você analisar as suas 10 oportunidades reais e ver se existe alguma perda escondida."
-      : (r.kind === "neblina" ? "O Mapa começa justamente pela ficha de evidências: você registra 10 oportunidades reais com fatos, não impressões, e a neblina vira uma prioridade clara." : RES[r.main].bridge);
-    h += '<div class="eyebrow">'+(r.route==="confirmar" ? "Se quiser confirmar" : "Do sintoma à causa")+'</div><h3>Mapa de Oportunidades VERT4®</h3><p>'+bridge+'</p>';
+    var bridge = r.route === "confirmar" ? "Se os sinais aparecem pouco, o próximo passo é confirmar com fatos. O Mapa traz a ficha de evidências e a matriz Público, Oferta e Comercial para você analisar as suas 10 oportunidades reais e ver se existe alguma perda escondida."
+      : (r.kind === "neblina" ? "O Mapa começa justamente pela ficha de evidências: você registra 10 oportunidades reais com fatos, não impressões, e a neblina vira uma prioridade clara." : (r.kind === "balde" ? RES[r.main].bridge : "O Mapa traz a matriz Público, Oferta e Comercial para você analisar as suas 10 oportunidades reais e decidir onde agir primeiro."));
+    h += '<div class="eyebrow">Do sintoma à causa</div><h3>Mapa de Oportunidades VERT4®</h3><p>'+bridge+'</p>';
     if(r.kind === "balde" && MODULO[r.main]) h += '<div class="foco"><span>Para o seu caso, a etapa que mais vai ajudar</span><b>'+MODULO[r.main].t+'</b><p>'+MODULO[r.main].a+'</p></div>';
     h += '<ul class="inclui">'+INCLUI.map(function(t){ return '<li>'+t+'</li>'; }).join("")+'</ul>';
     h += '<div class="valor"><label for="valorCli">Quanto vale, em média, um cliente seu? <output id="valorOut"></output></label><input type="range" id="valorCli" min="100" max="20000" step="100" value="1500"><div class="ratio"><div class="meter"><i id="valorFill"></i></div><p>R$ 47 equivalem a <b id="valorRatio"></b> de um único cliente.</p></div></div>';
-    h += price + mapaBtn;
-    h += '<div class="stack"><a class="btn ghost" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero entender o próximo passo.")+'">Tenho uma dúvida antes de comprar</a></div>';
+    h += '<div class="price"><b>R$ 47</b><span>pagamento único · acesso pela plataforma VERT4®</span></div>'+mapaBtn;
+    if(r.route === "conversa") h += '<p class="small-note">Pelo porte da sua operação, também pode valer uma conversa antes.</p><div class="stack"><a class="btn ghost" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero conversar sobre a minha operação.")+'">Conversar com a VERT4® no WhatsApp</a></div>';
+    else h += '<div class="stack"><a class="btn ghost" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero entender o próximo passo.")+'">Tenho uma dúvida antes de comprar</a></div>';
     return h + '</div>';
   }
 })();
