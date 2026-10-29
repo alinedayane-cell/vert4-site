@@ -1,0 +1,108 @@
+/* Faixa estratégica VERT4®. Componente isolado, sem JavaScript. */
+.strategic-ribbon {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  width: 100%;
+  min-height: 62px;
+  overflow: hidden;
+  background: linear-gradient(110deg, #A4875C 0%, #CCAC7D 28%, #E3D5B3 57%, #CCAC7D 82%, #A4875C 100%);
+  border-block: 1px solid rgba(23, 41, 46, .16);
+  color: #102126;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.strategic-ribbon::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: 0 auto 0 0;
+  width: 38%;
+  background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,.015) 16%, rgba(255,255,255,.11) 33%, rgba(255,255,255,.48) 50%, rgba(255,255,255,.12) 67%, rgba(255,255,255,.015) 84%, transparent 100%);
+  opacity: 0;
+  transform: translate3d(-160%, 0, 0) skewX(-16deg);
+  pointer-events: none;
+  animation: vert4-ribbon-reflection 7s cubic-bezier(.4,0,.2,1) infinite;
+}
+.strategic-ribbon__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  width: min(1280px, 100%);
+  min-height: 60px;
+  margin-inline: auto;
+  padding: 12px 28px;
+  font-family: 'Manrope', Arial, sans-serif;
+  line-height: 1.45;
+}
+.strategic-ribbon__message { font-size: 13px; font-weight: 600; }
+.strategic-ribbon__capsule {
+  display: inline-block;
+  flex-shrink: 0;
+  padding: 7px 13px;
+  border: 1px solid rgba(23,41,46,.9);
+  border-radius: 999px;
+  background: #17292E;
+  color: #F2EFE6;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+  transition: background-color .2s ease, box-shadow .2s ease;
+}
+.strategic-ribbon__action {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 10px;
+  padding-left: 22px;
+  border-left: 1px solid rgba(23,41,46,.3);
+  font-size: 11px;
+  font-weight: 800;
+}
+.strategic-ribbon__arrow { flex-shrink: 0; transition: transform .2s ease; }
+.strategic-ribbon:hover .strategic-ribbon__capsule,
+.strategic-ribbon:focus-visible .strategic-ribbon__capsule { background: #233D43; box-shadow: 0 0 0 3px rgba(23,41,46,.09); }
+.strategic-ribbon:hover .strategic-ribbon__arrow,
+.strategic-ribbon:focus-visible .strategic-ribbon__arrow { transform: translate3d(3px,0,0); }
+.strategic-ribbon:focus-visible { outline: 2px solid #17292E; outline-offset: -5px; }
+.strategic-ribbon:hover::before,
+.strategic-ribbon:focus-visible::before { animation-play-state: paused; }
+/* 28.5714% de 7 s = 2 s de passagem. O restante mantém 5 s de pausa. */
+@keyframes vert4-ribbon-reflection {
+  0% { transform: translate3d(-160%,0,0) skewX(-16deg); opacity: 0; }
+  2% { opacity: .7; }
+  26% { opacity: .7; }
+  28.5714% { transform: translate3d(410%,0,0) skewX(-16deg); opacity: 0; }
+  100% { transform: translate3d(410%,0,0) skewX(-16deg); opacity: 0; }
+}
+@media (max-width: 850px) {
+  .strategic-ribbon__inner { gap: 14px; padding-inline: 22px; }
+  .strategic-ribbon__message { font-size: 11px; }
+  .strategic-ribbon__capsule { font-size: 10px; padding: 7px 11px; }
+  .strategic-ribbon__action { font-size: 10px; gap: 7px; padding-left: 14px; }
+}
+@media (max-width: 640px) {
+  .strategic-ribbon { min-height: 72px; }
+  .strategic-ribbon__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 12px;
+    min-height: 70px;
+    padding: 10px 18px;
+  }
+  .strategic-ribbon__message { grid-column: 1 / -1; text-align: center; font-size: 10px; line-height: 1.4; }
+  .strategic-ribbon__capsule { justify-self: end; max-width: 100%; font-size: 9px; letter-spacing: .035em; padding: 6px 10px; }
+  .strategic-ribbon__action { justify-self: start; border: 0; padding-left: 0; font-size: 9px; gap: 6px; }
+  .strategic-ribbon__arrow { width: 15px; height: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .strategic-ribbon::before { animation: none; opacity: 0; }
+  .strategic-ribbon__capsule, .strategic-ribbon__arrow { transition: none; }
+  .strategic-ribbon:hover .strategic-ribbon__arrow,
+  .strategic-ribbon:focus-visible .strategic-ribbon__arrow { transform: none; }
+}
+
