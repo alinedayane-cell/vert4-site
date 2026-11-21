@@ -6,24 +6,24 @@
 <title>Quiz VERT4® de Vendas</title>
 <meta name="description" content="Quiz rápido: descubra em 2 minutos onde os seus interessados param de avançar.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400&family=Didact+Gothic&display=swap">
 <style>
 /* Quiz curto para tráfego de anúncio: abertura, 9 perguntas (uma por tela) e resultado com oferta */
 :root{
-  --pet:#17292E; --dou:#CCAC7D; --cha:#E3D5B3; --off:#F2EFE6;
-  --bg:#F2EFE6; --card:#FFFFFF; --ink:#17292E; --muted:#5B6A6E; --line:#E3D5B3;
-  --soft:#F8F5EE; --btn:#17292E; --btn-ink:#F2EFE6; --acc:#A8844F;
-  --font:"Manrope", Arial, sans-serif;
+  --pet:#35506B; --dou:#CCAC7D; --cha:#E3D5B3; --off:#F7F4EE;
+  --bg:#F7F4EE; --card:#FFFFFF; --ink:#35506B; --muted:#596568; --line:#E3D5B3;
+  --soft:#F7F4EE; --btn:#35506B; --btn-ink:#F7F4EE; --acc:#8A6A3C;
+  --font:"Didact Gothic", Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0F1C20; --card:#17292E; --ink:#F2EFE6; --muted:#B9B4A6; --line:#2C4248;
-    --soft:#1D3238; --btn:#CCAC7D; --btn-ink:#17292E; --acc:#CCAC7D; color-scheme:dark;
+    --bg:#24394F; --card:#35506B; --ink:#F7F4EE; --muted:#C7B7A3; --line:#4A6987;
+    --soft:#3E5C79; --btn:#CCAC7D; --btn-ink:#35506B; --acc:#CCAC7D; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0F1C20; --card:#17292E; --ink:#F2EFE6; --muted:#B9B4A6; --line:#2C4248;
-  --soft:#1D3238; --btn:#CCAC7D; --btn-ink:#17292E; --acc:#CCAC7D; color-scheme:dark;
+  --bg:#24394F; --card:#35506B; --ink:#F7F4EE; --muted:#C7B7A3; --line:#4A6987;
+  --soft:#3E5C79; --btn:#CCAC7D; --btn-ink:#35506B; --acc:#CCAC7D; color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -37,7 +37,7 @@ button{font-family:inherit}
 .brand span{color:var(--dou)}
 .top small{color:var(--cha);font-size:12px;font-weight:600}
 .wrap{max-width:620px;margin:0 auto;padding:20px 16px 48px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:0 10px 30px rgba(23,41,46,.07)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:0 10px 30px rgba(53,80,107,.07)}
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;padding:14px 20px;border:0;border-radius:14px;background:var(--btn);color:var(--btn-ink);font-weight:700;font-size:17px;cursor:pointer;text-decoration:none;text-align:center;transition:transform .12s}
 .btn:active{transform:scale(.98)}
@@ -133,7 +133,7 @@ function choose(value){
  document.getElementById('v4Cookies').hidden=true;
 }
 function ui(){
- var style=document.createElement('style');style.textContent='#v4Cookies{position:fixed;z-index:99999;bottom:12px;left:12px;right:12px;max-width:560px;margin:auto;background:#F2EFE6;color:#17292E;border:1px solid #CCAC7D;border-radius:12px;padding:12px 14px;box-shadow:0 6px 24px #0004;font:12.5px/1.4 Arial,sans-serif}#v4Cookies[hidden]{display:none}#v4Cookies p{margin:0 0 10px}#v4Cookies button,#v4Privacy{font:inherit;cursor:pointer;border:1px solid #17292E;border-radius:8px;padding:7px 12px;background:#F2EFE6;color:#17292E}#v4Cookies button{margin:0 6px 2px 0}#v4Cookies button[data-consent="accepted"]{background:#17292E;color:#F2EFE6}#v4Privacy{display:block;margin:24px auto;font-size:12px}';document.head.appendChild(style);
+ var style=document.createElement('style');style.textContent='#v4Cookies{position:fixed;z-index:99999;bottom:12px;left:12px;right:12px;max-width:560px;margin:auto;background:#F7F4EE;color:#35506B;border:1px solid #CCAC7D;border-radius:12px;padding:12px 14px;box-shadow:0 6px 24px #0004;font:12.5px/1.4 Arial,sans-serif}#v4Cookies[hidden]{display:none}#v4Cookies p{margin:0 0 10px}#v4Cookies button,#v4Privacy{font:inherit;cursor:pointer;border:1px solid #35506B;border-radius:8px;padding:7px 12px;background:#F7F4EE;color:#35506B}#v4Cookies button{margin:0 6px 2px 0}#v4Cookies button[data-consent="accepted"]{background:#35506B;color:#F7F4EE}#v4Privacy{display:block;margin:24px auto;font-size:12px}';document.head.appendChild(style);
  var box=document.createElement('section');box.id='v4Cookies';box.setAttribute('aria-label','Preferências de cookies');box.innerHTML='<p><b>Cookies de publicidade</b><br>Com seu aceite, usamos o pixel da Meta para medir visitas. A Meta recebe dados da visita, nunca suas respostas do quiz. Você pode recusar e mudar depois.</p><button type="button" data-consent="rejected">Continuar sem aceitar</button><button type="button" data-consent="accepted">Aceitar publicidade</button>';box.hidden=choice==='accepted'||choice==='rejected';document.body.appendChild(box);
  box.addEventListener('click',function(e){var b=e.target.closest('[data-consent]');if(b)choose(b.dataset.consent);});
  var btn=document.createElement('button');btn.id='v4Privacy';btn.type='button';btn.textContent='Preferências de cookies';btn.addEventListener('click',function(){box.hidden=false;});document.body.appendChild(btn);
@@ -142,6 +142,12 @@ function ui(){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ui);else ui();
 })();
 </script>
+<style id="tema-safira">
+/* Identidade Safira (conexaosafira.vert4comercial.com): Bodoni Moda nos títulos e números, Didact Gothic no texto */
+:is(h1,h2,h3,.display,.big-price,.price-inline,.tagprice,.stat strong):not(#vt4safira){font-family:"Bodoni Moda",Georgia,serif!important;font-weight:500!important;letter-spacing:-.03em!important}
+:is(h1,h2) em:not(#vt4safira){font-family:"Bodoni Moda",Georgia,serif!important;font-style:italic}
+.reg{font-family:"Didact Gothic",Arial,sans-serif!important;font-size:.42em!important;vertical-align:super;letter-spacing:0!important;font-style:normal}
+</style>
 </head>
 <body>
 <header class="top"><div class="brand">VERT4<span>®</span></div><small>Quiz de vendas · 2 minutos</small></header>
@@ -359,5 +365,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
 })();
 </script>
+<script>/* Identidade Safira: ® pequeno e sobrescrito nos títulos em Bodoni */(function(){function aj(){document.querySelectorAll('h1,h2,h3').forEach(function(h){var w=document.createTreeWalker(h,NodeFilter.SHOW_TEXT),n,L=[];while(n=w.nextNode())if(n.nodeValue.indexOf('®')>=0&&!(n.parentNode.classList&&n.parentNode.classList.contains('reg')))L.push(n);L.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split('®').forEach(function(x,i){if(i){var r=document.createElement('span');r.className='reg';r.textContent='®';f.appendChild(r)}if(x)f.appendChild(document.createTextNode(x))});t.parentNode.replaceChild(f,t)})})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',aj);else aj()})();</script>
 </body>
 </html>

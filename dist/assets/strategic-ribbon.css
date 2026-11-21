@@ -6,9 +6,9 @@
   width: 100%;
   min-height: 62px;
   overflow: hidden;
-  background: linear-gradient(110deg, #A4875C 0%, #CCAC7D 28%, #E3D5B3 57%, #CCAC7D 82%, #A4875C 100%);
-  border-block: 1px solid rgba(23, 41, 46, .16);
-  color: #102126;
+  background: linear-gradient(110deg, #8A6A3C 0%, #CCAC7D 28%, #E3D5B3 57%, #CCAC7D 82%, #8A6A3C 100%);
+  border-block: 1px solid rgba(53,80,107, .16);
+  color: #24394F;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -35,7 +35,7 @@
   min-height: 60px;
   margin-inline: auto;
   padding: 12px 28px;
-  font-family: 'Manrope', Arial, sans-serif;
+  font-family: 'Didact Gothic', Arial, sans-serif;
   line-height: 1.45;
 }
 .strategic-ribbon__message { font-size: 13px; font-weight: 600; }
@@ -43,10 +43,10 @@
   display: inline-block;
   flex-shrink: 0;
   padding: 7px 13px;
-  border: 1px solid rgba(23,41,46,.9);
+  border: 1px solid rgba(53,80,107,.9);
   border-radius: 999px;
-  background: #17292E;
-  color: #F2EFE6;
+  background: #35506B;
+  color: #F7F4EE;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .055em;
@@ -59,16 +59,16 @@
   align-items: center;
   gap: 10px;
   padding-left: 22px;
-  border-left: 1px solid rgba(23,41,46,.3);
+  border-left: 1px solid rgba(53,80,107,.3);
   font-size: 11px;
   font-weight: 800;
 }
 .strategic-ribbon__arrow { flex-shrink: 0; transition: transform .2s ease; }
 .strategic-ribbon:hover .strategic-ribbon__capsule,
-.strategic-ribbon:focus-visible .strategic-ribbon__capsule { background: #233D43; box-shadow: 0 0 0 3px rgba(23,41,46,.09); }
+.strategic-ribbon:focus-visible .strategic-ribbon__capsule { background: #233D43; box-shadow: 0 0 0 3px rgba(53,80,107,.09); }
 .strategic-ribbon:hover .strategic-ribbon__arrow,
 .strategic-ribbon:focus-visible .strategic-ribbon__arrow { transform: translate3d(3px,0,0); }
-.strategic-ribbon:focus-visible { outline: 2px solid #17292E; outline-offset: -5px; }
+.strategic-ribbon:focus-visible { outline: 2px solid #35506B; outline-offset: -5px; }
 .strategic-ribbon:hover::before,
 .strategic-ribbon:focus-visible::before { animation-play-state: paused; }
 /* 28.5714% de 7 s = 2 s de passagem. O restante mantém 5 s de pausa. */
