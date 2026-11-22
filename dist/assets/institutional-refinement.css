@@ -6,9 +6,9 @@
 @media(prefers-reduced-motion:reduce){.floating-support,.floating-support>span{transition:none}.floating-support:hover,.floating-support:focus-visible{transform:none}.resource-accordion summary>b{transition:none}}
 
 /* Contraste entre adequação e participação */
-.fit-grid > article:first-child{background:#E3D5B3;border-color:#CCAC7D;color:#17292E}
-.fit-grid > article:first-child h3,.fit-grid > article:first-child .fit-tag,.fit-grid > article:first-child li,.fit-grid > article:first-child .arrow-list li::before{color:#17292E}
-.fit-grid > article:last-child{background:#102126;border-color:rgba(227,213,179,.35)}
+.fit-grid > article:first-child{background:#E3D5B3;border-color:#CCAC7D;color:#35506B}
+.fit-grid > article:first-child h3,.fit-grid > article:first-child .fit-tag,.fit-grid > article:first-child li,.fit-grid > article:first-child .arrow-list li::before{color:#35506B}
+.fit-grid > article:last-child{background:#24394F;border-color:rgba(227,213,179,.35)}
 
 /* Reflexo direcional: movimento suave, sem deslocar o texto. */
 :where(.button,.header-diagnostic,.diagnostic-dock>a){position:relative;overflow:hidden;isolation:isolate}

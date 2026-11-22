@@ -6,24 +6,24 @@
 <title>Quiz VERT4® de Vendas</title>
 <meta name="description" content="Existem 3 pontos onde uma venda trava: Público, Oferta ou Comercial. Descubra em 2 minutos qual está travando a sua.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400&family=Didact+Gothic&display=swap">
 <style>
 /* Funil de quiz: abertura, perfil da empresa, 9 perguntas (uma por tela), captura e resultado por balde */
 :root{
-  --pet:#17292E; --dou:#CCAC7D; --cha:#E3D5B3; --off:#F2EFE6;
-  --bg:#F2EFE6; --card:#FFFFFF; --ink:#17292E; --muted:#5B6A6E; --line:#E3D5B3;
-  --soft:#F8F5EE; --btn:#17292E; --btn-ink:#F2EFE6; --acc:#A8844F; --err:#A3402E;
-  --font:"Manrope", Arial, sans-serif;
+  --pet:#35506B; --dou:#CCAC7D; --cha:#E3D5B3; --off:#F7F4EE;
+  --bg:#F7F4EE; --card:#FFFFFF; --ink:#35506B; --muted:#596568; --line:#E3D5B3;
+  --soft:#F7F4EE; --btn:#35506B; --btn-ink:#F7F4EE; --acc:#8A6A3C; --err:#A3402E;
+  --font:"Didact Gothic", Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0F1C20; --card:#17292E; --ink:#F2EFE6; --muted:#B9B4A6; --line:#2C4248;
-    --soft:#1D3238; --btn:#CCAC7D; --btn-ink:#17292E; --acc:#CCAC7D; --err:#E08A78; color-scheme:dark;
+    --bg:#24394F; --card:#35506B; --ink:#F7F4EE; --muted:#C7B7A3; --line:#4A6987;
+    --soft:#3E5C79; --btn:#CCAC7D; --btn-ink:#35506B; --acc:#CCAC7D; --err:#E08A78; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0F1C20; --card:#17292E; --ink:#F2EFE6; --muted:#B9B4A6; --line:#2C4248;
-  --soft:#1D3238; --btn:#CCAC7D; --btn-ink:#17292E; --acc:#CCAC7D; --err:#E08A78; color-scheme:dark;
+  --bg:#24394F; --card:#35506B; --ink:#F7F4EE; --muted:#C7B7A3; --line:#4A6987;
+  --soft:#3E5C79; --btn:#CCAC7D; --btn-ink:#35506B; --acc:#CCAC7D; --err:#E08A78; color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -37,7 +37,7 @@ button{font-family:inherit}
 .brand span{color:var(--dou)}
 .top small{color:var(--cha);font-size:12px;font-weight:600}
 .wrap{max-width:620px;margin:0 auto;padding:20px 16px 48px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:0 10px 30px rgba(23,41,46,.07)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:0 10px 30px rgba(53,80,107,.07)}
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;padding:14px 20px;border:0;border-radius:14px;background:var(--btn);color:var(--btn-ink);font-weight:700;font-size:17px;cursor:pointer;text-decoration:none;text-align:center;transition:transform .12s}
 .btn:active{transform:scale(.98)}
@@ -150,11 +150,11 @@ button{font-family:inherit}
 .inclui{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:8px}
 .inclui li{padding-left:26px;position:relative;color:var(--cha);font-size:15px}
 .inclui li::before{content:"✓";position:absolute;left:0;color:var(--dou);font-weight:800}
-.valor{background:rgba(242,239,230,.06);border:1px solid rgba(227,213,179,.25);border-radius:12px;padding:14px;margin:0 0 16px}
+.valor{background:rgba(247,244,238,.06);border:1px solid rgba(227,213,179,.25);border-radius:12px;padding:14px;margin:0 0 16px}
 .valor label{display:flex;justify-content:space-between;gap:10px;font-weight:700;font-size:14px;color:var(--off)}
 .valor output{color:var(--dou);font-variant-numeric:tabular-nums}
 .valor input{width:100%;margin:12px 0 10px;accent-color:#CCAC7D}
-.valor .meter{height:8px;background:rgba(242,239,230,.15);border-radius:99px;overflow:hidden}
+.valor .meter{height:8px;background:rgba(247,244,238,.15);border-radius:99px;overflow:hidden}
 .valor .meter i{display:block;height:100%;background:var(--dou);border-radius:99px}
 .valor p{margin:8px 0 0!important;font-size:14px}
 .valor p b{color:var(--off)}
@@ -214,8 +214,8 @@ button{font-family:inherit}
 @media (max-width:420px){.dx{gap:8px}.dx-n{font-size:13px;white-space:nowrap}.dx-n span{display:none}.aviso-mail{font-size:14px;padding:10px 12px}.dx-c{padding:16px 4px 10px}}
 /* Contraste de leitura: escala de calor Alto / Atenção / Baixo */
 :root{--hot:#D9644A;--warm:#C89A55;--cool:#5E8F80;--hot-bg:rgba(217,100,74,.10);--pill-ink:#fff}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hot:#F08A6E;--warm:#E2BD7F;--cool:#8CC2B1;--hot-bg:rgba(240,138,110,.10);--pill-ink:#17292E}}
-:root[data-theme="dark"]{--hot:#F08A6E;--warm:#E2BD7F;--cool:#8CC2B1;--hot-bg:rgba(240,138,110,.10);--pill-ink:#17292E}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hot:#F08A6E;--warm:#E2BD7F;--cool:#8CC2B1;--hot-bg:rgba(240,138,110,.10);--pill-ink:#35506B}}
+:root[data-theme="dark"]{--hot:#F08A6E;--warm:#E2BD7F;--cool:#8CC2B1;--hot-bg:rgba(240,138,110,.10);--pill-ink:#35506B}
 .dx-l{border-radius:30px;padding:3px 10px;font-size:11px}
 .dx-l.n3{background:var(--hot);color:var(--pill-ink)}
 .dx-l.n2{background:var(--warm);color:var(--pill-ink)}
@@ -321,7 +321,7 @@ function choose(value){
  document.getElementById('v4Cookies').hidden=true;
 }
 function ui(){
- var style=document.createElement('style');style.textContent='#v4Cookies{position:fixed;z-index:99999;bottom:16px;left:16px;right:16px;max-width:780px;margin:auto;background:#F2EFE6;color:#17292E;border:1px solid #CCAC7D;border-radius:16px;padding:20px;box-shadow:0 8px 40px #0004;font:14px/1.5 Arial,sans-serif}#v4Cookies[hidden]{display:none}#v4Cookies p{margin:0 0 14px}#v4Cookies button,#v4Privacy{font:inherit;cursor:pointer;border:1px solid #17292E;border-radius:8px;padding:10px 14px;background:#F2EFE6;color:#17292E}#v4Cookies button{margin:0 8px 6px 0}#v4Cookies button[data-consent="accepted"]{background:#17292E;color:#F2EFE6}#v4Privacy{display:block;margin:24px auto;font-size:12px}';document.head.appendChild(style);
+ var style=document.createElement('style');style.textContent='#v4Cookies{position:fixed;z-index:99999;bottom:16px;left:16px;right:16px;max-width:780px;margin:auto;background:#F7F4EE;color:#35506B;border:1px solid #CCAC7D;border-radius:16px;padding:20px;box-shadow:0 8px 40px #0004;font:14px/1.5 Arial,sans-serif}#v4Cookies[hidden]{display:none}#v4Cookies p{margin:0 0 14px}#v4Cookies button,#v4Privacy{font:inherit;cursor:pointer;border:1px solid #35506B;border-radius:8px;padding:10px 14px;background:#F7F4EE;color:#35506B}#v4Cookies button{margin:0 8px 6px 0}#v4Cookies button[data-consent="accepted"]{background:#35506B;color:#F7F4EE}#v4Privacy{display:block;margin:24px auto;font-size:12px}';document.head.appendChild(style);
  var box=document.createElement('section');box.id='v4Cookies';box.setAttribute('aria-label','Preferências de cookies');box.innerHTML='<p><b>Você escolhe os cookies de publicidade.</b><br>Com seu aceite, usamos o pixel da Meta para medir visitas e interações no quiz e na oferta. A Meta pode receber dados do navegador e da visita, além do tipo de resultado do quiz (Público, Oferta ou Comercial). Não enviamos à Meta as suas respostas, o seu nome, WhatsApp ou e-mail. Você pode continuar sem aceitar e mudar sua escolha abaixo.</p><button type="button" data-consent="rejected">Continuar sem aceitar</button><button type="button" data-consent="accepted">Aceitar publicidade</button>';box.hidden=choice==='accepted'||choice==='rejected';document.body.appendChild(box);
  box.addEventListener('click',function(e){var b=e.target.closest('[data-consent]');if(b)choose(b.dataset.consent);});
  var btn=document.createElement('button');btn.id='v4Privacy';btn.type='button';btn.textContent='Preferências de cookies';btn.addEventListener('click',function(){box.hidden=false;});document.body.appendChild(btn);
@@ -330,6 +330,12 @@ function ui(){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ui);else ui();
 })();
 </script>
+<style id="tema-safira">
+/* Identidade Safira (conexaosafira.vert4comercial.com): Bodoni Moda nos títulos e números, Didact Gothic no texto */
+:is(h1,h2,h3,.display,.big-price,.price-inline,.tagprice,.stat strong):not(#vt4safira){font-family:"Bodoni Moda",Georgia,serif!important;font-weight:500!important;letter-spacing:-.03em!important}
+:is(h1,h2) em:not(#vt4safira){font-family:"Bodoni Moda",Georgia,serif!important;font-style:italic}
+.reg{font-family:"Didact Gothic",Arial,sans-serif!important;font-size:.42em!important;vertical-align:super;letter-spacing:0!important;font-style:normal}
+</style>
 </head>
 <body>
 <header class="top"><div class="brand">VERT4<span>®</span></div><small>Quiz de vendas · 2 minutos</small></header>
@@ -859,5 +865,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
 })();
 </script>
+<script>/* Identidade Safira: ® pequeno e sobrescrito nos títulos em Bodoni */(function(){function aj(){document.querySelectorAll('h1,h2,h3').forEach(function(h){var w=document.createTreeWalker(h,NodeFilter.SHOW_TEXT),n,L=[];while(n=w.nextNode())if(n.nodeValue.indexOf('®')>=0&&!(n.parentNode.classList&&n.parentNode.classList.contains('reg')))L.push(n);L.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split('®').forEach(function(x,i){if(i){var r=document.createElement('span');r.className='reg';r.textContent='®';f.appendChild(r)}if(x)f.appendChild(document.createTextNode(x))});t.parentNode.replaceChild(f,t)})})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',aj);else aj()})();</script>
 </body>
 </html>
