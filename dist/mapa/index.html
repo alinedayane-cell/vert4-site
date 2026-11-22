@@ -709,15 +709,15 @@ h1,h2,h3,h4{font-weight:800;letter-spacing:-.02em}
 <!-- 11b. Complementos opcionais (order bumps da Hotmart) -->
 <section class="light" id="complementos" style="padding-top:0">
   <div class="wrap">
-    <div class="reveal"><span class="eyebrow">Complementos opcionais no checkout</span><h2 class="h2">Para aprofundar o ponto <em>que mais pesa no seu caso.</em></h2>
-      <p class="ob-lead">Na página de pagamento, você pode acrescentar um ou mais complementos. Cada um aprofunda um ponto de perda do método com uma ferramenta prática. O Mapa funciona sem eles: marque só o que combina com o que apareceu no seu diagnóstico.</p></div>
+    <div class="reveal"><span class="eyebrow">Complementos opcionais</span><h2 class="h2">Para aprofundar o ponto <em>que mais pesa no seu caso.</em></h2>
+      <p class="ob-lead">Ao clicar em comprar, antes do pagamento, você escolhe se quer acrescentar um ou mais complementos. Cada um aprofunda um ponto de perda do método com uma ferramenta prática. O Mapa funciona sem eles: marque só o que combina com o que apareceu no seu diagnóstico.</p></div>
     <div class="ob-grid reveal">
       <article class="ob-card"><span class="ob-eixo">Público</span><h3>Mapa dos 21 Sinais de Oportunidade VERT4®</h3><p>Ler o que o interessado diz antes de concluir: o que é fato, o que é hipótese e qual pergunta confirma. Com 21 sinais de referência e a ficha para classificar cinco contatos.</p><p class="ob-quando">Indicado quando muitos contatos chegam fora do perfil do seu serviço.</p><div class="ob-preco"><small>R$</small>17</div></article>
       <article class="ob-card"><span class="ob-eixo">Comercial</span><h3>Conversas que Avançam VERT4®</h3><p>Responder à dúvida com precisão, perguntar no momento certo e propor o próximo passo. Com 12 modelos de resposta e a ficha para revisar três conversas.</p><p class="ob-quando">Indicado quando a conversa começa bem e se perde na condução.</p><div class="ob-preco"><small>R$</small>27</div></article>
       <article class="ob-card"><span class="ob-eixo">Comercial</span><h3>Follow-up que Não Parece Cobrança VERT4®</h3><p>Reconstruir o último acordo e escolher entre retomar, nutrir, avançar ou encerrar (R.N.A.E.). Com 8 modelos de retomada e a ficha para organizar cinco oportunidades paradas.</p><p class="ob-quando">Indicado quando propostas ficam sem retorno e ninguém retoma.</p><div class="ob-preco"><small>R$</small>27</div></article>
     </div>
     <p class="ob-total reveal">Mapa de Oportunidades: R$ 67 · com os três complementos: R$ 138. Os complementos ficam liberados na Plataforma do Aluno junto com o Mapa.</p>
-    <div class="ob-cta reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Continuar para o checkout →</a></div>
+    <div class="ob-cta reveal"><a class="btn" href="https://pay.hotmart.com/R108182137W" data-go>Escolher meus complementos →</a></div>
   </div>
 </section>
 <style id="order-bumps">
@@ -987,5 +987,87 @@ h1,h2,h3,h4{font-weight:800;letter-spacing:-.02em}
 })();
 </script>
 <script>/* Identidade Safira: ® pequeno e sobrescrito nos títulos em Bodoni */(function(){function aj(){document.querySelectorAll('h1,h2,h3').forEach(function(h){var w=document.createTreeWalker(h,NodeFilter.SHOW_TEXT),n,L=[];while(n=w.nextNode())if(n.nodeValue.indexOf('®')>=0&&!(n.parentNode.classList&&n.parentNode.classList.contains('reg')))L.push(n);L.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split('®').forEach(function(x,i){if(i){var r=document.createElement('span');r.className='reg';r.textContent='®';f.appendChild(r)}if(x)f.appendChild(document.createTextNode(x))});t.parentNode.replaceChild(f,t)})})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',aj);else aj()})();</script>
+
+<!-- Etapa de complementos antes do pagamento -->
+<div class="pd" id="pedido" hidden>
+  <div class="pd-fundo" data-fechar></div>
+  <div class="pd-caixa" role="dialog" aria-modal="true" aria-labelledby="pdTitulo">
+    <button class="pd-x" type="button" data-fechar aria-label="Fechar">×</button>
+    <span class="pd-eye">Passo 1 de 2 · Monte seu pedido</span>
+    <h2 id="pdTitulo">Quer aprofundar algum ponto junto com o Mapa?</h2>
+    <p class="pd-sub">Os complementos são opcionais. Marque só o que combina com o seu caso.</p>
+    <div class="pd-base"><span><b>Mapa de Oportunidades VERT4®</b><small>Minicurso, ferramentas e Plataforma do Aluno</small></span><strong>R$ 67</strong></div>
+    <label class="pd-item"><input type="checkbox" value="sinais" data-preco="17"><span><b>Mapa dos 21 Sinais de Oportunidade</b><small>Para quando muitos contatos chegam fora do perfil.</small></span><strong>+ R$ 17</strong></label>
+    <label class="pd-item"><input type="checkbox" value="conversas" data-preco="27"><span><b>Conversas que Avançam</b><small>Para quando a conversa começa bem e se perde na condução.</small></span><strong>+ R$ 27</strong></label>
+    <label class="pd-item"><input type="checkbox" value="followup" data-preco="27"><span><b>Follow-up que Não Parece Cobrança</b><small>Para quando propostas ficam sem retorno.</small></span><strong>+ R$ 27</strong></label>
+    <div class="pd-total"><span>Total</span><strong id="pdTotal">R$ 67</strong></div>
+    <p class="pd-nota" id="pdNota" hidden>Na página de pagamento, os complementos aparecem logo abaixo dos dados do cartão. Confirme ali os que você marcou aqui.</p>
+    <a class="btn pd-ir" id="pdIr" href="https://pay.hotmart.com/R108182137W">Ir para o pagamento seguro →</a>
+    <button class="pd-so" type="button" id="pdSo">Continuar só com o Mapa · R$ 67</button>
+    <p class="pd-rod">Pagamento único processado pela Hotmart.</p>
+  </div>
+</div>
+<style id="pedido-css">
+.pd{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:16px}
+.pd[hidden]{display:none}
+.pd-fundo{position:absolute;inset:0;background:rgba(11,20,31,.66);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.pd-caixa{position:relative;width:min(560px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#F7F4EE;color:#35506B;border:1px solid #E3D5B3;border-radius:22px;padding:28px 26px 20px;box-shadow:0 30px 80px rgba(11,20,31,.45);font-family:"Didact Gothic",Arial,sans-serif;animation:pdEntra .25s ease-out}
+.pd-x{position:absolute;top:10px;right:14px;border:0;background:none;font-size:28px;line-height:1;color:#596568;cursor:pointer;padding:4px}
+.pd-eye{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#561C24;font-weight:700}
+.pd-caixa h2{font-family:"Bodoni Moda",Georgia,serif;font-weight:500;font-size:26px;line-height:1.2;margin:8px 28px 6px 0;color:#35506B}
+.pd-sub{margin:0 0 16px;color:#596568;font-size:15px}
+.pd-base,.pd-item,.pd-total{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.pd-base{padding:14px 16px;border-radius:14px;background:#fff;border:1px solid rgba(53,80,107,.14);margin-bottom:10px}
+.pd-base span,.pd-item span{display:grid;gap:2px;flex:1}
+.pd-base small,.pd-item small{color:#596568;font-size:13px;line-height:1.4}
+.pd-base strong,.pd-item strong{white-space:nowrap;font-family:"Bodoni Moda",Georgia,serif;font-size:18px}
+.pd-item{padding:14px 16px;border-radius:14px;background:#FFF9EC;border:2px dashed #CCAC7D;margin-bottom:10px;cursor:pointer;transition:border-color .15s,background .15s}
+.pd-item:hover{border-color:#8A6A3C}
+.pd-item input{width:22px;height:22px;accent-color:#561C24;flex:none;margin:0}
+.pd-item:has(input:checked){border-style:solid;border-color:#561C24;background:#fff}
+.pd-total{border-top:1px solid #E3D5B3;margin-top:6px;padding:14px 2px 4px;font-size:15px}
+.pd-total strong{font-family:"Bodoni Moda",Georgia,serif;font-size:30px;color:#35506B}
+.pd-nota{margin:6px 0 0;font-size:13px;color:#561C24;background:rgba(86,28,36,.06);border-radius:10px;padding:9px 12px}
+.pd-ir{display:flex!important;justify-content:center;width:100%;margin-top:14px;box-sizing:border-box}
+.pd-so{display:block;margin:12px auto 0;border:0;background:none;color:#596568;text-decoration:underline;font:inherit;font-size:14px;cursor:pointer}
+.pd-rod{text-align:center;font-size:12px;color:#596568;margin:10px 0 0}
+@keyframes pdEntra{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.pd-caixa{animation:none}}
+@media(max-width:520px){.pd{padding:0;place-items:end center}.pd-caixa{border-radius:22px 22px 0 0;max-height:92vh;padding:24px 18px 18px}.pd-caixa h2{font-size:22px}}
+</style>
+<script id="pedido-js">
+(function(){
+  /* Links de checkout por combinação. Quando a Hotmart tiver uma oferta para a combinação,
+     cole o link aqui (chaves em ordem: sinais, conversas, followup). Sem link, vai para o checkout
+     do Mapa, onde os order bumps da Hotmart aparecem para confirmar. */
+  var COMBOS = {
+    "": "https://pay.hotmart.com/R108182137W"
+  };
+  var box = document.getElementById("pedido"); if(!box) return;
+  var ir = document.getElementById("pdIr"), tot = document.getElementById("pdTotal"), nota = document.getElementById("pdNota");
+  var cks = [].slice.call(box.querySelectorAll(".pd-item input")), origem = null, extra = "";
+  function chave(){ return cks.filter(function(c){return c.checked}).map(function(c){return c.value}).join(","); }
+  function destino(k){ var u = new URL(COMBOS[k] || COMBOS[""]); if(extra){ new URLSearchParams(extra).forEach(function(v,n){ u.searchParams.set(n,v); }); } return u.href; }
+  function atualiza(){
+    var t = 67; cks.forEach(function(c){ if(c.checked) t += +c.dataset.preco; });
+    tot.textContent = "R$ " + t; var k = chave(); ir.href = destino(k); nota.hidden = !k || !!COMBOS[k];
+  }
+  function abre(a){
+    origem = a; extra = new URL(a.href).search; atualiza(); box.hidden = false; document.body.style.overflow = "hidden";
+    setTimeout(function(){ cks[0].focus(); }, 30);
+    try{ window.vert4Track && window.vert4Track("mapa_etapa_complementos"); }catch(e){}
+  }
+  function fecha(){ box.hidden = true; document.body.style.overflow = ""; if(origem) origem.focus(); }
+  cks.forEach(function(c){ c.addEventListener("change", atualiza); });
+  box.querySelectorAll("[data-fechar]").forEach(function(b){ b.addEventListener("click", fecha); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !box.hidden) fecha(); });
+  document.getElementById("pdSo").addEventListener("click", function(){ cks.forEach(function(c){ c.checked = false; }); atualiza(); location.href = ir.href; });
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="https://pay.hotmart.com/"]');
+    if(!a || box.contains(a) || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault(); abre(a);
+  }, true);
+})();
+</script>
 </body>
 </html>
