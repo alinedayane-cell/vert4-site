@@ -403,6 +403,29 @@ h1,h2,h3,h4{font-weight:800;letter-spacing:-.02em}
 :is(h1,h2) em:not(#vt4safira){font-family:"Bodoni Moda",Georgia,serif!important;font-style:italic}
 .reg{font-family:"Didact Gothic",Arial,sans-serif!important;font-size:.42em!important;vertical-align:super;letter-spacing:0!important;font-style:normal}
 </style>
+<style id="previa-fosca">
+/* Prévia do método: vidro fosco com alto contraste */
+.stage{isolation:isolate;overflow:hidden;border:1px solid rgba(227,213,179,.42);background:linear-gradient(155deg,rgba(247,244,238,.16) 0%,rgba(247,244,238,.06) 42%,rgba(11,20,31,.38) 100%),rgba(36,57,79,.55);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 0 0 1px rgba(255,255,255,.04),0 30px 70px rgba(11,20,31,.55),0 0 0 6px rgba(204,172,125,.06)}
+.stage::before{content:"";position:absolute;inset:-30%;z-index:-1;background:radial-gradient(40% 35% at 22% 18%,rgba(227,213,179,.30),transparent 70%),radial-gradient(45% 40% at 85% 90%,rgba(109,41,50,.38),transparent 70%),radial-gradient(35% 30% at 80% 20%,rgba(204,172,125,.18),transparent 70%);filter:blur(30px);pointer-events:none}
+.stage::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;z-index:2;background:linear-gradient(100deg,transparent,rgba(255,255,255,.10),transparent);transform:skewX(-18deg);animation:pfBrilho 5.5s ease-in-out 1.2s infinite;pointer-events:none}
+.stage-top{color:#F7F4EE;font-size:11.5px;letter-spacing:.16em}
+.stage-top span:first-child{display:inline-flex;align-items:center;gap:8px}
+.stage-top span:first-child::before{content:"";width:7px;height:7px;border-radius:50%;background:#CCAC7D;box-shadow:0 0 0 0 rgba(204,172,125,.7);animation:pfVivo 1.8s ease-out infinite}
+#stageState{color:#1B2633;background:#E3D5B3;border-radius:999px;padding:3px 10px;letter-spacing:.1em;font-size:10.5px}
+.stage svg rect:not(#stageHi){stroke:rgba(227,213,179,.55);fill:rgba(247,244,238,.05)}
+.stage svg text{fill:#F7F4EE;letter-spacing:.08em}
+#stageDots circle{filter:drop-shadow(0 0 5px rgba(227,213,179,.75))}
+#stageHi{fill:rgba(227,213,179,.08);stroke:#E3D5B3;stroke-width:2;filter:drop-shadow(0 0 10px rgba(204,172,125,.65));transition:opacity .5s ease}
+#stageHi[opacity="1"]{animation:pfFoco 1.6s ease-in-out infinite}
+.stage-cap{color:#E8D8C4;font-size:13.5px;padding-top:12px;border-top:1px solid rgba(227,213,179,.25)}
+.stage-cap b{color:#fff;font-size:26px;text-shadow:0 0 18px rgba(204,172,125,.45)}
+.stage-cap #capP{color:#E3D5B3}
+@keyframes pfBrilho{0%,60%{left:-60%}100%{left:130%}}
+@keyframes pfVivo{0%{box-shadow:0 0 0 0 rgba(204,172,125,.7)}100%{box-shadow:0 0 0 9px rgba(204,172,125,0)}}
+@keyframes pfFoco{0%,100%{stroke-opacity:1}50%{stroke-opacity:.45}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.stage{background:linear-gradient(155deg,#3E5C79,#24394F 60%,#1B2B3D)}}
+@media(prefers-reduced-motion:reduce){.stage::after,.stage-top span:first-child::before,#stageHi[opacity="1"]{animation:none}}
+</style>
 </head>
 <body>
 
