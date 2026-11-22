@@ -122,7 +122,7 @@ header.top b { font-family: var(--display); font-weight: 800; letter-spacing: .0
     <div class="panel" aria-label="Prévia do checkout">
       <div class="product">
         <div><span class="eyebrow">Seu pedido</span><br><strong>Mapa de Oportunidades VERT4®</strong></div>
-        <span class="price">R$ 47,00</span>
+        <span class="price">R$ 67,00</span>
       </div>
 
       <div class="bump" data-price="17">
@@ -150,11 +150,11 @@ header.top b { font-family: var(--display); font-weight: 800; letter-spacing: .0
     <div class="panel summary" aria-live="polite">
       <span class="eyebrow">Resumo</span>
       <div id="lines" style="display:flex;flex-direction:column;gap:8px">
-        <div class="line"><span>Mapa de Oportunidades</span><span class="price">R$ 47,00</span></div>
+        <div class="line"><span>Mapa de Oportunidades</span><span class="price">R$ 67,00</span></div>
       </div>
-      <div class="total"><span>Total</span><span class="price" id="total">R$ 47,00</span></div>
+      <div class="total"><span>Total</span><span class="price" id="total">R$ 67,00</span></div>
       <span class="pay" aria-hidden="true">Finalizar compra</span>
-      <p class="note">Prévia ilustrativa. Com os três complementos, o pedido vai de R$ 47 para R$ 118.</p>
+      <p class="note">Prévia ilustrativa. Com os três complementos, o pedido vai de R$ 67 para R$ 138.</p>
     </div>
   </div>
 
@@ -241,8 +241,8 @@ header.top b { font-family: var(--display); font-weight: 800; letter-spacing: .0
   var lines = document.getElementById("lines");
   var total = document.getElementById("total");
   function update() {
-    var sum = 47;
-    var html = '<div class="line"><span>Mapa de Oportunidades</span><span class="price">R$ 47,00</span></div>';
+    var sum = 67;
+    var html = '<div class="line"><span>Mapa de Oportunidades</span><span class="price">R$ 67,00</span></div>';
     bumps.forEach(function (b) {
       var cb = b.querySelector("input");
       b.classList.toggle("on", cb.checked);

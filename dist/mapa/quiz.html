@@ -675,7 +675,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
   /* ===== Resultado =====
      Leitura guiada em 4 etapas (Diagnóstico → Causa → Ações → Solução). Cada etapa
-     termina num botão que conduz à próxima, até o Mapa de R$ 47. Sem urgência falsa
+     termina num botão que conduz à próxima, até o Mapa de R$ 67. Sem urgência falsa
      nem prova inventada. */
   var MODULO = {
     p:{t:"Sinais de público desalinhado", a:"Você sai sabendo reconhecer quando o problema começa em quem chega."},
@@ -702,7 +702,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
 
   function nomeRes(r){ return r.kind==="balde" ? DIMS[r.main].name : (r.kind==="neblina" ? "modo neblina" : "sem sinal forte"); }
-  function ctaTxt(r){ return r.kind==="balde" ? "Quero resolver o ponto de "+DIMS[r.main].name+" · R$ 47" : "Quero o Mapa de Oportunidades · R$ 47"; }
+  function ctaTxt(r){ return r.kind==="balde" ? "Quero resolver o ponto de "+DIMS[r.main].name+" · R$ 67" : "Quero o Mapa de Oportunidades · R$ 67"; }
   function prox(txt, alvo, extra){ return '<button type="button" class="btn next'+(extra?' '+extra:'')+'" data-next="'+alvo+'"><span>'+txt+'</span><i aria-hidden="true">→</i></button>'; }
 
   function render(r){
@@ -761,7 +761,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       '<div class="ponte"><b>Estas ações aliviam o sintoma.</b> Para encontrar a causa nas suas conversas reais e saber exatamente onde agir, existe um próximo passo.</div>'+
       prox("Quero resolver a causa", 3, "gold")+'</section>';
 
-    /* Etapa 4: Solução (Mapa R$ 47) */
+    /* Etapa 4: Solução (Mapa R$ 67) */
     h += '<section class="etapa" data-etapa="3" hidden><span class="enum">4 de 4 · Solução</span>'+offerBlock(r)+'</section>';
 
     if(r.kind === "balde" && PROVA[main] && PROVA[main].length){
@@ -769,7 +769,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }
     h += '<div class="stack"><button class="btn ghost" id="redo">Refazer o quiz</button></div>';
     h += '<p class="disc">Este quiz é uma leitura rápida e indicativa, feita só com as suas respostas. Não é um diagnóstico definitivo: ele aponta por onde começar a investigar. Contamos de forma anônima, sem cookies, quantas pessoas passam por cada etapa do quiz.</p>';
-    h += '<div class="sticky" id="sticky" hidden><div><b>Mapa de Oportunidades</b><span>R$ 47 · pagamento único</span></div><a class="btn" data-cta="mapa" href="'+withParams(LINK_VENDAS)+'">Quero o Mapa</a></div>';
+    h += '<div class="sticky" id="sticky" hidden><div><b>Mapa de Oportunidades</b><span>R$ 67 · pagamento único</span></div><a class="btn" data-cta="mapa" href="'+withParams(LINK_VENDAS)+'">Quero o Mapa</a></div>';
 
     $("vR").innerHTML = h;
     window.scrollTo(0,0);
@@ -823,7 +823,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       });
     });
     var sv = $("valorCli");
-    if(sv){ var upd = function(){ var v=+sv.value, p=47/v*100; $("valorOut").textContent = "R$ "+v.toLocaleString("pt-BR"); $("valorRatio").textContent = (p<1 ? p.toLocaleString("pt-BR",{maximumFractionDigits:1}) : Math.round(p))+"%"; $("valorFill").style.width = Math.min(100,p)+"%"; }; sv.addEventListener("input", upd); upd(); }
+    if(sv){ var upd = function(){ var v=+sv.value, p=67/v*100; $("valorOut").textContent = "R$ "+v.toLocaleString("pt-BR"); $("valorRatio").textContent = (p<1 ? p.toLocaleString("pt-BR",{maximumFractionDigits:1}) : Math.round(p))+"%"; $("valorFill").style.width = Math.min(100,p)+"%"; }; sv.addEventListener("input", upd); upd(); }
 
     /* Barra fixa: aparece depois do diagnóstico, some quando a oferta está na tela */
     var st = $("sticky"), of = $("oferta"), hero = document.querySelector('[data-etapa="0"]');
@@ -848,7 +848,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       h += '<div class="eyebrow">Próximo passo, com honestidade</div><h3>Mapa de Oportunidades VERT4®</h3>';
       h += '<p>O Mapa trabalha sobre 10 oportunidades reais da sua empresa. Se ainda chegam poucos interessados, comece pelas três ações acima. Quando tiver conversas acontecendo, ele é o próximo passo para saber onde cada uma para.</p>';
       h += '<ul class="inclui">'+INCLUI.map(function(t){ return '<li>'+t+'</li>'; }).join("")+'</ul>';
-      h += '<div class="price"><b>R$ 47</b><span>pagamento único</span></div>'+mapaBtn;
+      h += '<div class="price"><b>R$ 67</b><span>pagamento único</span></div>'+mapaBtn;
       h += '<div class="stack"><a class="btn ghost" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero entender por onde começar.")+'">Tirar uma dúvida no WhatsApp</a></div>';
       return h + '</div>';
     }
@@ -857,8 +857,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     h += '<div class="eyebrow">Do sintoma à causa</div><p class="convite">Se você quer fazer algo a respeito disso, quero te apresentar o que criamos para essa situação:</p><h3>Mapa de Oportunidades VERT4®</h3><p>'+bridge+'</p>';
     if(r.kind === "balde" && MODULO[r.main]) h += '<div class="foco"><span>Para o seu caso, a etapa que mais vai ajudar</span><b>'+MODULO[r.main].t+'</b><p>'+MODULO[r.main].a+'</p></div>';
     h += '<ul class="inclui">'+INCLUI.map(function(t){ return '<li>'+t+'</li>'; }).join("")+'</ul>';
-    h += '<div class="valor"><label for="valorCli">Quanto vale, em média, um cliente seu? <output id="valorOut"></output></label><input type="range" id="valorCli" min="100" max="20000" step="100" value="1500"><div class="ratio"><div class="meter"><i id="valorFill"></i></div><p>R$ 47 equivalem a <b id="valorRatio"></b> de um único cliente.</p></div></div>';
-    h += '<div class="price"><b>R$ 47</b><span>pagamento único · acesso pela plataforma VERT4®</span></div>'+mapaBtn;
+    h += '<div class="valor"><label for="valorCli">Quanto vale, em média, um cliente seu? <output id="valorOut"></output></label><input type="range" id="valorCli" min="100" max="20000" step="100" value="1500"><div class="ratio"><div class="meter"><i id="valorFill"></i></div><p>R$ 67 equivalem a <b id="valorRatio"></b> de um único cliente.</p></div></div>';
+    h += '<div class="price"><b>R$ 67</b><span>pagamento único · acesso pela plataforma VERT4®</span></div>'+mapaBtn;
     if(r.route === "conversa") h += '<p class="small-note">Pelo porte da sua operação, também pode valer uma conversa antes.</p><div class="stack"><a class="btn ghost" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero conversar sobre a minha operação.")+'">Conversar com a VERT4® no WhatsApp</a></div>';
     else h += '<div class="stack"><a class="btn ghost" data-cta="wa" target="_blank" rel="noopener" href="'+waLink(r,"Quero entender o próximo passo.")+'">Tenho uma dúvida antes de comprar</a></div>';
     return h + '</div>';
